@@ -67,9 +67,19 @@ final class App
 	 * @access public
 	 */
 	public function plugins_loaded()
-	{		
+	{
+		// Post types
+		include_once( 'includes/admin/post-types/class-app-post-type-reservas.php' );
+		include_once( 'includes/admin/post-types/class-app-post-type-concertades.php' );
+				
 		// Metaboxes
 		include_once( 'includes/admin/metaboxes/class-app-metabox-gallery.php' );
+		
+		// Controlador de la clase reserva
+		include_once( 'includes/admin/class-app-reserva.php' );
+                
+		// Controlador de la clase calendar events
+		include_once( 'includes/admin/class-app-calendar-events.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

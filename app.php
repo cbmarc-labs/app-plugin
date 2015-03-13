@@ -71,6 +71,9 @@ final class App
 		// Metaboxes
 		include_once( 'includes/admin/metaboxes/class-app-metabox-gallery.php' );
 		
+		// Controllers
+		include_once( 'admin/class-app-real-estate.php' );
+		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}
 

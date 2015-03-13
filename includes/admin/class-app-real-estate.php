@@ -30,7 +30,7 @@ class APP_Real_Estate
 		App::log( 'APP_Real_Estate Class Initialized' );
 		
 		include_once( 'post-types/class-app-post-type-real-estate.php' );
-		include_once( 'metaboxes/class-app-metabox-real-estate.php' );
+		include_once( 'meta-boxes/class-app-meta-box-real-estate.php' );
 		
 		// Initialise
 		add_action( "init", array( &$this, 'init' ) );
@@ -67,7 +67,7 @@ class APP_Real_Estate
 		// Check if on frontend and main query is modified
 		if( is_admin() && $query->is_main_query() && 
 				$query->query_vars['post_type'] == APP_Post_Type_Real_Estate::POST_TYPE )
-		{		
+		{
 			//$query->set('meta_key', 'project_type');
 			//$query->set('meta_value', 'design');
 			//$query->set('post__not_in', array(1,2,3) );

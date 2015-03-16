@@ -34,6 +34,9 @@ class APP_Calendar_Events
 		
 		// nomes ensenya l'esdeveniment pare
 		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
+		
+		// quan s'esborra un post, s'han de borrar els posts fills també
+		add_action( 'delete_post', array( &$this, 'delete_post' ) );
 	}
 	
 	// --------------------------------------------------------------------
@@ -60,6 +63,55 @@ class APP_Calendar_Events
 	            	),
 				)
 			);
+		}
+	}
+	
+	// --------------------------------------------------------------------
+
+	/**
+	 * parse_query method
+	 *
+	 * @access public
+	 */
+	public function delete_post( $post_id )
+	{
+		global $wpdb;
+		global $post_type;
+		
+		// If this isn't a 'tribe_events' post, don't update it.
+		if ( TribeEvents::POSTTYPE != $post_type )
+		{
+			return;
+		}
+		
+		// Verification of User
+		if ( !current_user_can( 'edit_post', $post_id ) )
+		{
+			return;
+		}
+		
+		// delete all child posts
+		$posts = get_posts( array(
+			'post_type'      => TribeEvents::POSTTYPE,
+			'posts_per_page' => -1,
+			'meta_query' => array(
+					array(
+							'key'     => '_AppCalendarParent',
+							'value'   => $post_id,
+							'compare' => '='
+					)
+			)
+		) );
+		
+		if (is_array($posts) && count($posts) > 0)
+		{
+			App::log( 'Borrandoooooooooooooooooooooooo ' . $post->ID );
+		
+			// Delete all the Children of the Parent Page
+			foreach($posts as $post)
+			{
+				wp_delete_post($post->ID, true);
+			}
 		}
 	}
 	

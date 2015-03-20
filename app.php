@@ -1,8 +1,8 @@
 <?php
 /*
  * Plugin Name:       App
- * Description:       Wordpress general plugin
- * Version:           1.0.0
+ * Description:       Plugin general pel lloc web
+ * Version:           1.0.4
  * Author:            Marc Costa
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -22,7 +22,7 @@ define( 'APP_TEMPLATE_DIR', plugin_dir_url( __FILE__ ) );
  * Application
  *
  * @class 		App
- * @version		1.0.3
+ * @version		1.0.4
  * @package		App
  * @category	Class
  * @author 		marc
@@ -32,7 +32,7 @@ final class App
 	/**
 	 * @var string
 	 */
-	public $version = '1.0.3';
+	public $version = '1.0.4';
 
 	// The single instance of the class
 	private static $_instance = null;
@@ -46,10 +46,10 @@ final class App
 	{		
 		App::log( 'App Class Initialized' );
 		
-		// Activate after plugins loaded
+		// carregar tots els components quan acabin de cerregar tots els altres plugins 
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
 		
-		// Methods for activation/desactivation this plugin
+		// funcions para la activacion/desactivacion del plugin
 		register_activation_hook( __FILE__, array( &$this, 'register_activation_hook' ) );
 		register_deactivation_hook( __FILE__, array( &$this, 'register_deactivation_hook' ) );
 		
@@ -63,6 +63,8 @@ final class App
 	
 	/**
 	 * plugin_setup method
+	 * 
+	 * Configuracio del plugin quan es carrega
 	 *
 	 * @access public
 	 */
@@ -71,13 +73,13 @@ final class App
 		// Post types
 		include_once( 'includes/admin/post-types/class-app-post-type-reservas.php' );
 		include_once( 'includes/admin/post-types/class-app-post-type-concertades.php' );
-				
+		
 		// Metaboxes
 		include_once( 'includes/admin/metaboxes/class-app-metabox-gallery.php' );
 		
 		// Controlador de la clase reserva
 		include_once( 'includes/admin/class-app-reserva.php' );
-                
+		
 		// Controlador de la clase calendar events
 		include_once( 'includes/admin/class-app-calendar-events.php' );
 		
@@ -87,7 +89,7 @@ final class App
 	// --------------------------------------------------------------------
 
 	/**
-	 * instance method
+	 * getInstance method
 	 *
 	 * @access public
 	 */
@@ -196,18 +198,19 @@ final class App
 	/**
 	 * log_app method
 	 * 
-	 * Example: App::log( "Test message" );
+	 * Exemple: App::log("Missatge de log qualsevol");
 	 * 
-	 * Change permissions on: wp-admin/error_log
-	 * Change definition on wp-config.php: define('WP_DEBUG', true);
+	 * per activar els logs s'ha de tenir acces d'escriptura a wp-admin/error_log
+	 * i canviar el wp-config.php: define('WP_DEBUG', true);
 	 *
 	 * @access public
 	 */
-	public static function log($message)
+	public static function log( $message )
 	{
 		if (WP_DEBUG === TRUE)
 		{
-			if (is_array($message) || is_object($message))
+			// aixo no funciona no se perque
+			if( is_array( $message ) || is_object($message))
 			{
 				$message =  print_r( $message, TRUE );
 			}

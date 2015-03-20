@@ -1,0 +1,21 @@
+== afegir arxius ==
+#git add *
+
+== actualitzar el repositori local ==
+#git commit
+
+== actualitzar de local al servidor ==
+#git push
+
+== actualitzar del servidor al local ==
+#git pull
+
+== comprovar canvis remots ==
+#git fetch origin
+#git diff origin/master
+
+== branques ==
+#git checkout -b feature_x        // create a new branch
+#git checkout master              // switch back to master
+#git branch -d feature_x          // delete the branch
+#git push origin feature_x        // push to server

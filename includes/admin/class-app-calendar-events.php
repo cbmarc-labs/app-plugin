@@ -36,19 +36,24 @@ class APP_Calendar_Events
 		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 		
 		// quan s'esborra un post, s'han de borrar els posts fills també
+		add_action( 'wp_trash_post', array( &$this, 'wp_trash_post' ) );
 		add_action( 'delete_post', array( &$this, 'delete_post' ) );
+		add_action( 'untrash_post', array( &$this, 'untrash_post' ) );
 	}
 	
 	// --------------------------------------------------------------------
 
 	/**
 	 * parse_query method
+	 * 
+	 * Aquesta funcio es per que no surtin els fills
 	 *
 	 * @access public
 	 */
 	public function pre_get_posts( $query )
 	{
-		if( is_admin() && isset( $_GET['post_type'] ) && $_GET['post_type'] == TribeEvents::POSTTYPE )
+		if( is_admin() && $query->is_main_query() 
+				&& isset( $_GET['post_type'] ) && $_GET['post_type'] == TribeEvents::POSTTYPE )
 		{
 			$query->set( 'meta_query', array(
 					'relation' => 'OR',
@@ -67,15 +72,13 @@ class APP_Calendar_Events
 	}
 	
 	// --------------------------------------------------------------------
-
 	/**
 	 * parse_query method
 	 *
 	 * @access public
 	 */
-	public function delete_post( $post_id )
+	public function wp_trash_post( $post_id )
 	{
-		global $wpdb;
 		global $post_type;
 		
 		// If this isn't a 'tribe_events' post, don't update it.
@@ -90,27 +93,135 @@ class APP_Calendar_Events
 			return;
 		}
 		
-		// delete all child posts
-		$posts = get_posts( array(
-			'post_type'      => TribeEvents::POSTTYPE,
-			'posts_per_page' => -1,
-			'meta_query' => array(
-					array(
-							'key'     => '_AppCalendarParent',
-							'value'   => $post_id,
-							'compare' => '='
-					)
-			)
-		) );
+		// verificant si el post es el pare per borrar els fills
+		$is_parent = get_post_meta( $post_id, "_AppCalendarParent", TRUE );
 		
+		if( !$is_parent )
+		{
+			// delete all child posts
+			$posts = get_posts( array(
+					'post_type'      => TribeEvents::POSTTYPE,
+					'posts_per_page' => -1,
+					'post_status' => array( 'publish' ),
+					'meta_query' => array(
+							array(
+									'key'     => '_AppCalendarParent',
+									'value'   => $post_id,
+									'compare' => '='
+							)
+					)
+			) );
+			
+			if (is_array($posts) && count($posts) > 0)
+			{		
+				// Delete all the Children of the Parent Page
+				foreach($posts as $post)
+				{
+					wp_trash_post( $post->ID  );
+				}
+			}
+		}
+	}
+	
+	// --------------------------------------------------------------------
+	/**
+	 * delete_post method
+	 *
+	 * @access public
+	 */
+	public function delete_post( $post_id )
+	{
+		global $post_type;
+		
+		// If this isn't a 'tribe_events' post, don't update it.
+		if ( TribeEvents::POSTTYPE != $post_type )
+		{
+			return;
+		}
+		
+		// Verification of User
+		if ( !current_user_can( 'edit_post', $post_id ) )
+		{
+			return;
+		}
+		
+		// verificant si el post es el pare per borrar els fills
+		$is_parent = get_post_meta( $post_id, "_AppCalendarParent", TRUE );
+		
+		if( !$is_parent )
+		{
+			// delete all child posts
+			$posts = get_posts( array(
+					'post_type'      => TribeEvents::POSTTYPE,
+					'posts_per_page' => -1,
+					'post_status' => array( 'trash' ),
+					'meta_query' => array(
+							array(
+									'key'     => '_AppCalendarParent',
+									'value'   => $post_id,
+									'compare' => '='
+							)
+					)
+			) );
+			
+			if (is_array($posts) && count($posts) > 0)
+			{		
+				// Delete all the Children of the Parent Page
+				foreach($posts as $post)
+				{
+					wp_delete_post( $post->ID, true );
+				}
+			}
+		}
+	}
+	
+	// --------------------------------------------------------------------
+	/**
+	 * untrash_post method
+	 *
+	 * @access public
+	 */
+	public function untrash_post( $post_id )
+	{
+		global $post_type;
+		
+		// If this isn't a 'tribe_events' post, don't update it.
+		if ( TribeEvents::POSTTYPE != $post_type )
+		{
+			return;
+		}
+		
+		// Verification of User
+		if ( !current_user_can( 'edit_post', $post_id ) )
+		{
+			return;
+		}
+		
+		// untrash all child posts
+		$posts = get_posts( array(
+				'post_type'      => TribeEvents::POSTTYPE,
+				'posts_per_page' => -1,
+				'post_status' => array( 'trash' ),
+				'meta_query' => array(
+						array(
+								'key'     => '_AppCalendarParent',
+								'value'   => $post_id,
+								'compare' => '='
+						)
+				)
+		) );
+			
 		if (is_array($posts) && count($posts) > 0)
 		{
-			App::log( 'Borrandoooooooooooooooooooooooo ' . $post->ID );
-		
 			// Delete all the Children of the Parent Page
 			foreach($posts as $post)
 			{
-				wp_delete_post($post->ID, true);
+				wp_update_post(
+					array(
+	      				'ID' 			=> $post->ID,
+	      				'post_status'	=> "publish",
+					)
+				);
 			}
 		}
 	}

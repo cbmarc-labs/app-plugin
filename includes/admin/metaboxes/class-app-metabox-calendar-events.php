@@ -29,17 +29,8 @@ class APP_Metabox_Calendar_Events
 	{
 		App::log("APP_Metabox_Calendar_Events Class Initialized");
 		
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		
-		wp_enqueue_style( 'app-metabox-calendar_events-style', APP_TEMPLATE_DIR . 'assets/css/jquery-ui-timepicker-addon.min.css' );
-		
-		wp_enqueue_script( 'app-metabox-calendar-datepicker-ca-script', APP_TEMPLATE_DIR . 'assets/js/datepicker-ca.js', array( 'jquery-ui-datepicker' ) );
-		wp_enqueue_script( 'app-metabox-calendar-timepicker-script', APP_TEMPLATE_DIR . 'assets/js/jquery-ui-timepicker-addon.min.js', array( 'jquery-ui-datepicker' ) );
-		wp_enqueue_script( 'app-metabox-calendar-timepicker-ca-script', APP_TEMPLATE_DIR . 'assets/js/jquery-ui-timepicker-ca.js', array( 'jquery-ui-datepicker' ) );
-		wp_enqueue_script( 'app-metabox-calendar-script', APP_TEMPLATE_DIR . 'assets/js/app-metabox-calendar.js', array( 'jquery-ui-datepicker' ), '1.0.0', true );
-
-		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-		
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );		
+		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );		
 		add_action( 'save_post', array( &$this, 'save_post' ), 15, 2 );
 	}
 
@@ -58,6 +49,26 @@ class APP_Metabox_Calendar_Events
 		}
 		
 		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * admin_init method
+	 *
+	 * @access public
+	 */
+	public function admin_init()
+	{
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		
+		wp_enqueue_style( 'app-metabox-calendar_events-style', APP_TEMPLATE_DIR . 'assets/css/jquery-ui-timepicker-addon.min.css' );
+		
+		wp_enqueue_script( 'app-metabox-calendar-datepicker-ca-script', APP_TEMPLATE_DIR . 'assets/js/datepicker-ca.js', array( 'jquery-ui-datepicker' ) );
+		wp_enqueue_script( 'app-metabox-calendar-timepicker-script', APP_TEMPLATE_DIR . 'assets/js/jquery-ui-timepicker-addon.min.js', array( 'jquery-ui-datepicker' ) );
+		wp_enqueue_script( 'app-metabox-calendar-timepicker-ca-script', APP_TEMPLATE_DIR . 'assets/js/jquery-ui-timepicker-ca.js', array( 'jquery-ui-datepicker' ) );
+		wp_enqueue_script( 'app-metabox-calendar-script', APP_TEMPLATE_DIR . 'assets/js/app-metabox-calendar.js', array( 'jquery-ui-datepicker' ), '1.0.0', true );
+		
 	}
 
 	// --------------------------------------------------------------------
@@ -106,7 +117,7 @@ class APP_Metabox_Calendar_Events
 		
 		// no seguir si es un app child del esdeveniment
 		$is_app_repeating = get_post_meta( $post->ID, '_AppCalendarParent');
-		if($is_app_repeating[0] > 0)
+		if( isset( $is_app_repeating[0] ) && $is_app_repeating[0] > 0)
 		{
 			echo "Aquest esdeveniment no pot tenir repeticions perquè no és l'entrada principal.";
 			
@@ -172,8 +183,25 @@ class APP_Metabox_Calendar_Events
 	 *
 	 * @access public
 	 */
-	public function save_post($post_id, $post)
+	public function save_post( $post_id, $post )
 	{
+		// verify if this is an auto save routine.
+		// If it is our form has not been submitted, so we dont want to do anything
+		/*if( defined( 'DOING_AUTOSAVE' ) || DOING_AUTOSAVE )
+		{
+			return;
+		}*/
+		
+		/*if( ! ( wp_is_post_revision( $post_id ) && wp_is_post_autosave( $post_id ) ) )
+		{
+			return;
+		}*/
+		
+		if( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) )
+		{
+			return;
+		}
+		
 		// If this isn't a 'tribe_events' post, don't update it.
 		if ( TribeEvents::POSTTYPE != $post->post_type )
 		{
@@ -181,13 +209,13 @@ class APP_Metabox_Calendar_Events
 		}
 		
 		// Si hi ha recurrencia normal del tribe events no se segueix
-		if ( $_POST["recurrence"]["type"] != 'None' )
+		if ( isset( $_POST[ "recurrence" ] ) && $_POST["recurrence"]["type"] != 'None' )
 		{
 			return;
 		}
 		
 		// Nomes es guarda el esdeveniment pare
-		if ( !$_POST['_AppCalendarPickerStart'] )
+		if ( isset( $_POST[ "_AppCalendarPickerStart" ] ) && !$_POST['_AppCalendarPickerStart'] )
 		{
 			return;
 		}
@@ -202,27 +230,39 @@ class APP_Metabox_Calendar_Events
 			return;
 		}
 		
+		$is_parent = get_post_meta( $post_id, "_AppCalendarParent", TRUE );
+		
+		if( !$is_parent )
+		{
+			
+		}
+		
+		if( $post->post_parent )
+		{
+			return;
+		}
+		
 		// Verification of User
-		if ( !current_user_can( 'edit_post', $post->ID ) )
+		if ( !current_user_can( 'edit_post', $post_id ) )
 		{
 			return;
 		}
 		
 		// OK, we're authenticated: we need to find and save the data
-		$datesStart = $_POST['_AppCalendarPickerStart'];
-		$datesEnd = $_POST['_AppCalendarPickerEnd'];
+		$datesStart = $_POST["_AppCalendarPickerStart"];		
+		$datesEnd = $_POST["_AppCalendarPickerEnd"];
 		
-		if ( get_post_meta( $post->ID, '_AppCalendarPickerStart', FALSE ) )
+		if ( get_post_meta( $post_id, '_AppCalendarPickerStart', FALSE ) )
 		{
-			update_post_meta( $post->ID, '_AppCalendarPickerStart', $datesStart );
-			update_post_meta( $post->ID, '_AppCalendarPickerEnd', $datesEnd );
+			update_post_meta( $post_id, '_AppCalendarPickerStart', $datesStart );
+			update_post_meta( $post_id, '_AppCalendarPickerEnd', $datesEnd );
 		}
 		else
 		{
-			add_post_meta( $post->ID, '_AppCalendarPickerStart', $datesStart );
-			add_post_meta( $post->ID, '_AppCalendarPickerEnd', $datesEnd );
+			add_post_meta( $post_id, '_AppCalendarPickerStart', $datesStart );
+			add_post_meta( $post_id, '_AppCalendarPickerEnd', $datesEnd );
 			
-			add_post_meta( $post->ID, '_AppCalendarParent', 0 );
+			add_post_meta( $post_id, '_AppCalendarParent', 0 );
 		}
 		
 		unset($_POST['_AppCalendarPickerStart']);
@@ -234,8 +274,8 @@ class APP_Metabox_Calendar_Events
 			'meta_query' => array(
 					array(
 							'key'     => '_AppCalendarParent',
-							'value'   => 0,
-							'compare' => '>'
+							'value'   => $post_id,
+							'compare' => '='
 					)
 			)
 		) );
@@ -245,7 +285,7 @@ class APP_Metabox_Calendar_Events
 			// Delete all the Children of the Parent Page
 			foreach($posts as $post)
 			{
-				wp_delete_post($post->ID, true);
+				wp_delete_post( $post->ID, true );
 			}
 		}
 		
@@ -257,17 +297,19 @@ class APP_Metabox_Calendar_Events
 		{
 			$startTimestamp = strtotime( $datesStartArr[$it] );
 			
-			$instance = new TribeEventsPro_RecurrenceInstance( $post_id, $startTimestamp );
+			$instance = new TribeEventsPro_RecurrenceInstance( $post_id, $startTimestamp );		
 			$instance->save();
 			
 			$post_child_id = $instance->get_id();
 			
+			remove_action( 'save_post', array( &$this, 'save_post' ), 15, 2 );
 			wp_update_post(
 				array(
       				'ID' 			=> $post_child_id,
       				'post_parent'	=> 0,
 				)
 			);
+			add_action( 'save_post', array( &$this, 'save_post' ), 15, 2 );
 			
 			$duration = strtotime( $datesEndArr[$it] ) - $startTimestamp;
 			

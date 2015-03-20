@@ -30,10 +30,7 @@ class APP_Metabox_Gallery
 	{
 		App::log("APP_Metabox_Gallery Class Initialized");
 
-		wp_enqueue_style( 'app-metabox-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-metabox-gallery.css' );
-		
-		wp_enqueue_script( 'app-metabox-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-metabox-gallery.js', array( 'jquery' ) );
-
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}
@@ -53,6 +50,20 @@ class APP_Metabox_Gallery
 		}
 		
 		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * admin_init method
+	 *
+	 * @access public
+	 */
+	public function admin_init()
+	{
+		wp_enqueue_style( 'app-metabox-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-metabox-gallery.css' );
+		
+		wp_enqueue_script( 'app-metabox-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-metabox-gallery.js', array( 'jquery' ) );	
 	}
 
 	// --------------------------------------------------------------------

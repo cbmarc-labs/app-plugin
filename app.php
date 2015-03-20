@@ -2,7 +2,7 @@
 /*
  * Plugin Name:       App
  * Description:       Wordpress general plugin
- * Version:           1.0.0
+ * Version:           1.0.4
  * Author:            Marc Costa
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -22,7 +22,7 @@ define( 'APP_TEMPLATE_DIR', plugin_dir_url( __FILE__ ) );
  * Application
  *
  * @class 		App
- * @version		1.0.3
+ * @version		1.0.4
  * @package		App
  * @category	Class
  * @author 		marc
@@ -32,7 +32,7 @@ final class App
 	/**
 	 * @var string
 	 */
-	public $version = '1.0.3';
+	public $version = '1.0.4';
 
 	// The single instance of the class
 	private static $_instance = null;
@@ -68,8 +68,8 @@ final class App
 	 */
 	public function plugins_loaded()
 	{		
-		// Metaboxes
-		include_once( 'includes/admin/metaboxes/class-app-metabox-gallery.php' );
+		// Controllers
+		include_once( 'includes/admin/class-app-gallery.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

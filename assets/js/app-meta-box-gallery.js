@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 	
-	$('#app_metabox_gallery_select').on('click', function(event){
+	$('#app_meta_box_gallery_select').on('click', function(event){
 		event.preventDefault();
 		
 		// If the media frame already exists, reopen it.
@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 			
 			var selection = file_frame.state().get('selection');
 			var library = file_frame.state('gallery-edit').get('library');
-			var ids = $('#app_metabox_gallery_metadata').val();
+			var ids = $('#app_meta_box_gallery_metadata').val();
 			
 			if (ids) {
 				idsArray = ids.split(',');
@@ -57,8 +57,8 @@ jQuery(document).ready(function($){
 			metadataString = imageIDArray.join(",");
 			
 			if (metadataString) {
-				$("#app_metabox_gallery_metadata").val( metadataString );
-				$("#app_metabox_gallery_images").html( imageHTML );
+				$("#app_meta_box_gallery_metadata").val( metadataString );
+				$("#app_meta_box_gallery_images").html( imageHTML );
 			}
 			
 		});
@@ -68,11 +68,11 @@ jQuery(document).ready(function($){
 
 	});
 
-	$('#app_metabox_gallery_removeall').on('click', function(event){
+	$('#app_meta_box_gallery_removeall').on('click', function(event){
 		event.preventDefault();
 
-		$("#app_metabox_gallery_images").html("");
-		$("#app_metabox_gallery_metadata").val("");
+		$("#app_meta_box_gallery_images").html("");
+		$("#app_meta_box_gallery_metadata").val("");
 	});
 
 });

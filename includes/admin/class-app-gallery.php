@@ -72,7 +72,7 @@ class APP_Gallery
 			return;
 		}
 		
-		if ( !wp_verify_nonce( $_POST[ 'app_meta_box_gallery_noncedata' ], plugin_basename( __FILE__ ) ) )
+		if ( !wp_verify_nonce( $_POST[ 'app_meta_box_gallery_noncedata' ], plugin_basename( APP_FILE ) ) )
 		{
 			return;
 		}

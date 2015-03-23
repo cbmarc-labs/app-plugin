@@ -67,11 +67,9 @@ final class App
 	 * @access public
 	 */
 	public function plugins_loaded()
-	{		
-		// Metaboxes
-		include_once( 'includes/admin/meta-boxes/class-app-meta-box-gallery.php' );
-		
+	{
 		// Controllers
+		include_once( 'includes/admin/class-app-gallery.php' );
 		include_once( 'includes/admin/class-app-real-estate.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );

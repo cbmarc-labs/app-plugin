@@ -2,21 +2,21 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( !class_exists( 'APP_Metabox_Gallery' ) ) :
+if( !class_exists( 'APP_Meta_Box_Gallery' ) ) :
 
 /**
- * APP_Metabox_Gallery
+ * APP_Meta_Box_Gallery
 *
 * Galeria de imagenes en un metabox.
 * Thanks to: https://github.com/wp-plugins/featured-galleries
 *
-* @class 		APP_Metabox_Gallery
+* @class 		APP_Meta_Box_Gallery
 * @version		1.0.0
-* @package		application/includes/admin/metaboxes/APP_Metabox_Gallery
-* @category	Class
+* @package		application/includes/admin/meta-boxes/APP_Meta_Box_Gallery
+* @category		Class
 * @author 		cbmarc
 */
-class APP_Metabox_Gallery
+class APP_Meta_Box_Gallery
 {
 	// The single instance of the class
 	private static $_instance;
@@ -28,14 +28,10 @@ class APP_Metabox_Gallery
 	 */
 	public function __construct()
 	{
-		App::log("APP_Metabox_Gallery Class Initialized");
+		App::log("APP_Meta_Box_Gallery Class Initialized");
 
-		wp_enqueue_style( 'app-metabox-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-metabox-gallery.css' );
-		
-		wp_enqueue_script( 'app-metabox-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-metabox-gallery.js', array( 'jquery' ) );
-
+		add_action( 'admin_init', array( &$this, 'admin_init' ) );
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}
 
 	// --------------------------------------------------------------------
@@ -58,6 +54,20 @@ class APP_Metabox_Gallery
 	// --------------------------------------------------------------------
 
 	/**
+	 * admin_init method
+	 *
+	 * @access public
+	 */
+	public function admin_init()
+	{
+		wp_enqueue_style( 'app-meta-box-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-meta-box-gallery.css' );
+		
+		wp_enqueue_script( 'app-meta-box-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-meta-box-gallery.js', array( 'jquery' ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * add_meta_boxes method
 	 *
 	 * @access public
@@ -65,7 +75,7 @@ class APP_Metabox_Gallery
 	public function add_meta_boxes()
 	{
 		add_meta_box(
-				'app_metabox_gallery',
+				'app_meta_box_gallery',
 				__( 'Galeria de imagenes' ), 
 				array( &$this, 'meta_box_callback' )
 		);
@@ -83,24 +93,24 @@ class APP_Metabox_Gallery
 		$galleryHTML = '';		
 		$galleryString = $this->get_gallery();
 		
-		if (!empty( $galleryString ))
+		if( !empty( $galleryString ) )
 		{
 			$galleryArray = explode( ',', $galleryString );
 		
-			foreach ($galleryArray as &$id)
+			foreach( $galleryArray as &$id )
 			{
 				$galleryHTML .= '<img src="' . wp_get_attachment_url( $id ) . '">';
 			}
 		}
 		?>
 
-<input type="hidden" name="app_metabox_gallery_noncedata" id="app_metabox_gallery_noncedata" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
-<input type="hidden" name="app_metabox_gallery_metadata" id="app_metabox_gallery_metadata" value="<?php echo $galleryString; ?>" />
+<input type="hidden" name="app_meta_box_gallery_noncedata" id="app_meta_box_gallery_noncedata" value="<?php echo wp_create_nonce( plugin_basename( APP_FILE ) ); ?>" />
+<input type="hidden" name="app_meta_box_gallery_metadata" id="app_meta_box_gallery_metadata" value="<?php echo $galleryString; ?>" />
 
-<button class="button" id="app_metabox_gallery_select">Seleccionar</button>
-<button class="button" id="app_metabox_gallery_removeall">Remover</button>
+<button class="button" id="app_meta_box_gallery_select">Seleccionar</button>
+<button class="button" id="app_meta_box_gallery_removeall">Borrar</button>
 
-<div id="app_metabox_gallery_images"><?php echo $galleryHTML; ?></div>
+<div id="app_meta_box_gallery_images"><?php echo $galleryHTML; ?></div>
 
 		<?php
 	}
@@ -116,60 +126,20 @@ class APP_Metabox_Gallery
 	{
 		global $post;
 		
-		$ids = get_post_meta( $post->ID, 'app_metabox_gallery_metadata', 1);
+		$ids = get_post_meta( $post->ID, 'app_meta_box_gallery_metadata', 1 );
 		
 		return $ids;
-
-		//return explode( ',', $ids );
 	}
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * save_post method
-	 *
-	 * @access public
-	 */
-	public function save_post($post_id, $post)
-	{
-		if ( empty( $_POST["app_metabox_gallery_noncedata"] ) )
-		{
-			return;
-		}
-		
-		if ( !wp_verify_nonce( $_POST['app_metabox_gallery_noncedata'], plugin_basename(__FILE__) ) )
-		{
-			return;
-		}
-		
-		// Verification of User
-		if ( !current_user_can( 'edit_post', $post->ID ) )
-		{
-			return;
-		}
-		
-		// OK, we're authenticated: we need to find and save the data
-		$imagenes = $_POST['app_metabox_gallery_metadata'];
-				
-		if ( get_post_meta( $post->ID, 'app_metabox_gallery_metadata', FALSE ) )
-		{
-			update_post_meta( $post->ID, 'app_metabox_gallery_metadata', $imagenes );
-		}
-		else
-		{
-			add_post_meta( $post->ID, 'app_metabox_gallery_metadata', $imagenes );
-		}
-	}
-
-} // end class APP_Metabox_Gallery
+} // end class APP_Meta_Box_Gallery
 
 endif;
 
 /**
  * Create instance
  */
-global $APP_Metabox_Gallery;
-if( class_exists( 'APP_Metabox_Gallery' ) && !$APP_Metabox_Gallery )
+global $APP_Meta_Box_Gallery;
+if( class_exists( 'APP_Meta_Box_Gallery' ) && !$APP_Meta_Box_Gallery )
 {
-	$APP_Metabox_Gallery = APP_Metabox_Gallery::instance();
+	$APP_Meta_Box_Gallery = APP_Meta_Box_Gallery::instance();
 }

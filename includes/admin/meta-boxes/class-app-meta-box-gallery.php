@@ -74,11 +74,17 @@ class APP_Meta_Box_Gallery
 	 */
 	public function add_meta_boxes()
 	{
-		add_meta_box(
+		$screens = array( 'post', 'page' );
+		
+		foreach ( $screens as $screen )
+		{		
+			add_meta_box(
 				'app_meta_box_gallery',
-				__( 'Galeria de imagenes' ), 
-				array( &$this, 'meta_box_callback' )
-		);
+				__( 'Galeria de imagenes', 'app_textdomain' ),
+				array( &$this, 'meta_box_callback' ),
+				$screen
+			);
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -88,10 +94,10 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public function meta_box_callback()
+	public function meta_box_callback( $post )
 	{
 		$galleryHTML = '';		
-		$galleryString = $this->get_gallery();
+		$galleryString = get_post_meta( $post->ID, '_app_gallery_imgs', 1 );
 		
 		if( !empty( $galleryString ) )
 		{
@@ -102,33 +108,8 @@ class APP_Meta_Box_Gallery
 				$galleryHTML .= '<img src="' . wp_get_attachment_url( $id ) . '">';
 			}
 		}
-		?>
-
-<input type="hidden" name="app_meta_box_gallery_noncedata" id="app_meta_box_gallery_noncedata" value="<?php echo wp_create_nonce( plugin_basename( APP_FILE ) ); ?>" />
-<input type="hidden" name="app_meta_box_gallery_metadata" id="app_meta_box_gallery_metadata" value="<?php echo $galleryString; ?>" />
-
-<button class="button" id="app_meta_box_gallery_select">Seleccionar</button>
-<button class="button" id="app_meta_box_gallery_removeall">Borrar</button>
-
-<div id="app_meta_box_gallery_images"><?php echo $galleryHTML; ?></div>
-
-		<?php
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * get_post_gallery_ids method
-	 *
-	 * @access public
-	 */
-	public function get_gallery()
-	{
-		global $post;
 		
-		$ids = get_post_meta( $post->ID, 'app_meta_box_gallery_metadata', 1 );
-		
-		return $ids;
+		include_once( 'views/html-meta-box-gallery.php' );
 	}
 
 } // end class APP_Meta_Box_Gallery

@@ -27,7 +27,6 @@ class APP_Post_Type_Real_Estate
 	// Nom del tipus de entrada
 	const POST_TYPE = 'cpt_real_estate';
 	
-
 	private $plural = 'real_estates';
 	private $singular = 'real_estate';
 

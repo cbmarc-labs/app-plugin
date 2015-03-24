@@ -2,9 +2,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-?>
 
-<input type="hidden" name="app_meta_box_real_estate_noncedata" value="<?php echo $fields[ 'nonce' ]; ?>" />
+// Add an nonce field so we can check for it later.
+wp_nonce_field( 'app_meta_box_real_estate', 'app_meta_box_real_estate_nonce' );
+
+?>
 
 <table>
 	<thead>
@@ -22,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<td>Habitacions :</td>
 			<td>
-				<input type="text" name="app_meta_box_real_estate_rooms" id="app_meta_box_real_estate_rooms" value="<?php echo $fields[ 'rooms' ]; ?>" />
+				<input maxlength="2" type="text" name="app_meta_box_real_estate_rooms" id="app_meta_box_real_estate_rooms" value="<?php echo $fields[ 'rooms' ]; ?>" />
 			</td>
 		</tr>
 		

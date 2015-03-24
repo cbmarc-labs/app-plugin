@@ -2,18 +2,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( !class_exists( 'APP_Metabox_Real_Estate' ) ) :
+if( !class_exists( 'APP_Meta_Box_Real_Estate' ) ) :
 
 /**
- * APP_Metabox_Real_Estate
+ * APP_Meta_Box_Real_Estate
 *
-* @class 		APP_Metabox_Real_Estate
+* @class 		APP_Meta_Box_Real_Estate
 * @version		1.0.0
-* @package		application/includes/admin/metaboxes/APP_Metabox_Real_Estate
+* @package		application/includes/admin/meta-boxes/APP_Meta_Box_Real_Estate
 * @category     Class
 * @author 		cbmarc
 */
-class APP_Metabox_Real_Estate
+class APP_Meta_Box_Real_Estate
 {
 	// The single instance of the class
 	private static $_instance;
@@ -25,10 +25,9 @@ class APP_Metabox_Real_Estate
 	 */
 	public function __construct()
 	{
-		App::log("APP_Metabox_Real_Estate Class Initialized");
+		App::log( "APP_Meta_Box_Real_Estate Class Initialized" );
 
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}
 
 	// --------------------------------------------------------------------
@@ -81,7 +80,6 @@ class APP_Metabox_Real_Estate
 	public function meta_box_callback()
 	{
 		$fields = $this->get_form_values();
-		$fields[ 'nonce' ] = wp_create_nonce( plugin_basename(__FILE__) );
 		
 		include_once( 'views/html-meta-box-real-estate.php' );
 	}
@@ -97,64 +95,20 @@ class APP_Metabox_Real_Estate
 	{
 		global $post;
 		
-		$data[ 'rooms' ] = get_post_meta( $post->ID, 'app_meta_box_real_estate_rooms', 1 );
+		$data[ 'rooms' ] = get_post_meta( $post->ID, '_app_real_estate_rooms', 1 );
 		
 		return $data;
 	}
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * save_post method
-	 *
-	 * @access public
-	 */
-	public function save_post($post_id, $post)
-	{
-		//TODO mirar perque no funciona aixo
-		/*if ( APP_Post_Type_Real_Estate::POSTTYPE != $post->post_type )
-		{
-			return;
-		}*/
-		
-		if ( empty( $_POST[ "app_meta_box_real_estate_noncedata" ] ) )
-		{
-			return;
-		}
-		
-		if ( !wp_verify_nonce( $_POST[ 'app_meta_box_real_estate_noncedata' ], plugin_basename(__FILE__) ) )
-		{
-			return;
-		}
-		
-		// Verification of User
-		if ( !current_user_can( 'edit_post', $post_id ) )
-		{
-			return;
-		}
-		
-		// OK, we're authenticated: we need to find and save the data
-		$rooms = $_POST['app_meta_box_real_estate_rooms'];
-				
-		if ( get_post_meta( $post_id, 'app_meta_box_real_estate_rooms', FALSE ) )
-		{
-			update_post_meta( $post_id, 'app_meta_box_real_estate_rooms', $rooms );
-		}
-		else
-		{
-			add_post_meta( $post_id, 'app_meta_box_real_estate_rooms', $rooms );
-		}
-	}
-
-} // end class APP_Metabox_Real_Estate
+} // end class APP_Meta_Box_Real_Estate
 
 endif;
 
 /**
  * Create instance
  */
-global $APP_Metabox_Real_Estate;
-if( class_exists( 'APP_Metabox_Real_Estate' ) && !$APP_Metabox_Real_Estate )
+global $APP_Meta_Box_Real_Estate;
+if( class_exists( 'APP_Meta_Box_Real_Estate' ) && !$APP_Meta_Box_Real_Estate )
 {
-	$APP_Metabox_Real_Estate = APP_Metabox_Real_Estate::instance();
+	$APP_Meta_Box_Real_Estate = APP_Meta_Box_Real_Estate::instance();
 }

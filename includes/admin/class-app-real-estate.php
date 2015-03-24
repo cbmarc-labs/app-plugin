@@ -29,14 +29,19 @@ class APP_Real_Estate
 	{
 		App::log( 'APP_Real_Estate Class Initialized' );
 		
+		// Post Type
 		include_once( 'post-types/class-app-post-type-real-estate.php' );
+		
+		// Metabox
 		include_once( 'meta-boxes/class-app-meta-box-real-estate.php' );
 		
 		// Initialise
 		add_action( "init", array( &$this, 'init' ) );
 		
-		add_action( "app_form_real_estate_filter", array( &$this, 'app_form_real_estate_filter' ) );
+		add_action( "app_real_estate_form_filter", array( &$this, 'app_real_estate_form_filter' ) );
 		//add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
+		
+		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}
 	
 	// --------------------------------------------------------------------
@@ -48,9 +53,9 @@ class APP_Real_Estate
 	 *
 	 * @access public
 	 */
-	public function app_form_real_estate_filter()
+	public function app_real_estate_form_filter()
 	{
-		include( APP_TEMPLATE_PATH . '/templates/form-real-estate-filter.php');
+		include( APP_TEMPLATE_PATH . '/templates/real-estate-form-filter.php');
 	}
 	
 	// --------------------------------------------------------------------
@@ -162,6 +167,66 @@ class APP_Real_Estate
 		}
 
 		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * save_post method
+	 *
+	 * @access public
+	 */
+	public function save_post( $post_id, $post )
+	{
+		/*
+		 * We need to verify this came from our screen and with proper authorization,
+		* because the save_post action can be triggered at other times.
+		*/
+		
+		// Check if our nonce is set.
+		if ( ! isset( $_POST['app_meta_box_real_estate_nonce'] ) )
+		{
+			return;
+		}
+		
+		// Verify that the nonce is valid.
+		if ( ! wp_verify_nonce( $_POST['app_meta_box_real_estate_nonce'], 'app_meta_box_real_estate' ) )
+		{
+			return;
+		}
+		
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+		{
+			return;
+		}
+		
+		// Check the user's permissions.
+		if ( isset( $_POST['post_type'] ) &&
+				APP_Post_Type_Real_Estate::POST_TYPE == $_POST['post_type'] )
+		{
+			if ( ! current_user_can( 'edit_page', $post_id ) )
+			{
+				return;
+			}
+		
+		}
+		else
+		{
+			if ( ! current_user_can( 'edit_post', $post_id ) )
+			{
+				return;
+			}
+		}
+		
+		// OK, we're authenticated: we need to find and save the data
+		$safe_rooms = intval( $_POST[ 'app_meta_box_real_estate_rooms' ] );
+		if ( ! $safe_rooms )
+		{
+			$safe_rooms = '';
+		}
+		
+		update_post_meta( $post_id, '_app_real_estate_rooms', $safe_rooms );
 	}
 	
 }

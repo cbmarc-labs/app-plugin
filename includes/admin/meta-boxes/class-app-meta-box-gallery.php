@@ -104,7 +104,7 @@ class APP_Meta_Box_Gallery
 		}
 		?>
 
-<input type="hidden" name="app_meta_box_gallery_noncedata" id="app_meta_box_gallery_noncedata" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
+<input type="hidden" name="app_meta_box_gallery_noncedata" id="app_meta_box_gallery_noncedata" value="<?php echo wp_create_nonce( plugin_basename( APP_FILE ) ); ?>" />
 <input type="hidden" name="app_meta_box_gallery_metadata" id="app_meta_box_gallery_metadata" value="<?php echo $galleryString; ?>" />
 
 <button class="button" id="app_meta_box_gallery_select">Seleccionar</button>

@@ -29,7 +29,7 @@ class APP_Gallery
 	{
 		App::log( 'APP_Gallery Class Initialized' );
 
-		// Metabox del calendari per seleccionar dates aleatoriament
+		// Metabox
 		include_once( 'meta-boxes/class-app-meta-box-gallery.php' );
 		
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
@@ -61,39 +61,51 @@ class APP_Gallery
 	 */
 	public function save_post( $post_id, $post )
 	{
-		// Verify if this is an auto save routine.
-		if( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) )
+		/*
+		 * We need to verify this came from our screen and with proper authorization,
+		* because the save_post action can be triggered at other times.
+		*/
+		
+		// Check if our nonce is set.
+		if ( ! isset( $_POST['app_meta_box_gallery_nonce'] ) )
 		{
 			return;
 		}
 		
-		if ( empty( $_POST[ "app_meta_box_gallery_noncedata" ] ) )
+		// Verify that the nonce is valid.
+		if ( ! wp_verify_nonce( $_POST['app_meta_box_gallery_nonce'], 'app_meta_box_gallery' ) )
 		{
 			return;
 		}
 		
-		if ( !wp_verify_nonce( $_POST['app_meta_box_gallery_noncedata'], plugin_basename( APP_FILE ) ) )
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 		{
 			return;
 		}
 		
-		// Verification of User
-		if ( !current_user_can( 'edit_post', $post->ID ) )
-		{
-			return;
-		}
+		// Check the user's permissions.
+		if ( isset( $_POST['post_type'] ) && 
+				( 'post' == $_POST['post_type'] || 'page' == $_POST['post_type'] ) )
+		{		
+			if ( ! current_user_can( 'edit_page', $post_id ) )
+			{
+				return;
+			}
 		
-		// OK, we're authenticated: we need to find and save the data
-		$imagenes = $_POST[ 'app_meta_box_gallery_metadata' ];
-				
-		if ( get_post_meta( $post->ID, 'app_meta_box_gallery_metadata', FALSE ) )
-		{
-			update_post_meta( $post->ID, 'app_meta_box_gallery_metadata', $imagenes );
 		}
 		else
 		{
-			add_post_meta( $post->ID, 'app_meta_box_gallery_metadata', $imagenes );
+			if ( ! current_user_can( 'edit_post', $post_id ) )
+			{
+				return;
+			}
 		}
+		
+		// OK, we're authenticated: we need to find and save the data
+		$imgs = $_POST[ 'app_meta_box_gallery_metadata' ];
+				
+		update_post_meta( $post_id, '_app_gallery_imgs', $imgs );
 	}
 	
 }

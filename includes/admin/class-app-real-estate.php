@@ -36,10 +36,12 @@ class APP_Real_Estate
 		include_once( 'meta-boxes/class-app-meta-box-real-estate.php' );
 		
 		// Initialise
-		add_action( "init", array( &$this, 'init' ) );
+		add_action( 'init', array( &$this, 'init' ) );
 		
-		add_action( "app_real_estate_form_filter", array( &$this, 'app_real_estate_form_filter' ) );
-		//add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
+		add_filter( 'query_vars', array( &$this, 'query_vars' ) );
+		
+		add_action( 'app_real_estate_form_filter', array( &$this, 'app_real_estate_form_filter' ) );
+		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 		
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}
@@ -61,6 +63,21 @@ class APP_Real_Estate
 	// --------------------------------------------------------------------
 	
 	/**
+	 * query_vars method
+	 *
+	 * @access public
+	 */
+	public function query_vars( $vars )
+	{
+		$vars[] = "min_rooms";
+		$vars[] = "max_rooms";
+		
+		return $vars;
+	}
+	
+	// --------------------------------------------------------------------
+	
+	/**
 	 * pre_get_posts method
 	 * 
 	 * filtra la llista al front-end
@@ -70,9 +87,12 @@ class APP_Real_Estate
 	public function pre_get_posts( $query )
 	{
 		// Check if on frontend and main query is modified
-		if( is_admin() && $query->is_main_query() && 
+		if( !is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
 				$query->query_vars['post_type'] == APP_Post_Type_Real_Estate::POST_TYPE )
-		{
+		{			
+			//$query->set( 'meta_key', '_app_real_estate_rooms' );
+			//$query->set( 'meta_value', $query->query_vars['rooms'] );
+			
 			//$query->set('meta_key', 'project_type');
 			//$query->set('meta_value', 'design');
 			//$query->set('post__not_in', array(1,2,3) );
@@ -85,30 +105,25 @@ class APP_Real_Estate
                 )
             )
             $query->set( 'tax_query', $tax_query );
-            
+           */ 
             
             
             $query->set( 'meta_query', array(
-            'relation' => 'OR',
-            // this is the part that gets a key with no value
-            array(
-                'key'     => '_restricted_key',
-                'value    => 'oeusnth', // just has to be something because of a bug in WordPress
-                'compare' => 'NOT EXISTS',
-            ),
-            array(
-                'key'     => '_restricted_key',
-                'value'   => get_current_user_id(),
-                'compare' => '==',
-            ),
-        );
-            
-            
-            
-            
-			 */
+            		'relation' => 'AND',
+            		array(
+                		'key'     => '_app_real_estate_rooms',
+                		'value'   => $query->query_vars[ 'min_rooms' ],
+                		'compare' => '>=',
+            		),
+            		array(
+                		'key'     => '_app_real_estate_rooms',
+                		'value'   => $query->query_vars[ 'max_rooms' ],
+                		'compare' => '<=',
+            		),
+            	)
+        	);
 			
-			add_filter( 'posts_where', array( &$this, 'posts_where' ) );
+			//add_filter( 'posts_where', array( &$this, 'posts_where' ) );
  		}
 	}
 	

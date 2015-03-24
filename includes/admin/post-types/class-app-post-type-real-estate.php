@@ -106,14 +106,59 @@ class APP_Post_Type_Real_Estate
 				 * posts. If set to TRUE, the post type name will be used for the archive slug.  You can also
 				 * set this to a string to control the exact name of the archive slug.
 				 */
-				'has_archive'         => true, // bool|string (defaults to FALSE)
+				'has_archive'           => true, // bool|string (defaults to FALSE)
 				
-				'publicly_queryable'	=> true,
-				'query_var' => true,
-				'rewrite'=> true
+				/**
+         		 * Whether queries can be performed on the front end as part of parse_request(). 
+         		 */
+        		'publicly_queryable'  => true, // bool (defaults to 'public').
+				
+				/**
+				 * Sets the query_var key for this post type. If set to TRUE, the post type name will be used.
+				 * You can also set this to a custom string to control the exact key.
+				 */
+				'query_var'             => true, // bool|string (defaults to TRUE - post type name)
+				
+				/**
+				 * How the URL structure should be handled with this post type.  You can set this to an
+				 * array of specific arguments or true|false.  If set to FALSE, it will prevent rewrite
+				 * rules from being created.
+				 */
+				'rewrite' => array(
+				
+						/* The slug to use for individual posts of this type. */
+						'slug'       => self::POST_TYPE, // string (defaults to the post type name)
+				
+						/* Whether to show the $wp_rewrite->front slug in the permalink. */
+						'with_front' => false, // bool (defaults to TRUE)
+				
+						/* Whether to allow single post pagination via the <!--nextpage--> quicktag. */
+						'pages'      => true, // bool (defaults to TRUE)
+				
+						/* Whether to create feeds for this post type. */
+						'feeds'      => true, // bool (defaults to the 'has_archive' argument)
+				
+						/* Assign an endpoint mask to this permalink. */
+						'ep_mask'    => EP_PERMALINK, // const (defaults to EP_PERMALINK)
+				),
 		);
 				
 		register_post_type( self::POST_TYPE, $args );
+		
+		// Taxonomies
+		$labels = array(
+				'name' => _x( 'Type', 'Taxonomy general name', 'app' ),
+		);
+		
+		$args = array(
+				'labels'            => $labels,
+				'hierarchical'      => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+		);
+		
+		register_taxonomy( 'type', array( self::POST_TYPE ), $args );
 	}
 
 } // end class APP_Post_Type_Real_Estate

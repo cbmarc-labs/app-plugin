@@ -71,6 +71,7 @@ class APP_Real_Estate
 	{
 		$vars[] = "min_rooms";
 		$vars[] = "max_rooms";
+		$vars[] = "type";
 		
 		return $vars;
 	}
@@ -107,21 +108,33 @@ class APP_Real_Estate
             $query->set( 'tax_query', $tax_query );
            */ 
             
-            
-            $query->set( 'meta_query', array(
-            		'relation' => 'AND',
-            		array(
-                		'key'     => '_app_real_estate_rooms',
-                		'value'   => $query->query_vars[ 'min_rooms' ],
-                		'compare' => '>=',
-            		),
-            		array(
-                		'key'     => '_app_real_estate_rooms',
-                		'value'   => $query->query_vars[ 'max_rooms' ],
-                		'compare' => '<=',
-            		),
-            	)
-        	);
+			if( isset( $query->query_vars['min_rooms'] ) )
+			{
+				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
+				
+				$query->set( 'meta_query', array(
+						array(
+								'key'     => '_app_real_estate_rooms',
+								'value'   => $safe_min_rooms,
+								'compare' => '>=',
+						)
+					)
+				);
+			}
+			
+			if( isset( $query->query_vars['max_rooms'] ) )
+			{
+				$safe_max_rooms = intval( $query->query_vars['max_rooms'] );
+			
+				$query->set( 'meta_query', array(
+						array(
+								'key'     => '_app_real_estate_rooms',
+								'value'   => $safe_max_rooms,
+								'compare' => '>=',
+						)
+				)
+				);
+			}
 			
 			//add_filter( 'posts_where', array( &$this, 'posts_where' ) );
  		}
@@ -235,7 +248,7 @@ class APP_Real_Estate
 		}
 		
 		// OK, we're authenticated: we need to find and save the data
-		$safe_rooms = intval( $_POST[ 'app_meta_box_real_estate_rooms' ] );
+		$safe_rooms = intval( $_POST['app_meta_box_real_estate_rooms'] );
 		if ( ! $safe_rooms )
 		{
 			$safe_rooms = '';

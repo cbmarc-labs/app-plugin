@@ -44,7 +44,7 @@ final class App
 	 */
 	public function __construct()
 	{		
-		App::log( 'App Class Initialized' );
+		App::log( 'App Class Initialized ' );
 		
 		// Activate after plugins loaded
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
@@ -203,7 +203,7 @@ final class App
 				$message =  print_r( $message, TRUE );
 			}
 			
-			error_log( date("d/m/Y H:i:s") . " - " . $message . "\n", 3, 'error_log' );
+			error_log( date("d/m/Y H:i:s") . " - " . $message . "\n", 3, APP_TEMPLATE_PATH . 'app.log' );
 		}
 	}
 

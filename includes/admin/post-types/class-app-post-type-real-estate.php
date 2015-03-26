@@ -20,15 +20,14 @@ if( !class_exists( 'APP_Post_Type_Real_Estate' ) ) :
  */
 class APP_Post_Type_Real_Estate
 {
-
 	// singleton instance
 	private static $_instance;
 	
-	// Nom del tipus de entrada
-	const POST_TYPE = 'cpt_real_estate';
+	// Post type name
+	const POST_TYPE = 'cpt_real_estate'; // app-real-estate
 	
-	private $plural = 'real_estates';
-	private $singular = 'real_estate';
+	// Taxonomy type name
+	const TAX_TYPE = 'cpt_real_estate_type';
 
 	/**
 	 * Constructor
@@ -158,7 +157,8 @@ class APP_Post_Type_Real_Estate
 				'query_var'         => true,
 		);
 		
-		register_taxonomy( 'type', array( self::POST_TYPE ), $args );
+		// app_real_estate_types
+		register_taxonomy( self::TAX_TYPE, array( self::POST_TYPE ), $args );
 	}
 
 } // end class APP_Post_Type_Real_Estate

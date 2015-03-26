@@ -103,7 +103,7 @@ class APP_Gallery
 		}
 		
 		// OK, we're authenticated: we need to find and save the data
-		$imgs = $_POST[ 'app_meta_box_gallery_metadata' ];
+		$imgs = $_POST['app_meta_box_gallery_metadata'];
 				
 		update_post_meta( $post_id, '_app_gallery_imgs', $imgs );
 	}

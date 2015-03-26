@@ -6,6 +6,8 @@ if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_perma
 	$action = get_post_type_archive_link( APP_Post_Type_Real_Estate::POST_TYPE );
 }
 
+echo "---------------------------> " . $testtest;
+
 ?>
 
 <?php if( isset( $action ) ): ?>
@@ -21,21 +23,44 @@ if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_perma
 		
 		<p>
 			<label for="type">Tipus</label>
-			<select name="type">
-				<option value=""></option>
-			</select>
-			<input name="type" id="type" value="<?php /*echo $wp_query->query_vars['type'];*/ ?>" type="text">
+			<?php
+				$safe_type = intval( $wp_query->get( 'type' ) );
+			
+				$args = array(
+					'show_option_all'    => 'Any Type',
+					'orderby'            => 'ID',
+					'order'              => 'ASC',
+					'show_count'         => 0,
+					'hide_empty'         => 0,
+					'child_of'           => 0,
+					'exclude'            => '',
+					'echo'               => 1,
+					'selected'           => $safe_type,
+					'hierarchical'       => 1,
+					'name'               => 'type',
+					'id'                 => '',
+					'class'              => 'postform',
+					'depth'              => 0,
+					'tab_index'          => 0,
+					'taxonomy'           => APP_Post_Type_Real_Estate::TAX_TYPE,
+					'hide_if_empty'      => false,
+				);
+			
+				wp_dropdown_categories( $args );
+			?>
 		</p>
 		
 	
 		<p>
 			<label for="min_rooms">Mínim d'habitacions</label>
-			<input maxlength="2" name="min_rooms" id="min_rooms" value="<?php echo $wp_query->query_vars[ 'min_rooms' ]; ?>" type="text">
+			<?php $safe_min_rooms = empty($wp_query->query_vars['min_rooms'])?intval( $wp_query->get( 'min_rooms' ) ):''; ?>
+			<input maxlength="2" name="min_rooms" id="min_rooms" value="<?php echo $safe_min_rooms; ?>" type="text">
 		</p>
 		
 		<p>
 			<label for="max_rooms">Màxim d'habitacions *</label>
-			<input maxlength="2" name="max_rooms" id="max_rooms" value="<?php echo $wp_query->query_vars[ 'max_rooms' ]; ?>" type="text">
+			<?php $safe_max_rooms = intval( $wp_query->get( 'max_rooms' ) ); ?>
+			<input maxlength="2" name="max_rooms" id="max_rooms" value="<?php echo $safe_max_rooms; ?>" type="text">
 		</p>
 		
 		<p>

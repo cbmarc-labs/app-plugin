@@ -69,9 +69,11 @@ class APP_Real_Estate
 	 */
 	public function query_vars( $vars )
 	{
+		$vars[] = "type";
 		$vars[] = "min_rooms";
 		$vars[] = "max_rooms";
-		$vars[] = "type";
+		$vars[] = "min_price";
+		$vars[] = "max_price";
 		
 		return $vars;
 	}
@@ -98,7 +100,7 @@ class APP_Real_Estate
 			//$query->set('meta_value', 'design');
 			//$query->set('post__not_in', array(1,2,3) );
 			/*
-			 * $tax_query = array(  
+			 * $tax_query = array(
                 array(
                     'taxonomy' => 'writer',
                     'field' => 'name',
@@ -164,20 +166,9 @@ class APP_Real_Estate
 	 */
 	public function init()
 	{
-		//if( !admin()) || wp_admin() ??¿?¿?¿? is_admin(), is this post_type
-		if ( isset( $_POST[ 'rst_form' ] ) )
-		{
-			//$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-			
-			$args = array(
-				//'cat'			=> 19,
-				'meta_key'		=> $counties,
-				'meta_value'	=> $counties,
-				//'paged'			=> $paged,
-			);
-  
-			//query_posts($args);
-		}
+		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 'assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
+		
+		wp_enqueue_script( 'app-nouislider-script', APP_TEMPLATE_DIR . 'assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
 	}
 	
 	// --------------------------------------------------------------------

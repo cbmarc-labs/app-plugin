@@ -46,6 +46,8 @@ final class App
 	{		
 		App::log( 'App Class Initialized ' );
 		
+		add_action( 'init', array( &$this, 'init' ) );
+		
 		// Activate after plugins loaded
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
 		
@@ -57,6 +59,19 @@ final class App
 		// register_uninstall_hook was called incorrectly...
 		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
 		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * init method
+	 *
+	 * @access public
+	 */
+	public function init()
+	{
+		// Bootstrap integration
+		wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
 	}
 
 	// --------------------------------------------------------------------

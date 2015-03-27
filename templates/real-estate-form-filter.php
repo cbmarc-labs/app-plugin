@@ -7,12 +7,16 @@ if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_perma
 }
 
 // default values
-$min_rooms = '';
-$max_rooms = '';
-$min_price = 0;
-$max_price = 100000;
+$type		= 0;
+$min_rooms	= '';
+$max_rooms	= '';
+$min_price	= 0;
+$max_price	= 100000;
 
 // Safe values
+if( isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['type'] ) )
+	$type = sanitize_text_field( $wp_query->query_vars['type'] );
+
 if( isset( $wp_query->query_vars['min_rooms'] ) && !empty( $wp_query->query_vars['min_rooms'] ) )
 	$min_rooms = intval( $wp_query->query_vars['min_rooms'] );
 
@@ -88,18 +92,16 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 			<div class="col-xs-12 col-sm-4 form-group">
 				<label for="type" class="control-label">Tipus</label>
 				<?php
-					$safe_type = intval( $wp_query->get( 'type' ) );
-				
 					$args = array(
 						'show_option_all'    => 'Any Type',
-						'orderby'            => 'ID',
+						'orderby'            => 'slug',
 						'order'              => 'ASC',
 						'show_count'         => 0,
 						'hide_empty'         => 0,
 						'child_of'           => 0,
 						'exclude'            => '',
 						'echo'               => 1,
-						'selected'           => $safe_type,
+						'selected'           => $type,
 						'hierarchical'       => 1,
 						'name'               => 'type',
 						'id'                 => '',
@@ -108,6 +110,8 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 						'tab_index'          => 0,
 						'taxonomy'           => APP_Post_Type_Real_Estate::TAX_TYPE,
 						'hide_if_empty'      => false,
+						'walker'             => new SH_Walker_TaxonomyDropdown(),
+						'value'              => 'slug'
 					);
 				
 					wp_dropdown_categories( $args );
@@ -116,12 +120,12 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 	
 			<div class="col-xs-12 col-sm-4 form-group">
 				<label for="" class="control-label">Mínim d'habitacions</label>
-				<input type="number" name="min_rooms" class="form-control" value="<?php echo $min_rooms; ?>" />
+				<input type="number" name="min_rooms" min="0" class="form-control" value="<?php echo $min_rooms; ?>" />
 			</div>
 			
 			<div class="col-xs-12 col-sm-4 form-group">
 				<label for="" class="control-label">Màxim d'habitacions</label>
-				<input type="number" name="max_rooms" class="form-control" value="<?php echo $max_rooms; ?>" />
+				<input type="number" name="max_rooms" min="0" class="form-control" value="<?php echo $max_rooms; ?>" />
 			</div>
 			
 			<input type="hidden" name="min_price" class="property-search-price-range-min" value="<?php echo $min_price; ?>" />

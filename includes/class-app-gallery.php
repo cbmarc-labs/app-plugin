@@ -30,7 +30,7 @@ class APP_Gallery
 		App::log( 'APP_Gallery Class Initialized' );
 
 		// Metabox
-		include_once( 'meta-boxes/class-app-meta-box-gallery.php' );
+		include_once( 'admin/meta-boxes/class-app-meta-box-gallery.php' );
 		
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
 	}

@@ -84,8 +84,8 @@ final class App
 	public function plugins_loaded()
 	{
 		// Controllers
-		include_once( 'includes/admin/class-app-gallery.php' );
-		include_once( 'includes/admin/class-app-real-estate.php' );
+		include_once( 'includes/class-app-gallery.php' );
+		include_once( 'includes/class-app-real-estate.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

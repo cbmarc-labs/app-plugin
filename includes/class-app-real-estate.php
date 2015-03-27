@@ -25,15 +25,21 @@ class APP_Real_Estate
 	 *
 	 * @access public
 	 */
-	public function __construct ()
+	public function __construct()
 	{
 		App::log( 'APP_Real_Estate Class Initialized' );
 		
-		// Post Type
+		// Post Types
 		include_once( 'post-types/class-app-post-type-real-estate.php' );
 		
-		// Metabox
-		include_once( 'meta-boxes/class-app-meta-box-real-estate.php' );
+		// Metaboxes
+		include_once( 'admin/meta-boxes/class-app-meta-box-real-estate.php' );
+		
+		// Walkers
+		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
+		
+		// Widgets
+		include_once( 'widgets/class-app-widget-real-estate-filter-form.php' );
 		
 		// Initialise
 		add_action( 'init', array( &$this, 'init' ) );
@@ -44,6 +50,8 @@ class APP_Real_Estate
 		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 		
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
+		
+		add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
 	}
 	
 	// --------------------------------------------------------------------
@@ -56,8 +64,20 @@ class APP_Real_Estate
 	 * @access public
 	 */
 	public function app_real_estate_form_filter()
-	{
+	{		
 		include( APP_TEMPLATE_PATH . '/templates/real-estate-form-filter.php');
+	}
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * widgets_init method
+	 *
+	 * @access public
+	 */
+	public function widgets_init()
+	{
+		register_widget( 'APP_Widget_Real_Estate_Filter_Form' );
 	}
 	
 	// --------------------------------------------------------------------
@@ -108,35 +128,53 @@ class APP_Real_Estate
                 )
             )
             $query->set( 'tax_query', $tax_query );
-           */ 
+           */
             
-			if( isset( $query->query_vars['min_rooms'] ) )
+			$meta_query = array();
+			
+			// filter by min rooms
+			if( isset( $query->query_vars['min_rooms'] ) && !empty( $query->query_vars['min_rooms'] ) )
 			{
 				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
 				
-				$query->set( 'meta_query', array(
-						array(
-								'key'     => '_app_real_estate_rooms',
-								'value'   => $safe_min_rooms,
-								'compare' => '>=',
-						)
-					)
+				$meta_query[] = array(
+					'key'     => '_app_real_estate_rooms',
+					'value'   => $safe_min_rooms,
+					'compare' => '>=',
 				);
 			}
 			
-			if( isset( $query->query_vars['max_rooms'] ) )
+			// filter by max rooms
+			if( isset( $query->query_vars['max_rooms'] ) && !empty( $query->query_vars['max_rooms'] ) )
 			{
 				$safe_max_rooms = intval( $query->query_vars['max_rooms'] );
 			
-				$query->set( 'meta_query', array(
-						array(
-								'key'     => '_app_real_estate_rooms',
-								'value'   => $safe_max_rooms,
-								'compare' => '>=',
-						)
-				)
+				$meta_query[] = array(
+					'key'     => '_app_real_estate_rooms',
+					'value'   => $safe_max_rooms,
+					'compare' => '<=',
 				);
 			}
+			
+			// Filter by type taxonomy
+			if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) )
+			{
+				$safe_type = sanitize_text_field( $query->query_vars['type'] );
+			
+				if( $safe_type != '0' )
+				{
+					$query->set( 'tax_query', array(
+							array(
+									'taxonomy' => APP_Post_Type_Real_Estate::TAX_TYPE,
+									'field'    => 'slug',
+									'terms'    => $safe_type,
+							)
+					)
+					);
+				}
+			}
+			
+			$query->set( 'meta_query', $meta_query );
 			
 			//add_filter( 'posts_where', array( &$this, 'posts_where' ) );
  		}

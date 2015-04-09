@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( !class_exists( 'APP_Meta_Box_Gallery' ) ) :
+if ( ! class_exists( 'APP_Meta_Box_Gallery' ) ) :
 
 /**
  * APP_Meta_Box_Gallery
@@ -26,9 +26,8 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public function __construct()
-	{
-		App::log("APP_Meta_Box_Gallery Class Initialized");
+	public function __construct() {
+		App::log( 'APP_Meta_Box_Gallery Class Initialized' );
 
 		add_action( 'admin_init', array( &$this, 'admin_init' ) );
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
@@ -41,10 +40,8 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public static function instance()
-	{
-		if ( is_null( self::$_instance ) )
-		{
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -58,8 +55,7 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public function admin_init()
-	{
+	public function admin_init() {
 		wp_enqueue_style( 'app-meta-box-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-meta-box-gallery.css' );
 		
 		wp_enqueue_script( 'app-meta-box-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-meta-box-gallery.js', array( 'jquery' ) );
@@ -72,16 +68,17 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public function add_meta_boxes()
-	{
+	public function add_meta_boxes() {
 		$screens = array( 'post', 'page' );
 		
-		foreach ( $screens as $screen )
-		{		
+		foreach ( $screens as $screen ) {		
 			add_meta_box(
 				'app_meta_box_gallery',
 				__( 'Galeria de imagenes', 'app_textdomain' ),
-				array( &$this, 'meta_box_callback' ),
+				array( 
+					&$this,
+					'meta_box_callback' 
+				),
 				$screen
 			);
 		}
@@ -94,17 +91,14 @@ class APP_Meta_Box_Gallery
 	 *
 	 * @access public
 	 */
-	public function meta_box_callback( $post )
-	{
+	public function meta_box_callback( $post ) {
 		$galleryHTML = '';		
 		$galleryString = get_post_meta( $post->ID, '_app_gallery_imgs', 1 );
 		
-		if( !empty( $galleryString ) )
-		{
+		if ( ! empty( $galleryString ) ) {
 			$galleryArray = explode( ',', $galleryString );
 		
-			foreach( $galleryArray as &$id )
-			{
+			foreach( $galleryArray as &$id ) {
 				$galleryHTML .= '<img src="' . wp_get_attachment_url( $id ) . '">';
 			}
 		}
@@ -120,7 +114,6 @@ endif;
  * Create instance
  */
 global $APP_Meta_Box_Gallery;
-if( class_exists( 'APP_Meta_Box_Gallery' ) && !$APP_Meta_Box_Gallery )
-{
+if ( class_exists( 'APP_Meta_Box_Gallery' ) && !$APP_Meta_Box_Gallery ) {
 	$APP_Meta_Box_Gallery = APP_Meta_Box_Gallery::instance();
 }

@@ -44,8 +44,7 @@ class APP_Gallery
 	 */
 	public static function instance()
 	{
-		if(!self::$_instance)
-		{
+		if ( ! self::$_instance ) {
 			self::$_instance = new self();
 		}
 
@@ -67,43 +66,35 @@ class APP_Gallery
 		*/
 		
 		// Check if our nonce is set.
-		if ( ! isset( $_POST['app_meta_box_gallery_nonce'] ) )
-		{
+		if ( ! isset( $_POST['app_meta_box_gallery_nonce'] ) ) {
 			return;
 		}
 		
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $_POST['app_meta_box_gallery_nonce'], 'app_meta_box_gallery' ) )
-		{
+		if ( ! wp_verify_nonce( $_POST['app_meta_box_gallery_nonce'], 'app_meta_box_gallery' ) ) {
 			return;
 		}
 		
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-		{
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 		
 		// Check the user's permissions.
 		if ( isset( $_POST['post_type'] ) && 
-				( 'post' == $_POST['post_type'] || 'page' == $_POST['post_type'] ) )
-		{		
-			if ( ! current_user_can( 'edit_page', $post_id ) )
-			{
+				( 'post' == $_POST['post_type'] || 'page' == $_POST['post_type'] ) ) {		
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
 		
-		}
-		else
-		{
-			if ( ! current_user_can( 'edit_post', $post_id ) )
-			{
+		} else {
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
 			}
 		}
 		
 		// OK, we're authenticated: we need to find and save the data
-		$imgs = $_POST[ 'app_meta_box_gallery_metadata' ];
+		$imgs = $_POST['app_meta_box_gallery_metadata'];
 				
 		update_post_meta( $post_id, '_app_gallery_imgs', $imgs );
 	}
@@ -116,7 +107,6 @@ endif;
  * Create instance
  */
 global $APP_Gallery;
-if( class_exists( 'APP_Gallery' ) && !$APP_Gallery )
-{
+if ( class_exists( 'APP_Gallery' ) && !$APP_Gallery ) {
 	$APP_Gallery = APP_Gallery::instance();
 }

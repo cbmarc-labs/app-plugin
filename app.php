@@ -8,9 +8,9 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( !class_exists( 'App' ) ) :
+if ( ! class_exists( 'App' ) ) :
 
 define( 'APP_FILE', __FILE__ );
 define( 'APP_TEMPLATE_PATH', plugin_dir_path( __FILE__ ) );
@@ -42,8 +42,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	public function __construct()
-	{		
+	public function __construct() {		
 		App::log( 'App Class Initialized' );
 		
 		// Activate after plugins loaded
@@ -66,8 +65,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	public function plugins_loaded()
-	{		
+	public function plugins_loaded() {		
 		// Controllers
 		include_once( 'includes/admin/class-app-gallery.php' );
 		
@@ -81,10 +79,8 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function instance()
-	{
-		if ( is_null( self::$_instance ) )
-		{
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -98,8 +94,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function app_daily_cron_event()
-	{
+	public static function app_daily_cron_event() {
 		App::log( 'App Class : app_daily_cron_event' );
 	}
 
@@ -110,10 +105,8 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function register_activation_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+	public static function register_activation_hook() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 		
@@ -133,10 +126,8 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function register_deactivation_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+	public static function register_deactivation_hook() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 		
@@ -159,10 +150,8 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function register_uninstall_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+	public static function register_uninstall_hook() {
+		if ( ! current_user_can( 'activate_plugins' ) )	{
 			return;
 		}
 		
@@ -170,8 +159,7 @@ final class App
 	
 		// Important: Check if the file is the one
 		// that was registered during the uninstall hook.
-		if ( __FILE__ != WP_UNINSTALL_PLUGIN )
-		{
+		if ( __FILE__ != WP_UNINSTALL_PLUGIN ) {
 			return;
 		}
 	
@@ -193,12 +181,9 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function log($message)
-	{
-		if (WP_DEBUG === TRUE)
-		{
-			if (is_array($message) || is_object($message))
-			{
+	public static function log( $message ) {
+		if ( WP_DEBUG === TRUE ) {
+			if ( is_array( $message ) || is_object( $message ) ) {
 				$message =  print_r( $message, TRUE );
 			}
 			
@@ -214,7 +199,6 @@ endif;
  * Create instance
  */
 global $App;
-if( class_exists( 'App' ) && !$App )
-{
+if ( class_exists( 'App' ) && !$App ) {
 	$App = App::instance();
 }

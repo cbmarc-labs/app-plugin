@@ -25,8 +25,7 @@ class APP_Gallery
 	 *
 	 * @access public
 	 */
-	public function __construct ()
-	{
+	public function __construct () {
 		App::log( 'APP_Gallery Class Initialized' );
 
 		// Metabox
@@ -42,8 +41,7 @@ class APP_Gallery
 	 *
 	 * @access public
 	 */
-	public static function instance()
-	{
+	public static function instance() {
 		if ( ! self::$_instance ) {
 			self::$_instance = new self();
 		}
@@ -58,8 +56,7 @@ class APP_Gallery
 	 *
 	 * @access public
 	 */
-	public function save_post( $post_id, $post )
-	{
+	public function save_post( $post_id, $post ) {
 		/*
 		 * We need to verify this came from our screen and with proper authorization,
 		* because the save_post action can be triggered at other times.

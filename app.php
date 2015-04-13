@@ -99,8 +99,7 @@ final class App
 	 */
 	public static function instance()
 	{
-		if ( is_null( self::$_instance ) )
-		{
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -128,8 +127,7 @@ final class App
 	 */
 	public static function register_activation_hook()
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 		
@@ -151,8 +149,7 @@ final class App
 	 */
 	public static function register_deactivation_hook()
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 		
@@ -177,8 +174,7 @@ final class App
 	 */
 	public static function register_uninstall_hook()
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
+		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 		
@@ -186,8 +182,7 @@ final class App
 	
 		// Important: Check if the file is the one
 		// that was registered during the uninstall hook.
-		if ( __FILE__ != WP_UNINSTALL_PLUGIN )
-		{
+		if ( __FILE__ != WP_UNINSTALL_PLUGIN ) {
 			return;
 		}
 	
@@ -211,10 +206,8 @@ final class App
 	 */
 	public static function log($message)
 	{
-		if (WP_DEBUG === TRUE)
-		{
-			if (is_array($message) || is_object($message))
-			{
+		if (WP_DEBUG === TRUE) {
+			if (is_array($message) || is_object($message)) {
 				$message =  print_r( $message, TRUE );
 			}
 			
@@ -230,7 +223,6 @@ endif;
  * Create instance
  */
 global $App;
-if( class_exists( 'App' ) && !$App )
-{
+if( class_exists( 'App' ) && !$App ) {
 	$App = App::instance();
 }

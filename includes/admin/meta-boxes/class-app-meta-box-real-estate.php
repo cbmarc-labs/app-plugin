@@ -23,8 +23,7 @@ class APP_Meta_Box_Real_Estate
 	 *
 	 * @access public
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		App::log( "APP_Meta_Box_Real_Estate Class Initialized" );
 
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
@@ -39,8 +38,7 @@ class APP_Meta_Box_Real_Estate
 	 */
 	public static function instance()
 	{
-		if ( is_null( self::$_instance ) )
-		{
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -59,8 +57,7 @@ class APP_Meta_Box_Real_Estate
 		// The type of writing screen on which to show the edit screen section
 		$screens = array( APP_Post_Type_Real_Estate::POST_TYPE );
 		
-		foreach ( $screens as $screen )
-		{
+		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'app_meta_box_real_estate',
 				__( 'Dades' ), 
@@ -108,7 +105,6 @@ endif;
  * Create instance
  */
 global $APP_Meta_Box_Real_Estate;
-if( class_exists( 'APP_Meta_Box_Real_Estate' ) && !$APP_Meta_Box_Real_Estate )
-{
+if( class_exists( 'APP_Meta_Box_Real_Estate' ) && ! $APP_Meta_Box_Real_Estate ) {
 	$APP_Meta_Box_Real_Estate = APP_Meta_Box_Real_Estate::instance();
 }

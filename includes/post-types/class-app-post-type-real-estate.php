@@ -1,7 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
-{
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
@@ -51,8 +50,7 @@ class APP_Post_Type_Real_Estate
 	 */
 	public static function instance()
 	{
-		if ( is_null( self::$_instance ) )
-		{
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -169,7 +167,6 @@ endif;
  * Create instance
  */
 global $APP_Post_Type_Real_Estate;
-if( class_exists( 'APP_Post_Type_Real_Estate' ) && !$APP_Post_Type_Real_Estate )
-{
+if( class_exists( 'APP_Post_Type_Real_Estate' ) && ! $APP_Post_Type_Real_Estate ) {
 	$APP_Post_Type_Real_Estate = APP_Post_Type_Real_Estate::instance();
 }

@@ -110,9 +110,8 @@ class APP_Real_Estate
 	public function pre_get_posts( $query )
 	{
 		// Check if on frontend and main query is modified
-		if( !is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
-				$query->query_vars['post_type'] == APP_Post_Type_Real_Estate::POST_TYPE )
-		{			
+		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
+				$query->query_vars['post_type'] == APP_Post_Type_Real_Estate::POST_TYPE ) {			
 			//$query->set( 'meta_key', '_app_real_estate_rooms' );
 			//$query->set( 'meta_value', $query->query_vars['rooms'] );
 			
@@ -133,8 +132,8 @@ class APP_Real_Estate
 			$meta_query = array();
 			
 			// filter by min rooms
-			if( isset( $query->query_vars['min_rooms'] ) && !empty( $query->query_vars['min_rooms'] ) )
-			{
+			if( isset( $query->query_vars['min_rooms'] ) && 
+				! empty( $query->query_vars['min_rooms'] ) ) {
 				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
 				
 				$meta_query[] = array(
@@ -145,8 +144,8 @@ class APP_Real_Estate
 			}
 			
 			// filter by max rooms
-			if( isset( $query->query_vars['max_rooms'] ) && !empty( $query->query_vars['max_rooms'] ) )
-			{
+			if( isset( $query->query_vars['max_rooms'] ) && 
+				! empty( $query->query_vars['max_rooms'] ) ) {
 				$safe_max_rooms = intval( $query->query_vars['max_rooms'] );
 			
 				$meta_query[] = array(
@@ -157,19 +156,19 @@ class APP_Real_Estate
 			}
 			
 			// Filter by type taxonomy
-			if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) )
-			{
+			if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) ) {
 				$safe_type = sanitize_text_field( $query->query_vars['type'] );
 			
-				if( $safe_type != '0' )
-				{
-					$query->set( 'tax_query', array(
+				if( $safe_type != '0' ) {
+					$query->set( 
+						'tax_query',
 							array(
+								array(
 									'taxonomy' => APP_Post_Type_Real_Estate::TAX_TYPE,
 									'field'    => 'slug',
 									'terms'    => $safe_type,
+								)
 							)
-					)
 					);
 				}
 			}
@@ -204,9 +203,11 @@ class APP_Real_Estate
 	 */
 	public function init()
 	{
-		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 'assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
+		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 
+			'assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
 		
-		wp_enqueue_script( 'app-nouislider-script', APP_TEMPLATE_DIR . 'assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-nouislider-script', APP_TEMPLATE_DIR . 
+			'assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
 	}
 	
 	// --------------------------------------------------------------------
@@ -218,8 +219,7 @@ class APP_Real_Estate
 	 */
 	public static function instance()
 	{
-		if(!self::$_instance)
-		{
+		if( ! self::$_instance ) {
 			self::$_instance = new self();
 		}
 
@@ -241,45 +241,36 @@ class APP_Real_Estate
 		*/
 		
 		// Check if our nonce is set.
-		if ( ! isset( $_POST['app_meta_box_real_estate_nonce'] ) )
-		{
+		if ( ! isset( $_POST['app_meta_box_real_estate_nonce'] ) ) {
 			return;
 		}
 		
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $_POST['app_meta_box_real_estate_nonce'], 'app_meta_box_real_estate' ) )
-		{
+		if ( ! wp_verify_nonce( $_POST['app_meta_box_real_estate_nonce'], 'app_meta_box_real_estate' ) ) {
 			return;
 		}
 		
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-		{
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 		
 		// Check the user's permissions.
 		if ( isset( $_POST['post_type'] ) &&
-				APP_Post_Type_Real_Estate::POST_TYPE == $_POST['post_type'] )
-		{
-			if ( ! current_user_can( 'edit_page', $post_id ) )
-			{
+				APP_Post_Type_Real_Estate::POST_TYPE == $_POST['post_type'] ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
 		
-		}
-		else
-		{
-			if ( ! current_user_can( 'edit_post', $post_id ) )
-			{
+		} else {
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
 			}
 		}
 		
 		// OK, we're authenticated: we need to find and save the data
 		$safe_rooms = intval( $_POST['app_meta_box_real_estate_rooms'] );
-		if ( ! $safe_rooms )
-		{
+		if ( ! $safe_rooms ) {
 			$safe_rooms = '';
 		}
 		
@@ -294,7 +285,6 @@ endif;
  * Create instance
  */
 global $APP_Real_Estate;
-if( class_exists( 'APP_Real_Estate' ) && !$APP_Real_Estate )
-{
+if( class_exists( 'APP_Real_Estate' ) && ! $APP_Real_Estate ) {
 	$APP_Real_Estate = APP_Real_Estate::instance();
 }

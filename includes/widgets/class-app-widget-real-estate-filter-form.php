@@ -15,8 +15,8 @@ if( !class_exists( 'APP_Widget_Real_Estate_Filter_Form' ) ) :
  * @category	Class
  * @author 		cbmarc
  */
-class APP_Widget_Real_Estate_Filter_Form extends WP_Widget {
-
+class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
+{
 	/**
 	 * Constructor
 	 *
@@ -78,8 +78,7 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget {
 	public function form( $instance ) {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
-		}
-		else {
+		} else {
 			$title = __( 'New title', 'text_domain' );
 		}
 		?>

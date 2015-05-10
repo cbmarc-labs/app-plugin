@@ -39,6 +39,8 @@ class APP_Post_Type_Real_Estate
 		
 		// Initialise
 		add_action( "init", array( &$this, 'init' ) );
+		
+		//add_filter( "nav_menu_items_cpt_real_estate", array( $this, 'nav_menu_items' ), 10, 3 );
 	}
 
 	// --------------------------------------------------------------------
@@ -64,6 +66,34 @@ class APP_Post_Type_Real_Estate
 	 *
 	 * @access public
 	 */
+	function nav_menu_items(  array $posts, array $meta_box, array $post_type  )
+	{
+		global $_nav_menu_placeholder;
+		$pto = $post_type['args'];
+		$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval( $_nav_menu_placeholder ) - 1 : -1;
+		# Add our 'All Posts' item to the beginning of the list:
+		array_unshift( $posts, (object) array(
+			'ID'           => 0,
+			'object_id'    => $_nav_menu_placeholder,
+			'post_content' => '',
+			'post_excerpt' => '',
+			'post_parent'  => 0,
+			'post_type'    => 'nav_menu_item',
+			'post_title'   => 'sssss',
+			'label'        => 'dddddd', # http://core.trac.wordpress.org/ticket/24840
+			'type'         => 'custom',
+			'url'          => get_post_type_archive_link( 'cpt_real_estate' ),
+		) );
+		return $posts;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * init method
+	 *
+	 * @access public
+	 */
 	function init()
 	{
 		$labels = array(
@@ -71,72 +101,24 @@ class APP_Post_Type_Real_Estate
 		);
 		
 		$args = array(
-				/**
-				 * Labels used when displaying the posts in the admin and sometimes on the front end.  These
-				 * labels do not cover post updated, error, and related messages.  You'll need to filter the
-				 * 'post_updated_messages' hook to customize those.
-				 */
-				'labels'              => $labels,
-				
-				/**
-		         * The URI to the icon to use for the admin menu item. There is no header icon argument, so 
-		         * you'll need to use CSS to add one.
-		         */
-		        'menu_icon'           => 'dashicons-format-aside', // string (defaults to use the post icon)
-				
-				/**
-				 * Whether the post type should be used publicly via the admin or by front-end users.  This
-				 * argument is sort of a catchall for many of the following arguments.  I would focus more
-				 * on adjusting them to your liking than this argument.
-				 */
-				'public'              => true, // bool (default is FALSE)
-				
-				/**
-				 * Whether to generate a default UI for managing this post type in the admin. You'll have
-				 * more control over what's shown in the admin with the other arguments.  To build your
-				 * own UI, set this to FALSE.
-				 */
-				'show_ui'             => true, // bool (defaults to 'public')
-				
-				/**
-				 * Whether the post type has an index/archive/root page like the "page for posts" for regular
-				 * posts. If set to TRUE, the post type name will be used for the archive slug.  You can also
-				 * set this to a string to control the exact name of the archive slug.
-				 */
-				'has_archive'           => true, // bool|string (defaults to FALSE)
-				
-				/**
-         		 * Whether queries can be performed on the front end as part of parse_request(). 
-         		 */
-        		'publicly_queryable'  => true, // bool (defaults to 'public').
-				
-				/**
-				 * Sets the query_var key for this post type. If set to TRUE, the post type name will be used.
-				 * You can also set this to a custom string to control the exact key.
-				 */
-				'query_var'             => true, // bool|string (defaults to TRUE - post type name)
-				
-				/**
-				 * How the URL structure should be handled with this post type.  You can set this to an
-				 * array of specific arguments or true|false.  If set to FALSE, it will prevent rewrite
-				 * rules from being created.
-				 */
+				'labels'				=> $labels,
+		        'menu_icon'				=> 'dashicons-format-aside',
+				'public'				=> true,
+				'show_ui'				=> true,
+				'has_archive'			=> true,
+        		'publicly_queryable'	=> true,
+				'query_var'				=> true,
+				'show_in_menu' => true,
+				'show_in_nav_menus' => true,
+				'supports' => array(
+						'title', 'editor', 'excerpt', 'thumbnail'
+				),
 				'rewrite' => array(
-				
-						/* The slug to use for individual posts of this type. */
-						'slug'       => self::POST_TYPE, // string (defaults to the post type name)
-				
-						/* Whether to show the $wp_rewrite->front slug in the permalink. */
-						'with_front' => false, // bool (defaults to TRUE)
-				
-						/* Whether to allow single post pagination via the <!--nextpage--> quicktag. */
-						'pages'      => true, // bool (defaults to TRUE)
-				
-						/* Whether to create feeds for this post type. */
-						'feeds'      => true, // bool (defaults to the 'has_archive' argument)
-				
-						/* Assign an endpoint mask to this permalink. */
-						'ep_mask'    => EP_PERMALINK, // const (defaults to EP_PERMALINK)
+						'slug'			=> self::POST_TYPE,
+						'with_front'	=> false,
+						'pages'			=> true,
+						'feeds'			=> true,
+						'ep_mask'		=> EP_PERMALINK,
 				),
 		);
 				

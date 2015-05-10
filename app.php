@@ -71,7 +71,7 @@ final class App
 	public function init()
 	{
 		// Bootstrap integration
-		wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
+		//wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
 	}
 
 	// --------------------------------------------------------------------

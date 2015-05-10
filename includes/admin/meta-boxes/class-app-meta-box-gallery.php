@@ -74,7 +74,7 @@ class APP_Meta_Box_Gallery
 	 */
 	public function add_meta_boxes()
 	{
-		$screens = array( 'post', 'page' );
+		$screens = array( 'post', 'page', 'cpt_real_estate' );
 		
 		foreach ( $screens as $screen )
 		{		

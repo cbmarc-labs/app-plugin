@@ -60,7 +60,7 @@ class APP_Meta_Box_Real_Estate
 		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'app_meta_box_real_estate',
-				__( 'Dades' ), 
+				__( App::lang( 'cpt_real_estate_meta_box_title' ) ), 
 				array( &$this, 'meta_box_callback' ),
 				$screen
 			);

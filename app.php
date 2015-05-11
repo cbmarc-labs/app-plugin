@@ -59,6 +59,9 @@ final class App
 		// register_uninstall_hook was called incorrectly...
 		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
 		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
+		
+		
+		$this->localize();
 	}
 
 	// --------------------------------------------------------------------
@@ -75,6 +78,40 @@ final class App
 				! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
 			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
 		}
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * localize method
+	 *
+	 * @access public
+	 */
+	public function localize()
+	{		
+		$currentlang = get_bloginfo('language');
+		$default_file = APP_TEMPLATE_PATH . 'lang/en-US.php';
+		$lang_file = APP_TEMPLATE_PATH . 'lang/' . $currentlang . '.php';
+		
+		if( file_exists( $lang_file ) ) {
+			include_once( $lang_file );
+		} else {
+			include_once( $default_file );
+		}
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * lang method
+	 *
+	 * @access public
+	 */
+	public function lang( $name )
+	{
+		global $lang;
+		
+		return $lang[ $name ];
 	}
 
 	// --------------------------------------------------------------------

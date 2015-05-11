@@ -1,8 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if( !class_exists( 'APP_Post_Type_Real_Estate' ) ) :
 
@@ -30,6 +28,9 @@ class APP_Post_Type_Real_Estate
 	
 	// Taxonomy transaction name
 	const TAX_TRANSACTION = 'cpt_real_estate_transaction';
+	
+	// Taxonomy transaction name
+	const TAX_FEATURES = 'cpt_real_estate_features';
 
 	/**
 	 * Constructor
@@ -77,13 +78,13 @@ class APP_Post_Type_Real_Estate
 	 * @access public
 	 */
 	function init()
-	{
-		$labels = array(
-				'name' => _x( 'Real Estate', 'Real Estate', 'app' ),
-		);
-		
-		$args = array(
-				'labels'				=> $labels,
+	{				
+		register_post_type(
+			self::POST_TYPE, 
+			array(
+				'labels'				=> array(
+					'name' => _x( App::lang( 'cpt_real_estate' ), 'Real Estate', 'app' )
+				),
 		        'menu_icon'				=> 'dashicons-format-aside',
 				'public'				=> true,
 				'show_ui'				=> true,
@@ -101,42 +102,51 @@ class APP_Post_Type_Real_Estate
 						'pages'			=> true,
 						'feeds'			=> true,
 						'ep_mask'		=> EP_PERMALINK,
-				),
+				)
+			)
 		);
-				
-		register_post_type( self::POST_TYPE, $args );
 		
 		// Type Taxonomy
-		$labels = array(
-				'name' => _x( 'Type', 'Taxonomy general name', 'app' ),
-		);
-		
-		$args = array(
-				'labels'            => $labels,
-				'hierarchical'      => true,
+		register_taxonomy(
+			self::TAX_TYPE,
+			array( self::POST_TYPE ),
+			array(
+				'labels'            => array(
+					'name' => _x( App::lang( 'cpt_tax_type' ), 'Taxonomy general name', 'app' )
+				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
+			)
 		);
 		
-		// app_real_estate_types
-		register_taxonomy( self::TAX_TYPE, array( self::POST_TYPE ), $args );
-		
-		// Transaction Taxonomies
-		$labels = array(
-				'name' => _x( 'Transaction', 'Taxonomy general name', 'app' ),
-		);
-		
-		$args = array(
-				'labels'            => $labels,
-				'hierarchical'      => true,
+		// Transaction Taxonomy
+		register_taxonomy(
+			self::TAX_TRANSACTION,
+			array( self::POST_TYPE ),
+			array(
+				'labels'            => array(
+					'name' => _x( App::lang( 'cpt_tax_transaction' ), 'Taxonomy general name', 'app' )
+				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
+			)
 		);
 		
-		// app_real_estate_types
-		register_taxonomy( self::TAX_TRANSACTION, array( self::POST_TYPE ), $args );
+		// Features Taxonomy
+		register_taxonomy(
+			self::TAX_FEATURES,
+			array( self::POST_TYPE ),
+			array(
+				'labels'            => array(
+					'name' => _x( App::lang( 'cpt_tax_features' ), 'Taxonomy general name', 'app' )
+				),
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+			)
+		);
 	}
 
 	// --------------------------------------------------------------------
@@ -182,9 +192,9 @@ class APP_Post_Type_Real_Estate
 	function manage_posts_columns( $columns )
 	{
 		$col_featured_image = array( 'featured_image' => __('Featured Image') );
-		$col_rooms = array( 'rooms' => 'Rooms' );
-		$col_price = array( 'price' => 'Price' );
-		$col_m2 = array( 'm2' => 'm2' );
+		$col_rooms = array( 'rooms' => App::lang( 'cpt_real_estate_field_rooms' ) );
+		$col_price = array( 'price' => App::lang( 'cpt_real_estate_field_price' ) );
+		$col_m2 = array( 'm2' => App::lang( 'cpt_real_estate_field_m2' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 3, true ) + $col_rooms + array_slice( $columns, 3, NULL, true );

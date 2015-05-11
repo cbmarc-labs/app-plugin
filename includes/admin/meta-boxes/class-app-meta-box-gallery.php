@@ -80,7 +80,7 @@ class APP_Meta_Box_Gallery
 		{		
 			add_meta_box(
 				'app_meta_box_gallery',
-				__( 'Galeria de imagenes', 'app_textdomain' ),
+				__( App::lang( 'meta_box_gallery_title' ), 'app_textdomain' ),
 				array( &$this, 'meta_box_callback' ),
 				$screen
 			);

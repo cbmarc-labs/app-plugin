@@ -35,5 +35,33 @@ wp_nonce_field( 'app_meta_box_real_estate', 'app_meta_box_real_estate_nonce' );
 			</td>
 		</tr>
 		
+		<tr>
+			<td>Preu :</td>
+			<td>
+				<input maxlength="20" type="text" name="app_meta_box_real_estate_price" id="app_meta_box_real_estate_price" value="<?php echo $fields[ 'price' ]; ?>" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small>Preu del immoble.</small>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Metres quadrats :</td>
+			<td>
+				<input maxlength="20" type="text" name="app_meta_box_real_estate_m2" id="app_meta_box_real_estate_m2" value="<?php echo $fields[ 'm2' ]; ?>" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small>Preu del immoble.</small>
+			</td>
+		</tr>
+		
 	</tbody>
 </table>

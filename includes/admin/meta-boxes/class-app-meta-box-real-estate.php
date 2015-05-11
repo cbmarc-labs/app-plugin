@@ -93,6 +93,8 @@ class APP_Meta_Box_Real_Estate
 		global $post;
 		
 		$data['rooms'] = get_post_meta( $post->ID, '_app_real_estate_rooms', 1 );
+		$data['price'] = get_post_meta( $post->ID, '_app_real_estate_price', 1 );
+		$data['m2'] = get_post_meta( $post->ID, '_app_real_estate_m2', 1 );
 		
 		return $data;
 	}

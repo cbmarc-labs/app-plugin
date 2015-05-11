@@ -70,8 +70,11 @@ final class App
 	 */
 	public function init()
 	{
-		// Bootstrap integration
-		//wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
+		// Bootstrap front-end integration
+		if ( ! is_admin() && 
+				! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
+			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -204,14 +207,14 @@ final class App
 	 *
 	 * @access public
 	 */
-	public static function log($message)
+	public static function log( $message )
 	{
-		if (WP_DEBUG === TRUE) {
-			if (is_array($message) || is_object($message)) {
+		if( WP_DEBUG === TRUE ) {
+			if( is_array( $message ) || is_object( $message ) ) {
 				$message =  print_r( $message, TRUE );
 			}
 			
-			error_log( date("d/m/Y H:i:s") . " - " . $message . "\n", 3, APP_TEMPLATE_PATH . 'app.log' );
+			error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, APP_TEMPLATE_PATH . 'app.log' );
 		}
 	}
 

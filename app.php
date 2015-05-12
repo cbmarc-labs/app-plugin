@@ -76,7 +76,7 @@ final class App
 		// Bootstrap front-end integration
 		if ( ! is_admin() && 
 				! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
-			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' );
+			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
 		}
 	}
 
@@ -107,7 +107,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	public function lang( $name )
+	public static function lang( $name )
 	{
 		global $lang;
 		

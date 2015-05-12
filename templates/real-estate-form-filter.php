@@ -67,6 +67,8 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 //-->
 </script>
 
+<div class="bootstrap">
+
 <?php if( isset( $action ) ): ?>
 <form action="<?php echo $action; ?>" method="get">
 <?php else:?>
@@ -147,3 +149,5 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 </div>
 	
 </form>
+
+</div>

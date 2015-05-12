@@ -283,7 +283,7 @@ class APP_Post_Type_Real_Estate
 			'post_title'   => 'All',
 			'label'        => 'All', # http://core.trac.wordpress.org/ticket/24840
 			'type'         => 'custom',
-			'url'          => get_post_type_archive_link( self::TAX_TYPE ),
+			'url'          => get_post_type_archive_link( self::POST_TYPE ),
 		) );
 		
 		return $posts;

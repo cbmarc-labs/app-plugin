@@ -44,26 +44,17 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		echo $args['before_widget'];
+		extract( $args, EXTR_SKIP );
+		
+		echo $before_widget;
+		
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
-		echo __( 'Hello, World!', 'text_domain' );
-		echo $args['after_widget'];
-		
-		?>
-		
-		<div class="container-fluid" style="width:350px;">
-			<div class="row">
-				<div class="col-xs-12 col-sm-4 form-group">
-					<input type="number" name="min_rooms" min="0" class="form-control" value="" />
-				</div>
-			</div>
-		</div>
-		
-		<?php 
 		
 		include_once( APP_TEMPLATE_PATH . 'templates/real-estate-form-filter.php' );
+		
+		echo $after_widget;
 	}
 
 	// --------------------------------------------------------------------
@@ -76,17 +67,18 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
+		if ( isset( $instance['title'] ) ) {
+			$title = $instance['title'];
 		} else {
 			$title = __( 'New title', 'text_domain' );
 		}
+		
 		?>
-				<p>
-					<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-				</p>
-				<?php 
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		</p>
+		<?php 
 	}
 
 	// --------------------------------------------------------------------

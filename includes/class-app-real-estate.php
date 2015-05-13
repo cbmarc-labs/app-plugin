@@ -268,27 +268,14 @@ class APP_Real_Estate
 			}
 		}
 		
-		// OK, we're authenticated: we need to find and save the data
-		$safe_rooms = intval( $_POST['app_meta_box_real_estate_rooms'] );
-		if ( ! $safe_rooms ) {
-			$safe_rooms = 0;
-		}
+		// OK, we're authenticated: we need to find and save the data		
+		$rooms	= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_rooms'] );
+		$price	= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_price'] ) / 100;
+		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_m2'] ) / 100;
 		
-		update_post_meta( $post_id, '_app_real_estate_rooms', $safe_rooms );
-		
-		$safe_price = intval( $_POST['app_meta_box_real_estate_price'] );
-		if ( ! $safe_price ) {
-			$safe_price = 0;
-		}
-		
-		update_post_meta( $post_id, '_app_real_estate_price', $safe_price );
-		
-		$safe_m2 = intval( $_POST['app_meta_box_real_estate_m2'] );
-		if ( ! $safe_m2 ) {
-			$safe_m2 = 0;
-		}
-		
-		update_post_meta( $post_id, '_app_real_estate_m2', $safe_m2 );
+		update_post_meta( $post_id, '_app_real_estate_rooms', $rooms );
+		update_post_meta( $post_id, '_app_real_estate_price', $price );
+		update_post_meta( $post_id, '_app_real_estate_m2', $m2 );
 	}
 	
 }

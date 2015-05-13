@@ -73,7 +73,7 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 <form action="<?php echo $action; ?>" method="get">
 <?php else:?>
 <form action="<?php echo site_url( '/' ); ?>" method="get">
-	<input type="text" name="post_type" value=<?php echo APP_Post_Type_Real_Estate::POST_TYPE; ?> />
+	<input type="hidden" name="post_type" value=<?php echo APP_Post_Type_Real_Estate::POST_TYPE; ?> />
 <?php endif; ?>
 
 <div class="container-fluid">

@@ -83,7 +83,7 @@ class APP_Post_Type_Real_Estate
 			self::POST_TYPE, 
 			array(
 				'labels'				=> array(
-					'name' => _x( App::lang( 'cpt_real_estate' ), 'Real Estate', 'app' )
+					'name' => App::lang( 'cpt_real_estate' )
 				),
 		        'menu_icon'				=> 'dashicons-format-aside',
 				'public'				=> true,
@@ -112,7 +112,7 @@ class APP_Post_Type_Real_Estate
 			array( self::POST_TYPE ),
 			array(
 				'labels'            => array(
-					'name' => _x( App::lang( 'cpt_tax_type' ), 'Taxonomy general name', 'app' )
+					'name' => App::lang( 'cpt_tax_type' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -126,7 +126,7 @@ class APP_Post_Type_Real_Estate
 			array( self::POST_TYPE ),
 			array(
 				'labels'            => array(
-					'name' => _x( App::lang( 'cpt_tax_transaction' ), 'Taxonomy general name', 'app' )
+					'name' => App::lang( 'cpt_tax_transaction' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -140,7 +140,7 @@ class APP_Post_Type_Real_Estate
 			array( self::POST_TYPE ),
 			array(
 				'labels'            => array(
-					'name' => _x( App::lang( 'cpt_tax_features' ), 'Taxonomy general name', 'app' )
+					'name' => App::lang( 'cpt_tax_features' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -191,10 +191,10 @@ class APP_Post_Type_Real_Estate
 	 */
 	function manage_posts_columns( $columns )
 	{
-		$col_featured_image = array( 'featured_image' => __('Featured Image') );
-		$col_rooms = array( 'rooms' => App::lang( 'cpt_real_estate_field_rooms' ) );
-		$col_price = array( 'price' => App::lang( 'cpt_real_estate_field_price' ) );
-		$col_m2 = array( 'm2' => App::lang( 'cpt_real_estate_field_m2' ) );
+		$col_featured_image	= array( 'featured_image' => __('Featured Image') );
+		$col_rooms			= array( 'rooms' => App::lang( 'cpt_real_estate_field_rooms' ) );
+		$col_price			= array( 'price' => App::lang( 'cpt_real_estate_field_price' ) );
+		$col_m2				= array( 'm2' => App::lang( 'cpt_real_estate_field_m2' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 3, true ) + $col_rooms + array_slice( $columns, 3, NULL, true );
@@ -231,11 +231,11 @@ class APP_Post_Type_Real_Estate
 				
 				break;
 			case 'price':
-				echo get_post_meta( $post_id , '_app_real_estate_price' , true );
+				echo '<span class="currency">' . get_post_meta( $post_id , '_app_real_estate_price' , true ) . '</span>';
 				
 				break;
 			case 'm2':
-				echo get_post_meta( $post_id , '_app_real_estate_m2' , true );
+				echo '<span class="numeric">' . get_post_meta( $post_id , '_app_real_estate_m2' , true ) . '</span>';
 				
 				break;
 		}
@@ -250,9 +250,9 @@ class APP_Post_Type_Real_Estate
 	 */
 	function manage_edit_sortable_columns( $columns )
 	{
-		$columns[ 'rooms' ] = 'rooms';
-		$columns[ 'price' ] = 'price';
-		$columns[ 'm2' ] = 'm2';
+		$columns[ 'rooms' ]	= 'rooms';
+		$columns[ 'price' ]	= 'price';
+		$columns[ 'm2' ]	= 'm2';
 			
 		return $columns;
 	}

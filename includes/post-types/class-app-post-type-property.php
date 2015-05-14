@@ -94,7 +94,7 @@ class APP_Post_Type_Property
 				'show_in_menu' => true,
 				'show_in_nav_menus' => true,
 				'supports' => array(
-						'title', 'editor', 'excerpt', 'thumbnail'
+						'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes'
 				),
 				'rewrite' => array(
 						'slug'			=> self::POST_TYPE,

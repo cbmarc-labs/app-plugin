@@ -60,7 +60,6 @@ final class App
 		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
 		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
 		
-		
 		$this->localize();
 	}
 

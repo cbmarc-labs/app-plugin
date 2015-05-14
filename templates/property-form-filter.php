@@ -1,9 +1,8 @@
 <?php 
 
 global $wp_rewrite, $wp_query;
-if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() )
-{
-	$action = get_post_type_archive_link( APP_Post_Type_Real_Estate::POST_TYPE );
+if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) {
+	$action = get_post_type_archive_link( APP_Post_Type_Property::POST_TYPE );
 }
 
 // default values
@@ -73,7 +72,7 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 <form action="<?php echo $action; ?>" method="get">
 <?php else:?>
 <form action="<?php echo site_url( '/' ); ?>" method="get">
-	<input type="hidden" name="post_type" value=<?php echo APP_Post_Type_Real_Estate::POST_TYPE; ?> />
+	<input type="hidden" name="post_type" value=<?php echo APP_Post_Type_Property::POST_TYPE; ?> />
 <?php endif; ?>
 
 <div class="container-fluid">
@@ -110,7 +109,7 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 						'class'              => 'form-control',
 						'depth'              => 0,
 						'tab_index'          => 0,
-						'taxonomy'           => APP_Post_Type_Real_Estate::TAX_TYPE,
+						'taxonomy'           => APP_Post_Type_Property::TAX_TYPE,
 						'hide_if_empty'      => false,
 						'walker'             => new SH_Walker_TaxonomyDropdown(),
 						'value'              => 'slug'

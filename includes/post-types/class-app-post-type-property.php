@@ -27,7 +27,7 @@ class APP_Post_Type_Property
 	const TAX_TYPE = 'property-type';
 	
 	// Taxonomy transaction name
-	const TAX_STATUS = 'property-status';
+	const TAX_TRANSACTION = 'property-transaction';
 	
 	// Taxonomy transaction name
 	const TAX_FEATURE = 'property-feature';
@@ -122,11 +122,11 @@ class APP_Post_Type_Property
 		
 		// Transaction Taxonomy
 		register_taxonomy(
-			self::TAX_STATUS,
+			self::TAX_TRANSACTION,
 			array( self::POST_TYPE ),
 			array(
 				'labels'            => array(
-					'name' => App::lang( self::TAX_STATUS )
+					'name' => App::lang( self::TAX_TRANSACTION )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -192,9 +192,9 @@ class APP_Post_Type_Property
 	function manage_posts_columns( $columns )
 	{
 		$col_featured_image	= array( 'featured_image' => __('Featured Image') );
-		$col_rooms			= array( 'rooms' => App::lang( 'cpt_property_field_rooms' ) );
-		$col_price			= array( 'price' => App::lang( 'cpt_property_field_price' ) );
-		$col_m2				= array( 'm2' => App::lang( 'cpt_property_field_m2' ) );
+		$col_rooms			= array( 'rooms' => App::lang( 'property_field_rooms' ) );
+		$col_price			= array( 'price' => App::lang( 'property_field_price' ) );
+		$col_m2				= array( 'm2' => App::lang( 'property_field_m2' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 3, true ) + $col_rooms + array_slice( $columns, 3, NULL, true );

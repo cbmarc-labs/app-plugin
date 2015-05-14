@@ -7,17 +7,17 @@ $lang['general_delete_all']	= 'Delete all';
 
 $lang['meta_box_gallery_title']	= 'Image gallery';
 
-$lang['cpt_real_estate']		= 'Real Estate';
-$lang['cpt_tax_type']			= 'Type';
-$lang['cpt_tax_transaction']	= 'Transaction';
-$lang['cpt_tax_features']		= 'Features';
+$lang['property']				= 'Property';
+$lang['property-type']			= 'Type';
+$lang['property-transaction']	= 'Transaction';
+$lang['property-features']		= 'Features';
 
-$lang['cpt_real_estate_field_rooms']	= 'Rooms';
-$lang['cpt_real_estate_field_price']	= 'Price';
-$lang['cpt_real_estate_field_m2']		= 'm2';
+$lang['property_field_rooms']	= 'Rooms';
+$lang['property_field_price']	= 'Price';
+$lang['property_field_m2']		= 'm2';
 
-$lang['cpt_real_estate_field_rooms_desc']	= 'Number of rooms';
-$lang['cpt_real_estate_field_price_desc']	= 'Real estate price';
-$lang['cpt_real_estate_field_m2_desc']		= 'Square meters';
+$lang['property_field_rooms_desc']	= 'Number of rooms';
+$lang['property_field_price_desc']	= 'Property price';
+$lang['property_field_m2_desc']		= 'Square meters';
 
-$lang['cpt_real_estate_meta_box_title']		= 'Real estate data';
+$lang['property_meta_box_title']	= 'Property data';

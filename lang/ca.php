@@ -7,17 +7,17 @@ $lang['general_delete_all']	= 'Borrar tot';
 
 $lang['meta_box_gallery_title']	= 'Galeria de imatges';
 
-$lang['cpt_real_estate']		= 'Immobles';
-$lang['cpt_tax_type']			= 'Tipus';
-$lang['cpt_tax_transaction']	= 'Transacció';
-$lang['cpt_tax_features']		= 'Característiques';
+$lang['property']				= 'Immobles';
+$lang['property-type']			= 'Tipus';
+$lang['property-transaction']	= 'Transacció';
+$lang['property-feature']		= 'Característiques';
 
-$lang['cpt_real_estate_field_rooms']	= 'Habitacions';
-$lang['cpt_real_estate_field_price']	= 'Preu';
-$lang['cpt_real_estate_field_m2']		= 'm2';
+$lang['cpt_property_field_rooms']	= 'Habitacions';
+$lang['cpt_property_field_price']	= 'Preu';
+$lang['cpt_property_field_m2']		= 'm2';
 
-$lang['cpt_real_estate_field_rooms_desc']	= 'Número d\'habitacions';
-$lang['cpt_real_estate_field_price_desc']	= 'Preu del immoble';
-$lang['cpt_real_estate_field_m2_desc']		= 'Metres quadrats';
+$lang['cpt_property_field_rooms_desc']	= 'Número d\'habitacions';
+$lang['cpt_property_field_price_desc']	= 'Preu del immoble';
+$lang['cpt_property_field_m2_desc']		= 'Metres quadrats';
 
-$lang['cpt_real_estate_meta_box_title']		= 'Dades del immoble';
+$lang['cpt_property_meta_box_title']	= 'Dades del immoble';

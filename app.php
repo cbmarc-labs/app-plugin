@@ -79,14 +79,10 @@ final class App
 			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
 		}
 		
-		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR .
-			'assets/css/style.css' );
+		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 'assets/css/style.css' );
 		
-		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR .
-			'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
-		
-		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR .
-			'assets/js/default.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR . 'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR . 'assets/js/default.js', array( 'jquery' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -134,7 +130,7 @@ final class App
 	{
 		// Controllers
 		include_once( 'includes/class-app-gallery.php' );
-		include_once( 'includes/class-app-real-estate.php' );
+		include_once( 'includes/class-app-property.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

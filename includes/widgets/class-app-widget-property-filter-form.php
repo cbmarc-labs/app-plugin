@@ -5,17 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if( !class_exists( 'APP_Widget_Property_Filter_Form' ) ) :
 
 /**
- * APP_Widget_Real_Estate_Filter_Form
+ * APP_Widget_Property_Filter_Form
  *
- * Clase APP_Widget_Real_Estate_Filter_Form
+ * Clase APP_Widget_Property_Filter_Form
  *
- * @class 		APP_Widget_Real_Estate_Filter_Form
+ * @class 		APP_Widget_Property_Filter_Form
  * @version		1.0.0
- * @package		Application/includes/widgets/APP_Widget_Real_Estate_Filter_Form
+ * @package		Application/includes/widgets/APP_Widget_Property_Filter_Form
  * @category	Class
  * @author 		cbmarc
  */
-class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
+class APP_Widget_Property_Filter_Form extends WP_Widget
 {
 	/**
 	 * Constructor
@@ -24,12 +24,12 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 	 */
 	public function __construct()
 	{
-		App::log( 'APP_Widget_Real_Estate_Filter_Form Class Initialized' );
+		App::log( 'APP_Widget_Property_Filter_Form Class Initialized' );
 		
 		parent::__construct(
-				'APP_Widget_Real_Estate_Filter_Form', // Base ID
-				__('Real Estate Filter Form', 'app'), // Name
-				array( 'description' => __( 'Real Estate Filter Form', 'app' ), )
+				'APP_Widget_Property_Filter_Form', // Base ID
+				__('Property Filter Form', 'app'), // Name
+				array( 'description' => __( 'Property Filter Form', 'app' ) )
 		);
 	}
 
@@ -52,7 +52,7 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 		
-		include_once( APP_TEMPLATE_PATH . 'templates/real-estate-form-filter.php' );
+		include_once( APP_TEMPLATE_PATH . 'templates/property-form-filter.php' );
 		
 		echo $after_widget;
 	}
@@ -76,7 +76,9 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" 
+				name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" 
+				value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<?php 
 	}
@@ -99,6 +101,6 @@ class APP_Widget_Real_Estate_Filter_Form extends WP_Widget
 
 		return $instance;
 	}
-} // end class APP_Widget_Real_Estate_Filter_Form
+} // end class APP_Widget_Property_Filter_Form
 
 endif;

@@ -2,20 +2,20 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( !class_exists( 'APP_Real_Estate' ) ) :
+if( !class_exists( 'APP_Property' ) ) :
 
 /**
- * APP_Real_Estate
+ * APP_Property
  *
- * Clase APP_Real_Estate
+ * Clase APP_Property
  *
- * @class 		APP_Real_Estate
+ * @class 		APP_Property
  * @version		1.0.0
- * @package		Application/includes/admin/APP_Real_Estate
+ * @package		Application/includes/APP_Property
  * @category	Class
  * @author 		cbmarc
  */
-class APP_Real_Estate
+class APP_Property
 {
 	// The single instance of the class
 	private static $_instance = null;
@@ -27,26 +27,26 @@ class APP_Real_Estate
 	 */
 	public function __construct()
 	{
-		App::log( 'APP_Real_Estate Class Initialized' );
+		App::log( 'APP_Property Class Initialized' );
 		
 		// Post Types
-		include_once( 'post-types/class-app-post-type-real-estate.php' );
+		include_once( 'post-types/class-app-post-type-property.php' );
 		
 		// Metaboxes
-		include_once( 'admin/meta-boxes/class-app-meta-box-real-estate.php' );
+		include_once( 'admin/meta-boxes/class-app-meta-box-property.php' );
 		
 		// Walkers
 		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
 		
 		// Widgets
-		include_once( 'widgets/class-app-widget-real-estate-filter-form.php' );
+		include_once( 'widgets/class-app-widget-property-filter-form.php' );
 		
 		// Initialise
 		add_action( 'init', array( &$this, 'init' ) );
 		
 		add_filter( 'query_vars', array( &$this, 'query_vars' ) );
 		
-		add_action( 'app_real_estate_form_filter', array( &$this, 'app_real_estate_form_filter' ) );
+		add_action( 'app_property_form_filter', array( &$this, 'app_property_form_filter' ) );
 		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 		
 		add_action( 'save_post', array( &$this, 'save_post' ), 1, 2 );
@@ -57,15 +57,13 @@ class APP_Real_Estate
 	// --------------------------------------------------------------------
 	
 	/**
-	 * app_form_real_estate_filter method
-	 * 
-	 * retorna el formulari del filtre
+	 * app_property_form_filter method
 	 *
 	 * @access public
 	 */
-	public function app_real_estate_form_filter()
+	public function app_property_form_filter()
 	{		
-		include( APP_TEMPLATE_PATH . '/templates/real-estate-form-filter.php');
+		include( APP_TEMPLATE_PATH . '/templates/property-form-filter.php');
 	}
 	
 	// --------------------------------------------------------------------
@@ -77,7 +75,7 @@ class APP_Real_Estate
 	 */
 	public function widgets_init()
 	{
-		register_widget( 'APP_Widget_Real_Estate_Filter_Form' );
+		register_widget( 'APP_Widget_Property_Filter_Form' );
 	}
 	
 	// --------------------------------------------------------------------
@@ -111,7 +109,7 @@ class APP_Real_Estate
 	{
 		// Check if on frontend and main query is modified
 		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
-				$query->query_vars['post_type'] == APP_Post_Type_Real_Estate::POST_TYPE ) {			
+				$query->query_vars['post_type'] == APP_Post_Type_Property::POST_TYPE ) {			
 			//$query->set( 'meta_key', '_app_real_estate_rooms' );
 			//$query->set( 'meta_value', $query->query_vars['rooms'] );
 			
@@ -137,7 +135,7 @@ class APP_Real_Estate
 				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
 				
 				$meta_query[] = array(
-					'key'     => '_app_real_estate_rooms',
+					'key'     => '_app_property_rooms',
 					'value'   => $safe_min_rooms,
 					'compare' => '>=',
 				);
@@ -149,7 +147,7 @@ class APP_Real_Estate
 				$safe_max_rooms = intval( $query->query_vars['max_rooms'] );
 			
 				$meta_query[] = array(
-					'key'     => '_app_real_estate_rooms',
+					'key'     => '_app_property_rooms',
 					'value'   => $safe_max_rooms,
 					'compare' => '<=',
 				);
@@ -164,7 +162,7 @@ class APP_Real_Estate
 						'tax_query',
 							array(
 								array(
-									'taxonomy' => APP_Post_Type_Real_Estate::TAX_TYPE,
+									'taxonomy' => APP_Post_Type_Property::TAX_TYPE,
 									'field'    => 'slug',
 									'terms'    => $safe_type,
 								)
@@ -241,12 +239,12 @@ class APP_Real_Estate
 		*/
 		
 		// Check if our nonce is set.
-		if ( ! isset( $_POST['app_meta_box_real_estate_nonce'] ) ) {
+		if ( ! isset( $_POST['app_meta_box_property_nonce'] ) ) {
 			return;
 		}
 		
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $_POST['app_meta_box_real_estate_nonce'], 'app_meta_box_real_estate' ) ) {
+		if ( ! wp_verify_nonce( $_POST['app_meta_box_property_nonce'], 'app_meta_box_property' ) ) {
 			return;
 		}
 		
@@ -257,7 +255,7 @@ class APP_Real_Estate
 		
 		// Check the user's permissions.
 		if ( isset( $_POST['post_type'] ) &&
-				APP_Post_Type_Real_Estate::POST_TYPE == $_POST['post_type'] ) {
+				APP_Post_Type_Property::POST_TYPE == $_POST['post_type'] ) {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
@@ -269,13 +267,13 @@ class APP_Real_Estate
 		}
 		
 		// OK, we're authenticated: we need to find and save the data		
-		$rooms	= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_rooms'] );
-		$price	= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_price'] ) / 100;
-		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_real_estate_m2'] ) / 100;
+		$rooms	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_rooms'] );
+		$price	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_price'] ) / 100;
+		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_property_m2'] ) / 100;
 		
-		update_post_meta( $post_id, '_app_real_estate_rooms', $rooms );
-		update_post_meta( $post_id, '_app_real_estate_price', $price );
-		update_post_meta( $post_id, '_app_real_estate_m2', $m2 );
+		update_post_meta( $post_id, '_app_property_rooms', $rooms );
+		update_post_meta( $post_id, '_app_property_price', $price );
+		update_post_meta( $post_id, '_app_property_m2', $m2 );
 	}
 	
 }
@@ -285,7 +283,7 @@ endif;
 /**
  * Create instance
  */
-global $APP_Real_Estate;
-if( class_exists( 'APP_Real_Estate' ) && ! $APP_Real_Estate ) {
-	$APP_Real_Estate = APP_Real_Estate::instance();
+global $APP_Property;
+if( class_exists( 'APP_Property' ) && ! $APP_Property ) {
+	$APP_Property = APP_Property::instance();
 }

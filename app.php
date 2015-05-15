@@ -107,6 +107,46 @@ final class App
 	// --------------------------------------------------------------------
 	
 	/**
+	 * load_template_part method
+	 *
+	 * @access public
+	 */
+	function load_template_part( $slug, $name = '' )
+	{
+		$template = '';
+		
+		// Get default slug-name.php
+		if ( $name && file_exists( APP_TEMPLATE_PATH . "templates/{$slug}-{$name}.php" ) ) {
+			$template = APP_TEMPLATE_PATH . "templates/{$slug}-{$name}.php";
+		}
+		
+		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/woocommerce/slug.php
+		if ( ! $template ) {
+			$template = locate_template( array( "{$slug}.php", APP_TEMPLATE_PATH . "{$slug}.php" ) );
+		}
+		
+		if ( $template ) {
+			load_template( $template, false );
+		}
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * load_template method
+	 *
+	 * @access public
+	 */
+	function load_template( $template_name )
+	{
+		$located = APP_TEMPLATE_PATH . "templates/{$template_name}.php";
+		
+		include( $located );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
 	 * lang method
 	 *
 	 * @access public
@@ -130,6 +170,8 @@ final class App
 		// Controllers
 		include_once( 'includes/class-app-gallery.php' );
 		include_once( 'includes/class-app-property.php' );
+		
+		include_once( 'includes/class-app-shortcodes.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

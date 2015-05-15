@@ -24,7 +24,7 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 			<td>
 				<input class="autonumeric" data-v-min="0" data-v-max="99" maxlength="2" type="text" 
 					name="app_meta_box_property_rooms" id="app_meta_box_property_rooms" 
-					value="<?php echo $fields[ 'rooms' ]; ?>" />
+					value="<?php echo $data[ 'rooms' ]; ?>" />
 			</td>
 		</tr>
 		
@@ -39,7 +39,7 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 			<td><?php echo App::lang( 'property_field_price' ) ?> :</td>
 			<td>
 				<input class="currency" maxlength="20" type="text" name="app_meta_box_property_price" 
-					id="app_meta_box_property_price" value="<?php echo $fields[ 'price' ]; ?>" />
+					id="app_meta_box_property_price" value="<?php echo $data[ 'price' ]; ?>" />
 			</td>
 		</tr>
 		
@@ -55,7 +55,7 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 			<td>
 				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999.99"
 					maxlength="20" type="text" name="app_meta_box_property_m2" id="app_meta_box_property_m2"
-					value="<?php echo $fields[ 'm2' ]; ?>" />
+					value="<?php echo $data[ 'm2' ]; ?>" />
 			</td>
 		</tr>
 		

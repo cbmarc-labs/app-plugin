@@ -46,7 +46,10 @@ final class App
 	{		
 		App::log( 'App Class Initialized ' );
 		
+		$this->includes();
+		
 		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );
 		
 		// Activate after plugins loaded
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
@@ -61,6 +64,20 @@ final class App
 		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
 		
 		$this->localize();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * includes method
+	 *
+	 * @access public
+	 */
+	public function includes()
+	{
+		if ( is_admin() ) {
+			include_once( 'includes/admin/class-app-admin.php' );
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -111,7 +128,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	function load_template_part( $slug, $name = '' )
+	public static function load_template_part( $slug, $name = '' )
 	{
 		$template = '';
 		
@@ -137,7 +154,7 @@ final class App
 	 *
 	 * @access public
 	 */
-	function load_template( $template_name )
+	public static function load_template( $template_name )
 	{
 		$located = APP_TEMPLATE_PATH . "templates/{$template_name}.php";
 		
@@ -167,11 +184,13 @@ final class App
 	 */
 	public function plugins_loaded()
 	{
+		include_once( 'includes/class-app-autoloader.php' );
+		
+		include_once( 'includes/class-app-post-types.php' );
+		
 		// Controllers
 		include_once( 'includes/class-app-gallery.php' );
 		include_once( 'includes/class-app-property.php' );
-		
-		include_once( 'includes/class-app-shortcodes.php' );
 		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
 	}

@@ -29,11 +29,8 @@ class APP_Property
 	{
 		App::log( 'APP_Property Class Initialized' );
 		
-		// Post Types
-		include_once( 'post-types/class-app-post-type-property.php' );
-		
 		// Metaboxes
-		include_once( 'admin/meta-boxes/class-app-meta-box-property.php' );
+		//include_once( 'admin/meta-boxes/class-app-meta-box-property.php' );
 		
 		// Walkers
 		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
@@ -109,7 +106,7 @@ class APP_Property
 	{
 		// Check if on frontend and main query is modified
 		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
-				$query->query_vars['post_type'] == APP_Post_Type_Property::POST_TYPE ) {			
+				$query->query_vars['post_type'] == 'property' ) {			
 			//$query->set( 'meta_key', '_app_real_estate_rooms' );
 			//$query->set( 'meta_value', $query->query_vars['rooms'] );
 			

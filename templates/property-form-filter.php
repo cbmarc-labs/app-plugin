@@ -72,7 +72,7 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 <form action="<?php echo $action; ?>" method="get">
 <?php else:?>
 <form action="<?php echo site_url( '/' ); ?>" method="get">
-	<input type="hidden" name="post_type" value=<?php echo APP_Post_Type_Property::POST_TYPE; ?> />
+	<input type="hidden" name="post_type" value='property' />
 <?php endif; ?>
 
 <div class="container-fluid">
@@ -109,7 +109,7 @@ if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 						'class'              => 'form-control',
 						'depth'              => 0,
 						'tab_index'          => 0,
-						'taxonomy'           => APP_Post_Type_Property::TAX_TYPE,
+						'taxonomy'           => 'property-type',
 						'hide_if_empty'      => false,
 						'walker'             => new SH_Walker_TaxonomyDropdown(),
 						'value'              => 'slug'

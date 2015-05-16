@@ -35,7 +35,7 @@ get_header(); ?>
 			<?php
 			// Start the Loop.
 			while ( have_posts() ) : the_post();
-				APP::load_template( 'content', 'property' );
+				APP::load_template_part( 'content', 'property' );
 
 			// End the loop.
 			endwhile;

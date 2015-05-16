@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 * @author 		cbmarc
 */
 class APP_Meta_Box_Property
-{
+{	
 	// --------------------------------------------------------------------
 
 	/**
-	 * meta_box_callback method
+	 * output method
 	 *
 	 * @access public
 	 */

@@ -52,7 +52,7 @@ class APP_Widget_Property_Filter_Form extends WP_Widget
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 		
-		include_once( APP_TEMPLATE_PATH . 'templates/property-form-filter.php' );
+		include_once( APP_PLUGIN_PATH . 'templates/property-form-filter.php' );
 		
 		echo $after_widget;
 	}

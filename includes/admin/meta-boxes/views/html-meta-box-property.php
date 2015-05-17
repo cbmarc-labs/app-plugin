@@ -1,9 +1,5 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-// Add an nonce field so we can check for it later.
-wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
-
 ?>
 
 <table>
@@ -32,6 +28,22 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 			<td></td>
 			<td>
 				<small><?php APP_Lang::_ex( 'property_field_rooms_desc' ) ?></small>
+			</td>
+		</tr>
+		
+		<tr>
+			<td><?php APP_Lang::_ex( 'property_field_baths' ) ?> :</td>
+			<td>
+				<input class="autonumeric" data-v-min="0" data-v-max="99" maxlength="2" type="text" 
+					name="app_meta_box_property_baths" id="app_meta_box_property_baths" 
+					value="<?php echo $data[ 'baths' ]; ?>" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small><?php APP_Lang::_ex( 'property_field_baths_desc' ) ?></small>
 			</td>
 		</tr>
 		

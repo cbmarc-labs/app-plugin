@@ -23,8 +23,11 @@ class APP_Meta_Box_Property
 	public static function output()
 	{
 		global $post;
+
+		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
 		$data['rooms']	= get_post_meta( $post->ID, '_app_property_rooms', 1 );
+		$data['baths']	= get_post_meta( $post->ID, '_app_property_baths', 1 );
 		$data['price']	= get_post_meta( $post->ID, '_app_property_price', 1 );
 		$data['m2']		= get_post_meta( $post->ID, '_app_property_m2', 1 );
 		
@@ -41,41 +44,10 @@ class APP_Meta_Box_Property
 	 * @access public
 	 */
 	public static function save_post( $post_id, $post )
-	{
-		/*
-		 * We need to verify this came from our screen and with proper authorization,
-		* because the save_post action can be triggered at other times.
-		*/
-		
-		// Check if our nonce is set.
-		if ( ! isset( $_POST['app_meta_box_property_nonce'] ) ) {
-			return;
-		}
-		
-		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $_POST['app_meta_box_property_nonce'], 'app_meta_box_property' ) ) {
-			return;
-		}
-		
-		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-		
-		// Check the user's permissions.
-		if ( isset( $_POST['post_type'] ) && 'property' == $_POST['post_type'] ) {
-			if ( ! current_user_can( 'edit_page', $post_id ) ) {
-				return;
-			}
-		
-		} else {
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-		}
-		
+	{		
 		// OK, we're authenticated: we need to find and save the data		
 		$rooms	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_rooms'] );
+		$baths	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_baths'] );
 		
 		$price = preg_replace( "/[^0-9\,.]/", "", $_POST['app_meta_box_property_price'] );
 		$price = str_replace( ',', '.', str_replace( '.', '', $price ) );
@@ -83,6 +55,7 @@ class APP_Meta_Box_Property
 		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_property_m2'] ) / 100;
 		
 		update_post_meta( $post_id, '_app_property_rooms', $rooms );
+		update_post_meta( $post_id, '_app_property_baths', $baths );
 		update_post_meta( $post_id, '_app_property_price', $price );
 		update_post_meta( $post_id, '_app_property_m2', $m2 );
 	}

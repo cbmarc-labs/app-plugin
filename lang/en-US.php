@@ -13,11 +13,14 @@ $lang['property-transaction']	= 'Transaction';
 $lang['property-features']		= 'Features';
 
 $lang['property_field_rooms']	= 'Rooms';
+$lang['property_field_baths']	= 'Baths';
 $lang['property_field_price']	= 'Price';
 $lang['property_field_m2']		= 'm2';
 
 $lang['property_field_rooms_desc']	= 'Number of rooms';
+$lang['property_field_baths_desc']	= 'Number of baths';
 $lang['property_field_price_desc']	= 'Property price';
 $lang['property_field_m2_desc']		= 'Square meters';
 
-$lang['property_meta_box_title']	= 'Property data';
+$lang['property_meta_box_title']				= 'Property data';
+$lang['app_meta_box_property_location_title']	= 'Property location';

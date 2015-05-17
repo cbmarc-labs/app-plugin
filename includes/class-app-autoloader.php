@@ -83,6 +83,8 @@ class APP_Autoloader
 			$path = $this->include_path . 'shortcodes/';
 		} elseif ( strpos( $class, 'app_meta_box' ) === 0 ) {
 			$path = $this->include_path . 'admin/meta-boxes/';
+		} elseif ( strpos( $class, 'app_admin' ) === 0 ) {
+			$path = $this->include_path . 'admin/';
 		}
 
 		if ( empty( $path ) || ( ! $this->load_file( $path . $file ) && strpos( $class, 'app_' ) === 0 ) ) {

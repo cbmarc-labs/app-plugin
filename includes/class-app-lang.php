@@ -36,6 +36,20 @@ class APP_Lang
 	// --------------------------------------------------------------------
 	
 	/**
+	 * __ method
+	 *
+	 * @access public
+	 */	
+	public static function __( $text, $domain = 'default' )
+	{
+		global $lang;
+		
+		return $lang[ $text ];
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
 	 * _x method
 	 *
 	 * @access public

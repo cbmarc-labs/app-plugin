@@ -80,8 +80,8 @@ class APP_Post_Types
 				'has_archive'			=> true,
         		'publicly_queryable'	=> true,
 				'query_var'				=> true,
-				'show_in_menu' => true,
-				'show_in_nav_menus' => true,
+				'show_in_menu'			=> true,
+				'show_in_nav_menus'		=> true,
 				'supports' => array(
 						'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes'
 				),

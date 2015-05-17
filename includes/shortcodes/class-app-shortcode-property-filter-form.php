@@ -13,6 +13,6 @@ class APP_Shortcode_Property_Filter_Form
 	 */
 	public static function output()
 	{
-		do_action('app_property_form_filter');
+		do_action( 'app_property_form_filter' );
 	}
 }

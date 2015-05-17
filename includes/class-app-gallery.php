@@ -27,7 +27,7 @@ class APP_Gallery
 	 */
 	public function __construct ()
 	{
-		App::log( 'APP_Gallery Class Initialized' );
+		App_Log::log( 'APP_Gallery Class Initialized' );
 
 		// Metabox
 		include_once( 'admin/meta-boxes/class-app-meta-box-gallery.php' );

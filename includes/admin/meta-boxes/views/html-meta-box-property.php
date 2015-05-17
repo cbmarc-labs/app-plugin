@@ -15,12 +15,12 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 	
 		<!-- <tr>
 			<td colspan="2">
-				<h4><?php echo App::lang( 'property_meta_box_title' ) ?></h4>
+				<h4><?php APP_Lang::_ex( 'property_meta_box_title' ) ?></h4>
 			</td>
 		</tr> -->
 		
 		<tr>
-			<td><?php echo App::lang( 'property_field_rooms' ) ?> :</td>
+			<td><?php APP_Lang::_ex( 'property_field_rooms' ) ?> :</td>
 			<td>
 				<input class="autonumeric" data-v-min="0" data-v-max="99" maxlength="2" type="text" 
 					name="app_meta_box_property_rooms" id="app_meta_box_property_rooms" 
@@ -31,12 +31,12 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 		<tr>
 			<td></td>
 			<td>
-				<small><?php echo App::lang( 'property_field_rooms_desc' ) ?></small>
+				<small><?php APP_Lang::_ex( 'property_field_rooms_desc' ) ?></small>
 			</td>
 		</tr>
 		
 		<tr>
-			<td><?php echo App::lang( 'property_field_price' ) ?> :</td>
+			<td><?php APP_Lang::_ex( 'property_field_price' ) ?> :</td>
 			<td>
 				<input class="currency" maxlength="20" type="text" name="app_meta_box_property_price" 
 					id="app_meta_box_property_price" value="<?php echo $data[ 'price' ]; ?>" />
@@ -46,12 +46,12 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 		<tr>
 			<td></td>
 			<td>
-				<small><?php echo App::lang( 'property_field_price_desc' ) ?></small>
+				<small><?php APP_Lang::_ex( 'property_field_price_desc' ) ?></small>
 			</td>
 		</tr>
 		
 		<tr>
-			<td><?php echo App::lang( 'property_field_m2' ) ?> :</td>
+			<td><?php APP_Lang::_ex( 'property_field_m2' ) ?> :</td>
 			<td>
 				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999.99"
 					maxlength="20" type="text" name="app_meta_box_property_m2" id="app_meta_box_property_m2"
@@ -62,7 +62,7 @@ wp_nonce_field( 'app_meta_box_property', 'app_meta_box_property_nonce' );
 		<tr>
 			<td></td>
 			<td>
-				<small><?php echo App::lang( 'property_field_m2_desc' ) ?></small>
+				<small><?php APP_Lang::_ex( 'property_field_m2_desc' ) ?></small>
 			</td>
 		</tr>
 		

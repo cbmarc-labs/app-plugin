@@ -25,7 +25,7 @@ class APP_Post_Types
 	 */
 	public function __construct()
 	{
-		App::log( 'APP_Property Class Initialized' );
+		App_Log::log( 'APP_Property Class Initialized' );
 		
 		// Walkers
 		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
@@ -72,7 +72,7 @@ class APP_Post_Types
 			'property', 
 			array(
 				'labels'				=> array(
-					'name' => App::lang( 'property' )
+					'name' => APP_Lang::_x( 'property' )
 				),
 		        'menu_icon'				=> 'dashicons-format-aside',
 				'public'				=> true,
@@ -101,7 +101,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => App::lang( 'property-type' )
+					'name' => APP_Lang::_x( 'property-type' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -115,7 +115,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => App::lang( 'property-transaction' )
+					'name' => APP_Lang::_x( 'property-transaction' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -129,7 +129,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => App::lang( 'property-feature' )
+					'name' => APP_Lang::_x( 'property-feature' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,

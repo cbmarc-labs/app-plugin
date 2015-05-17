@@ -44,12 +44,12 @@ final class App
 	 */
 	public function __construct()
 	{		
-		App::log( 'App Class Initialized ' );
-		
 		$this->includes();
 		
 		add_action( 'init', array( &$this, 'init' ) );
 		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );
+		add_action( 'init', array( 'APP_Lang', 'init' ) );
+		add_action( 'init', array( 'APP_Log', 'init' ) );
 		
 		// Activate after plugins loaded
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
@@ -62,8 +62,6 @@ final class App
 		// register_uninstall_hook was called incorrectly...
 		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
 		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
-		
-		$this->localize();
 	}
 
 	// --------------------------------------------------------------------
@@ -75,6 +73,8 @@ final class App
 	 */
 	public function includes()
 	{
+		include_once( 'includes/app-functions.php' );
+		
 		if ( $this->is_request( 'admin' ) ) {
 			include_once( 'includes/admin/class-app-admin.php' );
 		}
@@ -115,26 +115,6 @@ final class App
 		
 		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR . 'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR . 'assets/js/default.js', array( 'jquery' ) );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * localize method
-	 *
-	 * @access public
-	 */
-	public function localize()
-	{		
-		$currentlang = get_bloginfo('language');
-		$default_file = APP_PLUGIN_PATH . 'lang/en-US.php';
-		$lang_file = APP_PLUGIN_PATH . 'lang/' . $currentlang . '.php';
-		
-		if( file_exists( $lang_file ) ) {
-			include_once( $lang_file );
-		} else {
-			include_once( $default_file );
-		}
 	}
 
 	// --------------------------------------------------------------------
@@ -223,28 +203,13 @@ final class App
 	// --------------------------------------------------------------------
 	
 	/**
-	 * lang method
-	 *
-	 * @access public
-	 */
-	public static function lang( $name )
-	{
-		global $lang;
-		
-		return $lang[ $name ];
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
 	 * plugin_setup method
 	 *
 	 * @access public
 	 */
 	public function plugins_loaded()
 	{
-		include_once( 'includes/class-app-autoloader.php' );
-		
+		include_once( 'includes/class-app-autoloader.php' );		
 		include_once( 'includes/class-app-post-types.php' );
 		
 		// Controllers
@@ -278,7 +243,7 @@ final class App
 	 */
 	public static function app_daily_cron_event()
 	{
-		App::log( 'App Class : app_daily_cron_event' );
+		App_Log::log( 'App Class : app_daily_cron_event' );
 	}
 
 	// --------------------------------------------------------------------
@@ -353,29 +318,6 @@ final class App
 		#exit( var_dump( $_GET ) );
 		
 		wp_clear_scheduled_hook( 'app_daily_hook_event' );
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * log_app method
-	 * 
-	 * Example: App::log( "Test message" );
-	 * 
-	 * Change permissions on: wp-admin/error_log
-	 * Change definition on wp-config.php: define('WP_DEBUG', true);
-	 *
-	 * @access public
-	 */
-	public static function log( $message )
-	{
-		if( WP_DEBUG === TRUE ) {
-			if( is_array( $message ) || is_object( $message ) ) {
-				$message =  print_r( $message, TRUE );
-			}
-			
-			error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, APP_PLUGIN_PATH . 'app.log' );
-		}
 	}
 
 } // end class App

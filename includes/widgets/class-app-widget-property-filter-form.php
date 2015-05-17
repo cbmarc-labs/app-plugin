@@ -24,7 +24,7 @@ class APP_Widget_Property_Filter_Form extends WP_Widget
 	 */
 	public function __construct()
 	{
-		App::log( 'APP_Widget_Property_Filter_Form Class Initialized' );
+		App_Log::log( 'APP_Widget_Property_Filter_Form Class Initialized' );
 		
 		parent::__construct(
 				'APP_Widget_Property_Filter_Form', // Base ID

@@ -2,7 +2,7 @@
 
 global $wp_rewrite, $wp_query;
 if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) {
-	$action = get_post_type_archive_link( APP_Post_Type_Property::POST_TYPE );
+	$action = get_post_type_archive_link( 'property' );
 }
 
 // default values

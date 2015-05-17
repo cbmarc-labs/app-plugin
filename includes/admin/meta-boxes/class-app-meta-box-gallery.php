@@ -28,7 +28,7 @@ class APP_Meta_Box_Gallery
 	 */
 	public function __construct()
 	{
-		App::log("APP_Meta_Box_Gallery Class Initialized");
+		App_Log::log("APP_Meta_Box_Gallery Class Initialized");
 
 		add_action( 'admin_init', array( &$this, 'admin_init' ) );
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
@@ -80,7 +80,7 @@ class APP_Meta_Box_Gallery
 		{		
 			add_meta_box(
 				'app_meta_box_gallery',
-				__( App::lang( 'meta_box_gallery_title' ), 'app_textdomain' ),
+				APP_Lang::_x( 'meta_box_gallery_title' ),
 				array( &$this, 'meta_box_callback' ),
 				$screen
 			);

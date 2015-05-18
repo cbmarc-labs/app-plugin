@@ -2,22 +2,10 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 
-<table>
-	<thead>
-		<th style="width:50%;"></th>
-		<th style="width:50%;"></th>
-	</thead>
-	<tbody>
-	
-		<!-- <tr>
-			<td colspan="2">
-				<h4><?php APP_Lang::_ex( 'property_meta_box_property_location_title' ) ?></h4>
-			</td>
-		</tr> -->
-		
-		<div id="googleMap" style="height:380px;"></div>
-		
-		<script>
+<script type="text/javascript">
+<!--
+	jQuery(document).ready(function( $ ) {
+
 		var geocoder;
 		var map;
 
@@ -25,28 +13,30 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 		    geocoder = new google.maps.Geocoder();
 
-		    var latlng = new google.maps.LatLng(-34.397, 150.644);
+		    //var latlng = new google.maps.LatLng(-34.397, 150.644);
+		    var latlng = new google.maps.LatLng(40.2085, -3.713);
 		    var mapOptions = {
-		        zoom: 14,
+		        zoom: 5,
 		        center: latlng
 		    };
 
 		    map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
-
-		    // Call the codeAddress function (once) when the map is idle (ready)
-		    google.maps.event.addListenerOnce(map, 'idle', codeAddress);
 		}
 
 		function codeAddress() {
-
-		    // Define address to center map to
-		    var address = 'carrer montserrat,43,el vendrell,tarragona';
+			var address = $('#meta_box_property_location_address').val();
+			var city = $('#meta_box_property_location_city').val();
+			var province = $('#meta_box_property_location_province').val();
 
 		    geocoder.geocode({
-		        'address': address
+		        'address': address+', '+city+', '+province
 		    }, function (results, status) {
 
 		        if (status == google.maps.GeocoderStatus.OK) {
+
+		        	$('#meta_box_property_location_geocode').val(results[0].geometry.location);
+
+		        	map.setZoom(14);
 
 		            // Center map on location
 		            map.setCenter(results[0].geometry.location);
@@ -64,8 +54,88 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		    });
 		}
 
-		initialize();
-		</script>
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+		$('#meta_box_property_location_address_button').click(function(){
+			codeAddress();
+		});
+		
+	});
+//-->
+</script>
+
+<table style="width:100%">
+	<thead>
+		<th style="width:25%;"></th>
+		<th style="width:75%;"></th>
+	</thead>
+	<tbody>
+	
+		<!-- <tr>
+			<td colspan="2">
+				<h4><?php APP_Lang::_ex( 'property_meta_box_property_location_title' ) ?></h4>
+			</td>
+		</tr> -->
+		
+		<tr>
+			<td>Dirección :</td>
+			<td>
+				<input id="meta_box_property_location_address" class="" type="text" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small>Por ejemplo: calle nueva,5</small>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Municipio :</td>
+			<td>
+				<input id="meta_box_property_location_city" class="" type="text" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small>Por ejemplo: El vendrell</small>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Provincia :</td>
+			<td>
+				<input id="meta_box_property_location_province" class="" type="text" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small>Por ejemplo: Tarragona</small>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<input id="meta_box_property_location_geocode" class="" type="text" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<input id="meta_box_property_location_address_button" type="button" value="Localizar en el mapa" class="button">
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<div id="googleMap" style="height:380px;"></div>
+			</td>
+		</tr>
 		
 	</tbody>
 </table>

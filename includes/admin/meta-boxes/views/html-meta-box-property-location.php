@@ -1,26 +1,59 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$pieces = explode(",", $data[ 'location_geocode' ]);
+
+// default values
+$map_lat = '40.2085';
+$map_lng = '-3.713';
+$zoom = 5;
+
+if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
+	$map_lat = $pieces[0];
+	$map_lng = $pieces[1];
+	$zoom = $pieces[2];
+}
 ?>
 
 <script type="text/javascript">
 <!--
 	jQuery(document).ready(function( $ ) {
 
-		var geocoder;
+		var geocoder = new google.maps.Geocoder();
 		var map;
+		var marker;
 
 		function initialize() {
+			map = new google.maps.Map(
+					document.getElementById("googleMap"), {
+				        zoom: <?php echo $zoom; ?>,
+				        streetViewControl: false,
+				        center: new google.maps.LatLng(<?php echo $map_lat; ?>, <?php echo $map_lng; ?>)
+				    }
+			);
+	
+			marker = new google.maps.Marker({
+			    map: map
+			});
 
-		    geocoder = new google.maps.Geocoder();
+			<?php if( isset( $pieces[3] ) && isset( $pieces[4] ) ): ?>
+				var myLatlng = new google.maps.LatLng(<?php echo $pieces[3]; ?>, <?php echo $pieces[4]; ?>);
+				marker.setPosition(myLatlng);
+			<?php endif; ?>
 
-		    //var latlng = new google.maps.LatLng(-34.397, 150.644);
-		    var latlng = new google.maps.LatLng(40.2085, -3.713);
-		    var mapOptions = {
-		        zoom: 5,
-		        center: latlng
-		    };
+			google.maps.event.addListener(marker, "click", function(event) {
+				marker.setPosition(null);
+				updateInput();
+			});
 
-		    map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+			google.maps.event.addListener(map, "click", function(event) {
+				marker.setPosition(event.latLng);
+				updateInput();
+			});
+
+			google.maps.event.addListener(map, 'idle', function(){
+				updateInput();
+			});
 		}
 
 		function codeAddress() {
@@ -34,24 +67,36 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 		        if (status == google.maps.GeocoderStatus.OK) {
 
-		        	$('#meta_box_property_location_geocode').val(results[0].geometry.location);
-
-		        	map.setZoom(14);
-
-		            // Center map on location
+		            map.setZoom(14);
 		            map.setCenter(results[0].geometry.location);
+		            
+		            marker.setPosition(results[0].geometry.location);
 
-		            // Add marker on location
-		            var marker = new google.maps.Marker({
-		                map: map,
-		                position: results[0].geometry.location
-		            });
+		            updateInput();
 
 		        } else {
-
 		            alert("Geocode was not successful for the following reason: " + status);
 		        }
 		    });
+		}
+
+		function updateInput() {
+			var c = map.getCenter();
+			var lat = c.lat();
+			var lng = c.lng();
+			var zoom = map.getZoom();
+
+			var string = lat+','+lng+','+zoom;
+
+			var m = marker.getPosition();
+			if(m){
+				var mlat = m.lat();
+				var mlng = m.lng();
+
+				string += ","+mlat+","+mlng;
+			}
+
+            $('#meta_box_property_location_geocode').val(string);
 		}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
@@ -80,7 +125,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td>Dirección :</td>
 			<td>
-				<input id="meta_box_property_location_address" class="" type="text" />
+				<input id="meta_box_property_location_address" style="width:100%;"
+					name="meta_box_property_location_address" class="" type="text" 
+					value="<?php echo $data[ 'location_address' ]; ?>"/>
 			</td>
 		</tr>
 		
@@ -94,7 +141,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td>Municipio :</td>
 			<td>
-				<input id="meta_box_property_location_city" class="" type="text" />
+				<input id="meta_box_property_location_city" style="width:50%;"
+					name="meta_box_property_location_city" class="" type="text" 
+					value="<?php echo $data[ 'location_city' ]; ?>"/>
 			</td>
 		</tr>
 		
@@ -108,7 +157,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td>Provincia :</td>
 			<td>
-				<input id="meta_box_property_location_province" class="" type="text" />
+				<input id="meta_box_property_location_province" style="width:40%;"
+					name="meta_box_property_location_province" class="" type="text" 
+					value="<?php echo $data[ 'location_province' ]; ?>"/>
 			</td>
 		</tr>
 		
@@ -121,13 +172,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		
 		<tr>
 			<td colspan="2">
-				<input id="meta_box_property_location_geocode" class="" type="text" />
+				<input id="meta_box_property_location_geocode" 
+					name="meta_box_property_location_geocode" style="width:500px;" class="" type="hidden" 
+					value="<?php echo $data[ 'location_geocode' ]; ?>" />
 			</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2">
-				<input id="meta_box_property_location_address_button" type="button" value="Localizar en el mapa" class="button">
+				<input id="meta_box_property_location_address_button" type="button" 
+					value="Localizar en el mapa" class="button">
 			</td>
 		</tr>
 		

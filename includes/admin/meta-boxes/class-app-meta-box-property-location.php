@@ -27,8 +27,6 @@ class APP_Meta_Box_Property_Location
 		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
 		$data['location_address']	= get_post_meta( $post->ID, '_app_property_location_address', 1 );
-		$data['location_city']		= get_post_meta( $post->ID, '_app_property_location_city', 1 );
-		$data['location_province']	= get_post_meta( $post->ID, '_app_property_location_province', 1 );
 		$data['location_geocode']	= get_post_meta( $post->ID, '_app_property_location_geocode', 1 );
 		
 		include_once( 'views/html-meta-box-property-location.php' );
@@ -46,8 +44,6 @@ class APP_Meta_Box_Property_Location
 	public static function save_post( $post_id, $post )
 	{
 		update_post_meta( $post_id, '_app_property_location_address', $_POST['meta_box_property_location_address'] );
-		update_post_meta( $post_id, '_app_property_location_city', $_POST['meta_box_property_location_city'] );
-		update_post_meta( $post_id, '_app_property_location_province', $_POST['meta_box_property_location_province'] );
 		update_post_meta( $post_id, '_app_property_location_geocode', $_POST['meta_box_property_location_geocode'] );
 	}
 

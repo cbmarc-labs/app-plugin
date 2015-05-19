@@ -58,11 +58,9 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 
 		function codeAddress() {
 			var address = $('#meta_box_property_location_address').val();
-			var city = $('#meta_box_property_location_city').val();
-			var province = $('#meta_box_property_location_province').val();
 
 		    geocoder.geocode({
-		        'address': address+', '+city+', '+province
+		        'address': address
 		    }, function (results, status) {
 
 		        if (status == google.maps.GeocoderStatus.OK) {
@@ -134,39 +132,7 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 		<tr>
 			<td></td>
 			<td>
-				<small>Por ejemplo: calle nueva,5</small>
-			</td>
-		</tr>
-		
-		<tr>
-			<td>Municipio :</td>
-			<td>
-				<input id="meta_box_property_location_city" style="width:50%;"
-					name="meta_box_property_location_city" class="" type="text" 
-					value="<?php echo $data[ 'location_city' ]; ?>"/>
-			</td>
-		</tr>
-		
-		<tr>
-			<td></td>
-			<td>
-				<small>Por ejemplo: El vendrell</small>
-			</td>
-		</tr>
-		
-		<tr>
-			<td>Provincia :</td>
-			<td>
-				<input id="meta_box_property_location_province" style="width:40%;"
-					name="meta_box_property_location_province" class="" type="text" 
-					value="<?php echo $data[ 'location_province' ]; ?>"/>
-			</td>
-		</tr>
-		
-		<tr>
-			<td></td>
-			<td>
-				<small>Por ejemplo: Tarragona</small>
+				<small>Por ejemplo: calle nueva,25, el vendrell, tarragona</small>
 			</td>
 		</tr>
 		

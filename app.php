@@ -111,7 +111,7 @@ final class App
 			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
 		}
 		
-		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 'assets/css/style.css' );
+		wp_enqueue_style( 'app-style', APP_TEMPLATE_DIR . 'assets/css/style.css' );
 		
 		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR . 'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR . 'assets/js/default.js', array( 'jquery' ) );

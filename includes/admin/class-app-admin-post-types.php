@@ -45,12 +45,10 @@ class APP_Admin_Post_Types
 	function manage_posts_columns( $columns )
 	{
 		$col_featured_image	= array( 'featured_image' => __('Featured Image') );
-		$col_rooms			= array( 'rooms' => APP_Lang::_x( 'property_field_rooms' ) );
 		$col_price			= array( 'price' => APP_Lang::_x( 'property_field_price' ) );
 		$col_m2				= array( 'm2' => APP_Lang::_x( 'property_field_m2' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
-		$columns = array_slice( $columns, 0, 3, true ) + $col_rooms + array_slice( $columns, 3, NULL, true );
 		$columns = array_slice( $columns, 0, 4, true ) + $col_price + array_slice( $columns, 4, NULL, true );
 		$columns = array_slice( $columns, 0, 5, true ) + $col_m2 + array_slice( $columns, 5, NULL, true );
 		
@@ -79,10 +77,6 @@ class APP_Admin_Post_Types
 				echo '</a>';
 				
 				break;
-			case 'rooms':
-				echo get_post_meta( $post_id , '_app_property_rooms' , true );
-				
-				break;
 			case 'price':
 				echo '<span class="currency">' . get_post_meta( $post_id , '_app_property_price' , true ) . '</span>';
 				
@@ -103,7 +97,6 @@ class APP_Admin_Post_Types
 	 */
 	function manage_edit_sortable_columns( $columns )
 	{
-		$columns[ 'rooms' ]	= 'rooms';
 		$columns[ 'price' ]	= 'price';
 		$columns[ 'm2' ]	= 'm2';
 			
@@ -118,12 +111,7 @@ class APP_Admin_Post_Types
 	 * @access public
 	 */
 	function request( $vars ) {
-		if ( isset( $vars[ 'orderby' ] ) && 'rooms' == $vars[ 'orderby' ] ) {
-			$vars = array_merge( $vars, array(
-				'meta_key' => '_app_property_rooms',
-				'orderby' => 'meta_value_num'
-			) );
-		} elseif ( isset( $vars[ 'orderby' ] ) && 'price' == $vars[ 'orderby' ] ) {
+		if ( isset( $vars[ 'orderby' ] ) && 'price' == $vars[ 'orderby' ] ) {
 			$vars = array_merge( $vars, array(
 				'meta_key' => '_app_property_price',
 				'orderby' => 'meta_value_num'

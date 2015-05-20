@@ -78,6 +78,10 @@ final class App
 		if ( $this->is_request( 'admin' ) ) {
 			include_once( 'includes/admin/class-app-admin.php' );
 		}
+		
+		if ( $this->is_request( 'ajax' ) ) {
+			include_once( 'includes/class-app-ajax.php' );
+		}
 
 		if ( $this->is_request( 'frontend' ) ) {
 			$this->frontend_includes();

@@ -50,8 +50,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td><?php APP_Lang::_ex( 'property_field_price' ) ?> :</td>
 			<td>
-				<input class="currency" maxlength="20" type="text" name="app_meta_box_property_price" 
-					id="app_meta_box_property_price" value="<?php echo $data[ 'price' ]; ?>" />
+				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999"
+					data-a-sign=" €" data-p-sign="s" 
+					maxlength="20" type="text" name="app_meta_box_property_price" id="app_meta_box_property_price" 
+					value="<?php echo $data[ 'price' ]; ?>" />
 			</td>
 		</tr>
 		
@@ -65,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td><?php APP_Lang::_ex( 'property_field_m2' ) ?> :</td>
 			<td>
-				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999.99"
+				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999"
 					maxlength="20" type="text" name="app_meta_box_property_m2" id="app_meta_box_property_m2"
 					value="<?php echo $data[ 'm2' ]; ?>" />
 			</td>

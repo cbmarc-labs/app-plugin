@@ -180,7 +180,6 @@ class APP_Post_Types
 		$vars[] = "type";
 		$vars[] = "transaction";
 		$vars[] = "min_rooms";
-		$vars[] = "min_price";
 		$vars[] = "max_price";
 		$vars[] = "min_m2";
 		
@@ -202,7 +201,7 @@ class APP_Post_Types
 		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
 				$query->query_vars['post_type'] == 'property' ) {
             
-			$meta_query = array();
+			$meta_query = $query->get('meta_query');
 			
 			// Filter by type taxonomy
 			if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) ) {
@@ -226,7 +225,7 @@ class APP_Post_Types
 			if( isset( $query->query_vars['transaction'] ) && !empty( $query->query_vars['transaction'] ) ) {
 				$safe_transaction = sanitize_text_field( $query->query_vars['transaction'] );
 			
-				if( $safe_type != '0' ) {
+				if( $safe_transaction != '0' ) {
 					$query->set( 
 						'tax_query',
 							array(
@@ -246,9 +245,10 @@ class APP_Post_Types
 				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
 				
 				$meta_query[] = array(
-					'key'     => '_app_property_rooms',
-					'value'   => $safe_min_rooms,
-					'compare' => '>=',
+					'key'		=> '_app_property_rooms',
+					'value'		=> $safe_min_rooms,
+					'type'		=> 'NUMERIC',
+					'compare'	=> '>=',
 				);
 			}
 			
@@ -258,9 +258,23 @@ class APP_Post_Types
 				$safe_min_m2 = intval( $query->query_vars['min_m2'] );
 				
 				$meta_query[] = array(
-					'key'     => '_app_property_m2',
-					'value'   => $safe_min_m2,
-					'compare' => '>=',
+					'key'		=> '_app_property_m2',
+					'value'		=> $safe_min_m2,
+					'type'		=> 'NUMERIC',
+					'compare'	=> '>=',
+				);
+			}
+			
+			// filter by max_price
+			if( isset( $query->query_vars['max_price'] ) && 
+				! empty( $query->query_vars['max_price'] ) ) {
+				$safe_max_price = intval( $query->query_vars['max_price'] );
+				
+				$meta_query[] = array(
+					'key'		=> '_app_property_price',
+					'value'		=> $safe_max_price,
+					'type'		=> 'NUMERIC',
+					'compare'	=> '<=',
 				);
 			}
 			
@@ -268,6 +282,8 @@ class APP_Post_Types
 			
 			add_filter( 'posts_where', array( &$this, 'posts_where' ) );
  		}
+ 		
+ 		return $query;
 	}
 	
 	// --------------------------------------------------------------------

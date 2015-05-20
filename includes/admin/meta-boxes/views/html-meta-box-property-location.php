@@ -132,7 +132,7 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 		<tr>
 			<td></td>
 			<td>
-				<small>Por ejemplo: calle nueva,25, el vendrell, tarragona</small>
+				<small>Per exemple: carrer santa anna, 1, el vendrell, tarragona</small>
 			</td>
 		</tr>
 		

@@ -78,11 +78,11 @@ class APP_Admin_Post_Types
 				
 				break;
 			case 'price':
-				echo '<span class="currency">' . get_post_meta( $post_id , '_app_property_price' , true ) . '</span>';
+				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999" data-a-sign=" €" data-p-sign="s">' . get_post_meta( $post_id , '_app_property_price' , true ) . '</span>';
 				
 				break;
 			case 'm2':
-				echo '<span class="numeric">' . get_post_meta( $post_id , '_app_property_m2' , true ) . '</span>';
+				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_app_property_m2' , true ) . '</span>';
 				
 				break;
 		}

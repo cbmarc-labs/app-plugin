@@ -47,12 +47,9 @@ class APP_Meta_Box_Property
 	{		
 		// OK, we're authenticated: we need to find and save the data		
 		$rooms	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_rooms'] );
-		$baths	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_baths'] );
-		
-		$price = preg_replace( "/[^0-9\,.]/", "", $_POST['app_meta_box_property_price'] );
-		$price = str_replace( ',', '.', str_replace( '.', '', $price ) );
-		
-		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_property_m2'] ) / 100;
+		$baths	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_baths'] );		
+		$price	= preg_replace( '/\D/', "", $_POST['app_meta_box_property_price'] );
+		$m2		= preg_replace( '/\D/', "", $_POST['app_meta_box_property_m2'] );
 		
 		update_post_meta( $post_id, '_app_property_rooms', $rooms );
 		update_post_meta( $post_id, '_app_property_baths', $baths );

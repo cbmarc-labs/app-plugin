@@ -10,7 +10,7 @@ $type			= 0;
 $transaction	= 0;
 $min_rooms		= '';
 $min_m2			= '';
-$max_price		= 500000;
+$max_price		= '';
 
 // Safe values
 if( isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['type'] ) )
@@ -118,12 +118,9 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				<label for="" class="control-label">Superficie mínima</label>
 				<select name="min_m2" class="form-control">
 					<option value="">Todos</option>
-					<option value="50" <?php echo $min_m2 == 50 ? 'selected="selected"':''; ?>>50 m2</option>
-					<option value="100" <?php echo $min_m2 == 100 ? 'selected="selected"':''; ?>>100 m2</option>
-					<option value="150" <?php echo $min_m2 == 150 ? 'selected="selected"':''; ?>>150 m2</option>
-					<option value="200" <?php echo $min_m2 == 200 ? 'selected="selected"':''; ?>>200 m2</option>
-					<option value="250" <?php echo $min_m2 == 250 ? 'selected="selected"':''; ?>>250 m2</option>
-					<option value="300" <?php echo $min_m2 == 300 ? 'selected="selected"':''; ?>>300 m2</option>
+					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
+					<option value="<?php echo $value; ?>" <?php echo $min_m2 == $value ? 'selected="selected"':''; ?>><?php echo $value ?> m2</option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 	
@@ -131,25 +128,11 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				<label for="" class="control-label">Precio máximo</label>
 				<select name="max_price" class="form-control">
 					<option value="">Todos</option>
-					<option value="50000" <?php echo $max_price == 50000 ? 'selected="selected"':''; ?>>50.000 €</option>
-					<option value="100000" <?php echo $max_price == 100000 ? 'selected="selected"':''; ?>>100.000 €</option>
-					<option value="150000" <?php echo $max_price == 150000 ? 'selected="selected"':''; ?>>150.000 €</option>
-					<option value="200000" <?php echo $max_price == 200000 ? 'selected="selected"':''; ?>>200.000 €</option>
-					<option value="250000" <?php echo $max_price == 250000 ? 'selected="selected"':''; ?>>250.000 €</option>
-					<option value="300000" <?php echo $max_price == 300000 ? 'selected="selected"':''; ?>>300.000 €</option>
-					<option value="350000" <?php echo $max_price == 350000 ? 'selected="selected"':''; ?>>350.000 €</option>
-					<option value="400000" <?php echo $max_price == 400000 ? 'selected="selected"':''; ?>>400.000 €</option>
-					<option value="450000" <?php echo $max_price == 450000 ? 'selected="selected"':''; ?>>450.000 €</option>
-					<option value="500000" <?php echo $max_price == 500000 ? 'selected="selected"':''; ?>>500.000 €</option>
-					<option value="550000" <?php echo $max_price == 550000 ? 'selected="selected"':''; ?>>550.000 €</option>
-					<option value="600000" <?php echo $max_price == 600000 ? 'selected="selected"':''; ?>>600.000 €</option>
-					<option value="650000" <?php echo $max_price == 650000 ? 'selected="selected"':''; ?>>650.000 €</option>
-					<option value="700000" <?php echo $max_price == 700000 ? 'selected="selected"':''; ?>>700.000 €</option>
-					<option value="750000" <?php echo $max_price == 750000 ? 'selected="selected"':''; ?>>750.000 €</option>
-					<option value="800000" <?php echo $max_price == 800000 ? 'selected="selected"':''; ?>>800.000 €</option>
-					<option value="1000000" <?php echo $max_price == 1000000 ? 'selected="selected"':''; ?>>1.000.000 €</option>
-					<option value="1500000" <?php echo $max_price == 1500000 ? 'selected="selected"':''; ?>>1.500.000 €</option>
-					<option value="3000000" <?php echo $max_price == 3000000 ? 'selected="selected"':''; ?>>3.000.000 €</option>
+					<?php foreach( array(50000,100000,150000,200000,250000,300000,
+							350000,400000,450000,500000,550000,600000,650000,700000,800000,
+							1000000,1500000,3000000) as $value) : ?>
+					<option value="<?php echo $value; ?>" <?php echo $max_price == $value ? 'selected="selected"':''; ?>><?php echo number_format($value, 0, ',', '.') ?> €</option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 	
@@ -159,7 +142,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 			</div>
 			
 			<div class="col-xs-12 col-sm-4 form-group">
-				<label class="control-label"></label>
+				<label class="control-label">&nbsp;</label>
 				<button class="btn btn-primary form-control" type="submit">
 					<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Buscar
 				</button>

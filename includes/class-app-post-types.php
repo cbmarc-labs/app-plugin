@@ -200,23 +200,7 @@ class APP_Post_Types
 	{
 		// Check if on frontend and main query is modified
 		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
-				$query->query_vars['post_type'] == 'property' ) {			
-			//$query->set( 'meta_key', '_app_real_estate_rooms' );
-			//$query->set( 'meta_value', $query->query_vars['rooms'] );
-			
-			//$query->set('meta_key', 'project_type');
-			//$query->set('meta_value', 'design');
-			//$query->set('post__not_in', array(1,2,3) );
-			/*
-			 * $tax_query = array(
-                array(
-                    'taxonomy' => 'writer',
-                    'field' => 'name',
-                    'terms' => $current_user_name
-                )
-            )
-            $query->set( 'tax_query', $tax_query );
-           */
+				$query->query_vars['post_type'] == 'property' ) {
             
 			$meta_query = array();
 			
@@ -282,7 +266,7 @@ class APP_Post_Types
 			
 			$query->set( 'meta_query', $meta_query );
 			
-			//add_filter( 'posts_where', array( &$this, 'posts_where' ) );
+			add_filter( 'posts_where', array( &$this, 'posts_where' ) );
  		}
 	}
 	

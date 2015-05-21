@@ -25,6 +25,7 @@ class APP_Admin_Meta_Boxes
 		
 		add_action( 'app_save_post', 'APP_Meta_Box_Property::save_post', 10, 2 );
 		add_action( 'app_save_post', 'APP_Meta_Box_Property_Location::save_post', 10, 2 );
+		add_action( 'app_save_post', 'APP_Meta_Box_Gallery::save_post', 10, 2 );
 	}
 
 	// --------------------------------------------------------------------
@@ -53,6 +54,15 @@ class APP_Admin_Meta_Boxes
 				'app_meta_box_property_location',
 				APP_Lang::_x( 'app_meta_box_property_location_title' ), 
 				'APP_Meta_Box_Property_Location::output',
+				$screen,
+				'normal',
+				'high'
+			);
+			
+			add_meta_box(
+				'app_meta_box_gallery',
+				APP_Lang::_x( 'meta_box_gallery_title' ), 
+				'APP_Meta_Box_Gallery::output',
 				$screen,
 				'normal',
 				'high'

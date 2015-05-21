@@ -37,6 +37,10 @@ class APP_Admin
 		include_once( 'class-app-admin-meta-boxes.php' );
 		include_once( 'class-app-admin-menus.php' );
 		include_once( 'class-app-admin-settings.php' );
+		
+		if ( ! is_ajax() ) {
+			include_once( 'class-app-admin-assets.php' );
+		}
 	}
 }
 

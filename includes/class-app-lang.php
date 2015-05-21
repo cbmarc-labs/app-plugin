@@ -73,3 +73,5 @@ class APP_Lang
 		echo APP_Lang::_x( $text, $context, $domain );
 	}
 }
+
+APP_Lang::init();

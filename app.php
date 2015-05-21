@@ -36,6 +36,11 @@ final class App
 
 	// The single instance of the class
 	private static $_instance = null;
+	
+	/**
+	 * @var APP_Property $property
+	 */
+	public $property = null;
 
 	/**
 	 * Constructor
@@ -44,12 +49,8 @@ final class App
 	 */
 	public function __construct()
 	{		
-		$this->includes();
-		
-		add_action( 'init', array( &$this, 'init' ) );
-		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );
-		add_action( 'init', array( 'APP_Lang', 'init' ) );
-		add_action( 'init', array( 'APP_Log', 'init' ) );
+		$this->includes();		
+		$this->init_hooks();
 		
 		// Activate after plugins loaded
 		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
@@ -67,13 +68,71 @@ final class App
 	// --------------------------------------------------------------------
 
 	/**
+	 * instance method
+	 *
+	 * @access public
+	 */
+	public static function instance()
+	{
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+		
+		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * init_hooks method
+	 *
+	 * @access private
+	 */
+	private function init_hooks()
+	{
+		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 11 );
+		add_action( 'init', array( $this, 'init' ), 0 );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * include_template_functions method
+	 *
+	 * @access private
+	 */
+	public function include_template_functions()
+	{
+		include_once( 'includes/app-template-functions.php' );
+	}
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * init method
+	 *
+	 * @access public
+	 */
+	public function init()
+	{
+		// Load class instances
+		$this->property = new APP_Property();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * includes method
 	 *
 	 * @access public
 	 */
 	public function includes()
 	{
-		include_once( 'includes/app-functions.php' );
+		include_once( 'includes/class-app-autoloader.php' );
+		include_once( 'includes/class-app-lang.php' );
+		include_once( 'includes/class-app-log.php' );
+		include_once( 'includes/class-app-shortcodes.php' );
+		include_once( 'includes/app-core-functions.php' );
 		
 		if ( $this->is_request( 'admin' ) ) {
 			include_once( 'includes/admin/class-app-admin.php' );
@@ -86,6 +145,9 @@ final class App
 		if ( $this->is_request( 'frontend' ) ) {
 			$this->frontend_includes();
 		}
+
+		include_once( 'includes/class-app-post-types.php' );
+		include_once( 'includes/class-app-property.php' );
 	}
 
 	// --------------------------------------------------------------------
@@ -98,92 +160,7 @@ final class App
 	public function frontend_includes()
 	{
 		include_once( 'includes/class-app-template-loader.php' );
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * init method
-	 *
-	 * @access public
-	 */
-	public function init()
-	{
-		// Bootstrap front-end integration
-		if ( ! is_admin() && 
-				! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
-			wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
-		}
-		
-		wp_enqueue_style( 'app-style', APP_TEMPLATE_DIR . 'assets/css/style.css' );
-		
-		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR . 'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
-		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR . 'assets/js/default.js', array( 'jquery' ) );
-		
-		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * load_template_part method
-	 *
-	 * @access public
-	 */
-	public static function load_template_part( $slug, $name = '' )
-	{
-		$template = '';
-		
-		// Get default slug-name.php
-		if ( $name && file_exists( APP_PLUGIN_PATH . "templates/{$slug}-{$name}.php" ) ) {
-			$template = APP_PLUGIN_PATH . "templates/{$slug}-{$name}.php";
-		}
-		
-		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/app/slug.php
-		if ( ! $template ) {
-			$template = locate_template( array( "{$slug}.php", APP_PLUGIN_PATH . "{$slug}.php" ) );
-		}
-		
-		if ( $template ) {
-			load_template( $template, false );
-		}
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * load_template method
-	 *
-	 * @access public
-	 */
-	public static function load_template(
-			$template_name, $args = array(), $template_path = '', $default_path = '' )
-	{
-		if ( $args && is_array( $args ) ) {
-			extract( $args );
-		}
-		
-		// Look within passed path within the theme - this is priority
-		$located = locate_template(
-				array(
-						trailingslashit( $template_path ) . $template_name,
-						$template_name
-				)
-		);
-		
-		// Get default template
-		if ( ! $located ) {
-			$located = $default_path . $template_name;
-		}
-		
-		//$located = wc_locate_template( $template_name, $template_path, $default_path );
-		
-		if ( ! file_exists( $located ) ) {
-			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $located ), '2.1' );
-			return;
-		}
-		
-		include( $located );
+		include_once( 'includes/class-app-assets.php' );
 	}
 
 	// --------------------------------------------------------------------
@@ -214,30 +191,8 @@ final class App
 	 * @access public
 	 */
 	public function plugins_loaded()
-	{
-		include_once( 'includes/class-app-autoloader.php' );		
-		include_once( 'includes/class-app-post-types.php' );
-		
-		// Controllers
-		include_once( 'includes/class-app-gallery.php' );
-		
+	{		
 		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * instance method
-	 *
-	 * @access public
-	 */
-	public static function instance()
-	{
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		
-		return self::$_instance;
 	}
 
 	// --------------------------------------------------------------------
@@ -330,10 +285,9 @@ final class App
 
 endif;
 
-/**
- * Create instance
- */
-global $App;
-if( class_exists( 'App' ) && !$App ) {
-	$App = App::instance();
+function APP() {
+	return App::instance();
 }
+
+// Global for backwards compatibility.
+$GLOBALS['app'] = APP();

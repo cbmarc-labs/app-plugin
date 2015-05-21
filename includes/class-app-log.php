@@ -47,3 +47,5 @@ class APP_Log
 		}
 	}
 }
+
+APP_Log::init();

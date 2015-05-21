@@ -23,6 +23,8 @@ get_header(); ?>
 			 */
 			get_template_part( 'content', get_post_format() );
 			
+			app_show_property_images();
+			
 			$meta = get_post_meta( get_the_ID() );
 			$type = wp_get_post_terms( get_the_ID(), 'property-type' );
 			$transaction = wp_get_post_terms( get_the_ID(), 'property-transaction' );

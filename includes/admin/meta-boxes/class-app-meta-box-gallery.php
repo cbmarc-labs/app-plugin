@@ -2,8 +2,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if( !class_exists( 'APP_Meta_Box_Gallery' ) ) :
-
 /**
  * APP_Meta_Box_Gallery
 *
@@ -18,109 +16,43 @@ if( !class_exists( 'APP_Meta_Box_Gallery' ) ) :
 */
 class APP_Meta_Box_Gallery
 {
-	// The single instance of the class
-	private static $_instance;
-
-	/**
-	 * Constructor
-	 *
-	 * @access public
-	 */
-	public function __construct()
-	{
-		App_Log::log("APP_Meta_Box_Gallery Class Initialized");
-
-		add_action( 'admin_init', array( &$this, 'admin_init' ) );
-		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-	}
-
 	// --------------------------------------------------------------------
 
 	/**
-	 * getInstance method
+	 * output method
 	 *
 	 * @access public
 	 */
-	public static function instance()
+	public static function output()
 	{
-		if ( is_null( self::$_instance ) )
-		{
-			self::$_instance = new self();
-		}
+		global $post;
+
+		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
-		return self::$_instance;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * admin_init method
-	 *
-	 * @access public
-	 */
-	public function admin_init()
-	{
-		wp_enqueue_style( 'app-meta-box-gallery-style', APP_TEMPLATE_DIR . 'assets/css/app-meta-box-gallery.css' );
+		$data['_gallery_ids'] = get_post_meta( $post->ID, '_gallery_ids', 1 );
+		$data['_gallery_img'] = '';
 		
-		wp_enqueue_script( 'app-meta-box-gallery-script', APP_TEMPLATE_DIR . 'assets/js/app-meta-box-gallery.js', array( 'jquery' ) );
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * add_meta_boxes method
-	 *
-	 * @access public
-	 */
-	public function add_meta_boxes()
-	{
-		$screens = array( 'post', 'page', 'property' );
+		if( !empty( $data['_gallery_ids'] ) ) {
+			$galleryArray = explode( ',', $data['_gallery_ids'] );
 		
-		foreach ( $screens as $screen )
-		{		
-			add_meta_box(
-				'app_meta_box_gallery',
-				APP_Lang::_x( 'meta_box_gallery_title' ),
-				array( &$this, 'meta_box_callback' ),
-				$screen
-			);
-		}
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * meta_box_callback method
-	 *
-	 * @access public
-	 */
-	public function meta_box_callback( $post )
-	{
-		$galleryHTML = '';		
-		$galleryString = get_post_meta( $post->ID, '_app_gallery_imgs', 1 );
-		
-		if( !empty( $galleryString ) )
-		{
-			$galleryArray = explode( ',', $galleryString );
-		
-			foreach( $galleryArray as &$id )
-			{
-				$galleryHTML .= '<img src="' . wp_get_attachment_url( $id ) . '">';
+			foreach( $galleryArray as &$id ) {
+				$data['_gallery_img'] .= '<img src="' . wp_get_attachment_url( $id ) . '" style="width:100px;margin:10px;">';
 			}
 		}
 		
 		include_once( 'views/html-meta-box-gallery.php' );
 	}
 
+	// --------------------------------------------------------------------
+	
+	/**
+	 * save_post method
+	 *
+	 * @access public
+	 */
+	public static function save_post( $post_id, $post )
+	{		
+		update_post_meta( $post_id, '_gallery_ids', $_POST['_gallery_ids'] );
+	}
+
 } // end class APP_Meta_Box_Gallery
-
-endif;
-
-/**
- * Create instance
- */
-global $APP_Meta_Box_Gallery;
-if( class_exists( 'APP_Meta_Box_Gallery' ) && !$APP_Meta_Box_Gallery )
-{
-	$APP_Meta_Box_Gallery = APP_Meta_Box_Gallery::instance();
-}

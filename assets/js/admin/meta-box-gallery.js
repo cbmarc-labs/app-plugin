@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery(function($) {
 	
 	$('#app_meta_box_gallery_select').on('click', function(event){
 		event.preventDefault();
@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 			
 			var selection = file_frame.state().get('selection');
 			var library = file_frame.state('gallery-edit').get('library');
-			var ids = $('#app_meta_box_gallery_metadata').val();
+			var ids = $('#_gallery_ids').val();
 			
 			if (ids) {
 				idsArray = ids.split(',');
@@ -51,14 +51,14 @@ jQuery(document).ready(function($){
 			images = file_frame.state().get('library');
 			images.each(function(attachment) {
 				imageIDArray.push(attachment.attributes.id);
-				imageHTML += '<img src="' + attachment.attributes.url + '">';
+				imageHTML += '<img src="' + attachment.attributes.url + '" style="width:100px;margin:10px;">';
 			});
 			
 			metadataString = imageIDArray.join(",");
 			
 			if (metadataString) {
-				$("#app_meta_box_gallery_metadata").val( metadataString );
-				$("#app_meta_box_gallery_images").html( imageHTML );
+				$("#_gallery_ids").val( metadataString );
+				$("#_gallery_img").html( imageHTML );
 			}
 			
 		});
@@ -71,8 +71,8 @@ jQuery(document).ready(function($){
 	$('#app_meta_box_gallery_removeall').on('click', function(event){
 		event.preventDefault();
 
-		$("#app_meta_box_gallery_images").html("");
-		$("#app_meta_box_gallery_metadata").val("");
+		$("#_gallery_ids").val("");
+		$("#_gallery_img").html("");
 	});
 
 });

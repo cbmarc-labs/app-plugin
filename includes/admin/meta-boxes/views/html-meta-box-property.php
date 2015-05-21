@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<td><?php APP_Lang::_ex( 'property_field_rooms' ) ?> :</td>
 			<td>
 				<input class="autonumeric" data-v-min="0" data-v-max="99" maxlength="2" type="text" 
-					name="app_meta_box_property_rooms" id="app_meta_box_property_rooms" 
+					name="_property_rooms" id="_property_rooms" 
 					value="<?php echo $data[ 'rooms' ]; ?>" />
 			</td>
 		</tr>
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<td><?php APP_Lang::_ex( 'property_field_baths' ) ?> :</td>
 			<td>
 				<input class="autonumeric" data-v-min="0" data-v-max="99" maxlength="2" type="text" 
-					name="app_meta_box_property_baths" id="app_meta_box_property_baths" 
+					name="_property_baths" id="_property_baths" 
 					value="<?php echo $data[ 'baths' ]; ?>" />
 			</td>
 		</tr>
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<td>
 				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999"
 					data-a-sign=" €" data-p-sign="s" 
-					maxlength="20" type="text" name="app_meta_box_property_price" id="app_meta_box_property_price" 
+					maxlength="20" type="text" name="_property_price" id="_property_price" 
 					value="<?php echo $data[ 'price' ]; ?>" />
 			</td>
 		</tr>
@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<td><?php APP_Lang::_ex( 'property_field_m2' ) ?> :</td>
 			<td>
 				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999"
-					maxlength="20" type="text" name="app_meta_box_property_m2" id="app_meta_box_property_m2"
+					maxlength="20" type="text" name="_property_m2" id="_property_m2"
 					value="<?php echo $data[ 'm2' ]; ?>" />
 			</td>
 		</tr>

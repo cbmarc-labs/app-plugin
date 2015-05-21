@@ -44,14 +44,18 @@ class APP_Admin_Meta_Boxes
 				'app_meta_box_property',
 				APP_Lang::_x( 'property_meta_box_title' ), 
 				'APP_Meta_Box_Property::output',
-				$screen
+				$screen,
+				'normal',
+				'high'
 			);
 			
 			add_meta_box(
 				'app_meta_box_property_location',
 				APP_Lang::_x( 'app_meta_box_property_location_title' ), 
 				'APP_Meta_Box_Property_Location::output',
-				$screen
+				$screen,
+				'normal',
+				'high'
 			);
 		}
 	}

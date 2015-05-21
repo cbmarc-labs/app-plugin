@@ -1,18 +1,20 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-$pieces = explode(",", $data[ 'location_geocode' ]);
+$map	= explode( ",", $data['_property_location_map'] );
+$marker	= explode( ",", $data['_property_location_marker'] );
 
 // default values
-$map_lat = '40.2085';
-$map_lng = '-3.713';
-$zoom = 5;
+$map_lat	= '40.2085';
+$map_lng	= '-3.713';
+$map_zoom	= 5;
 
-if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
-	$map_lat = $pieces[0];
-	$map_lng = $pieces[1];
-	$zoom = $pieces[2];
+if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
+	$map_lat	= $map[0];
+	$map_lng	= $map[1];
+	$map_zoom	= $map[2];
 }
+
 ?>
 
 <script type="text/javascript">
@@ -25,10 +27,10 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 
 		function initialize() {
 			map = new google.maps.Map(
-					document.getElementById("googleMap"), {
-				        zoom: <?php echo $zoom; ?>,
+					document.getElementById("property_map_container"), {
+				        zoom: <?php echo $map_zoom; ?>,
 				        streetViewControl: false,
-				        center: new google.maps.LatLng(<?php echo $map_lat; ?>, <?php echo $map_lng; ?>)
+				        center: new google.maps.LatLng('<?php echo $map_lat; ?>', '<?php echo $map_lng; ?>')
 				    }
 			);
 	
@@ -36,8 +38,8 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 			    map: map
 			});
 
-			<?php if( isset( $pieces[3] ) && isset( $pieces[4] ) ): ?>
-				var myLatlng = new google.maps.LatLng(<?php echo $pieces[3]; ?>, <?php echo $pieces[4]; ?>);
+			<?php if( isset( $marker[0] ) && isset( $marker[1] ) ): ?>
+				var myLatlng = new google.maps.LatLng(<?php echo $marker[0]; ?>, <?php echo $marker[1]; ?>);
 				marker.setPosition(myLatlng);
 			<?php endif; ?>
 
@@ -56,8 +58,8 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 			});
 		}
 
-		function codeAddress() {
-			var address = $('#meta_box_property_location_address').val();
+		function searchAddress() {
+			var address = $('#_property_location_address').val();
 
 		    geocoder.geocode({
 		        'address': address
@@ -84,23 +86,25 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 			var lng = c.lng();
 			var zoom = map.getZoom();
 
-			var string = lat+','+lng+','+zoom;
+			var map_data = lat+','+lng+','+zoom;
+			$('#_property_location_map').val(map_data);
 
 			var m = marker.getPosition();
+			var marker_data = '';
 			if(m){
 				var mlat = m.lat();
 				var mlng = m.lng();
 
-				string += ","+mlat+","+mlng;
+				var marker_data = mlat+','+mlng;
 			}
 
-            $('#meta_box_property_location_geocode').val(string);
+			$('#_property_location_marker').val(marker_data);
 		}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
 
-		$('#meta_box_property_location_address_button').click(function(){
-			codeAddress();
+		$('#property_location_search_button').click(function(){
+			searchAddress();
 		});
 		
 	});
@@ -123,9 +127,9 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 		<tr>
 			<td>Dirección :</td>
 			<td>
-				<input id="meta_box_property_location_address" style="width:100%;"
-					name="meta_box_property_location_address" class="" type="text" 
-					value="<?php echo $data[ 'location_address' ]; ?>"/>
+				<input id="_property_location_address" style="width:100%;"
+					name="_property_location_address" class="" type="text" 
+					value="<?php echo $data[ '_property_location_address' ]; ?>"/>
 			</td>
 		</tr>
 		
@@ -136,24 +140,21 @@ if( isset( $pieces[0] ) && isset( $pieces[1] ) && isset( $pieces[2] ) ) {
 			</td>
 		</tr>
 		
-		<tr>
-			<td colspan="2">
-				<input id="meta_box_property_location_geocode" 
-					name="meta_box_property_location_geocode" style="width:500px;" class="" type="hidden" 
-					value="<?php echo $data[ 'location_geocode' ]; ?>" />
-			</td>
-		</tr>
+		<input id="_property_location_map" name="_property_location_map" type="hidden" 
+					value="<?php echo $data[ '_property_location_map' ]; ?>" />
+		<input id="_property_location_marker" name="_property_location_marker" type="hidden" 
+					value="<?php echo $data[ '_property_location_marker' ]; ?>" />
 		
 		<tr>
 			<td colspan="2">
-				<input id="meta_box_property_location_address_button" type="button" 
+				<input id="property_location_search_button" type="button" 
 					value="Localizar en el mapa" class="button">
 			</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2">
-				<div id="googleMap" style="height:380px;"></div>
+				<div id="property_map_container" style="height:380px;"></div>
 			</td>
 		</tr>
 		

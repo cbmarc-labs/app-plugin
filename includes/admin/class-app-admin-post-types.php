@@ -78,11 +78,11 @@ class APP_Admin_Post_Types
 				
 				break;
 			case 'price':
-				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999" data-a-sign=" €" data-p-sign="s">' . get_post_meta( $post_id , '_app_property_price' , true ) . '</span>';
+				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999" data-a-sign=" €" data-p-sign="s">' . get_post_meta( $post_id , '_property_price' , true ) . '</span>';
 				
 				break;
 			case 'm2':
-				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_app_property_m2' , true ) . '</span>';
+				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_property_m2' , true ) . '</span>';
 				
 				break;
 		}
@@ -113,12 +113,12 @@ class APP_Admin_Post_Types
 	function request( $vars ) {
 		if ( isset( $vars[ 'orderby' ] ) && 'price' == $vars[ 'orderby' ] ) {
 			$vars = array_merge( $vars, array(
-				'meta_key' => '_app_property_price',
+				'meta_key' => '_property_price',
 				'orderby' => 'meta_value_num'
 			) );
 		} elseif( isset( $vars[ 'orderby' ] ) && 'm2' == $vars[ 'orderby' ] ) {
 			$vars = array_merge( $vars, array(
-				'meta_key' => '_app_property_m2',
+				'meta_key' => '_property_m2',
 				'orderby' => 'meta_value_num'
 			) );
 		} elseif( !isset( $_GET[ 'orderby' ] ) ) {

@@ -245,7 +245,7 @@ class APP_Post_Types
 				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
 				
 				$meta_query[] = array(
-					'key'		=> '_app_property_rooms',
+					'key'		=> '_property_rooms',
 					'value'		=> $safe_min_rooms,
 					'type'		=> 'NUMERIC',
 					'compare'	=> '>=',
@@ -258,7 +258,7 @@ class APP_Post_Types
 				$safe_min_m2 = intval( $query->query_vars['min_m2'] );
 				
 				$meta_query[] = array(
-					'key'		=> '_app_property_m2',
+					'key'		=> '_property_m2',
 					'value'		=> $safe_min_m2,
 					'type'		=> 'NUMERIC',
 					'compare'	=> '>=',
@@ -271,7 +271,7 @@ class APP_Post_Types
 				$safe_max_price = intval( $query->query_vars['max_price'] );
 				
 				$meta_query[] = array(
-					'key'		=> '_app_property_price',
+					'key'		=> '_property_price',
 					'value'		=> $safe_max_price,
 					'type'		=> 'NUMERIC',
 					'compare'	=> '<=',

@@ -23,8 +23,8 @@ class APP_Lang
 	public static function init()
 	{		
 		$currentlang = get_bloginfo('language');
-		$default_file = APP_PLUGIN_PATH . 'lang/en-US.php';
-		$lang_file = APP_PLUGIN_PATH . 'lang/' . $currentlang . '.php';
+		$default_file = APP()->plugin_path() . '/i18n/languages/en-US.php';
+		$lang_file = APP()->plugin_path() . '/i18n/languages/' . $currentlang . '.php';
 		
 		if( file_exists( $lang_file ) ) {
 			include_once( $lang_file );

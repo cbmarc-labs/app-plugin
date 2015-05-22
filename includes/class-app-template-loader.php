@@ -37,14 +37,14 @@ class APP_Template_Loader
 	 */
 	public static function template_loader( $template )
 	{
-		$find = array();
+		$find = array( 'app.php' );
 		$file = '';
 
 		if ( is_single() && get_post_type() == 'property' ) {
 
 			$file 	= 'single-property.php';
 			$find[] = $file;
-			$find[] = APP_PLUGIN_PATH . 'templates/' . $file;
+			$find[] = APP()->template_path() . $file;
 
 		} elseif ( is_tax( get_object_taxonomies( 'property' ) ) ) {
 
@@ -58,17 +58,17 @@ class APP_Template_Loader
 			}
 
 			$find[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
-			$find[] = APP_PLUGIN_PATH . 'templates/' . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+			$find[] = APP()->template_path() . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
 			$find[] = 'taxonomy-' . $term->taxonomy . '.php';
-			$find[] = APP_PLUGIN_PATH . 'templates/' . 'taxonomy-' . $term->taxonomy . '.php';
+			$find[] = APP()->template_path() . 'taxonomy-' . $term->taxonomy . '.php';
 			$find[] = $file;
-			$find[] = APP_PLUGIN_PATH . 'templates/' . $file;
+			$find[] = APP()->template_path() . $file;
 
 		} elseif ( is_post_type_archive( 'property' ) ) {
 
 			$file 	= 'archive-property.php';
 			$find[] = $file;
-			$find[] = APP_PLUGIN_PATH . 'templates/' . $file;
+			$find[] = APP()->template_path() . $file;
 
 		}
 
@@ -76,7 +76,7 @@ class APP_Template_Loader
 			$template = locate_template( array_unique( $find ) );
 			
 			if ( ! $template ) {
-				$template = APP_PLUGIN_PATH . 'templates/' . $file;
+				$template = APP()->plugin_path() . '/templates/' . $file;
 			}
 		}
 
@@ -97,11 +97,11 @@ class APP_Template_Loader
 		}
 
 		$check_dirs = array(
-			trailingslashit( get_stylesheet_directory() ) . APP_PLUGIN_PATH . 'templates/',
-			trailingslashit( get_template_directory() ) . APP_PLUGIN_PATH . 'templates/',
+			trailingslashit( get_stylesheet_directory() ) . APP()->template_path(),
+			trailingslashit( get_template_directory() ) . APP()->template_path(),
 			trailingslashit( get_stylesheet_directory() ),
 			trailingslashit( get_template_directory() ),
-			trailingslashit( APP_PLUGIN_PATH . 'templates/' ) . 'templates/'
+			trailingslashit( APP()->plugin_path() ) . 'templates/'
 		);
 
 		foreach ( $check_dirs as $dir ) {

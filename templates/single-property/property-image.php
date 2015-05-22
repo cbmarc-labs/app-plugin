@@ -12,11 +12,9 @@ global $post, $property;
 
 ?>
 <div class="images">
-aaaaaaaaaaaaaaaaaaaaaaaaa
-	<?php
-	
-		print_r( $property->get_gallery_attachment_ids() );
-		
-	?>
-aaaaaaaaaaaaaaaaaaaaaaaaa
+eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+<?php 
+		echo $property->get_gallery_attachment_ids();
+?>
+
 </div>

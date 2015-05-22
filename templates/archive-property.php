@@ -18,7 +18,7 @@
 
 get_header(); ?>
 
-<?php do_action('app_property_form_filter'); ?>
+<?php app_get_template( 'parts/property-form-filter.php' ); ?>
 
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">

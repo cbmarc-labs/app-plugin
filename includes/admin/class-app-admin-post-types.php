@@ -71,7 +71,7 @@ class APP_Admin_Post_Types
 				if( has_post_thumbnail() ) {
 					echo get_the_post_thumbnail( $post_id, array( 64, 64 ) );
 				} else {
-					echo '<img width="64" src="' . APP_TEMPLATE_DIR . 'assets/img/no_photo_available.jpg" />';
+					echo '<img width="64" src="' . APP()->plugin_url() . '/assets/img/no_photo_available.jpg" />';
 				}
 				
 				echo '</a>';

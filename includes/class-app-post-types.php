@@ -137,11 +137,9 @@ class APP_Post_Types
 			)
 		);
 		
-		wp_enqueue_style( 'app-nouislider-style', APP_TEMPLATE_DIR . 
-			'assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
+		wp_enqueue_style( 'app-nouislider-style', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
 		
-		wp_enqueue_script( 'app-nouislider-script', APP_TEMPLATE_DIR . 
-			'assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-nouislider-script', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
 	}
 	
 	// --------------------------------------------------------------------
@@ -154,18 +152,6 @@ class APP_Post_Types
 	public function widgets_init()
 	{
 		register_widget( 'APP_Widget_Property_Filter_Form' );
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * app_property_form_filter method
-	 *
-	 * @access public
-	 */
-	public function app_property_form_filter()
-	{		
-		include( APP_PLUGIN_PATH . '/templates/property-form-filter.php');
 	}
 	
 	// --------------------------------------------------------------------

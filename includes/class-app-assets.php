@@ -40,8 +40,8 @@ class APP_Assets
 	{
 		global $wp_scripts;
 		
-		wp_enqueue_style( 'app-bootstrap-style', APP_TEMPLATE_DIR . 'assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
-		wp_enqueue_style( 'app-style', APP_TEMPLATE_DIR . 'assets/css/style.css' );
+		wp_enqueue_style( 'app-bootstrap-style', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
+		wp_enqueue_style( 'app-style', APP()->plugin_url() . '/assets/css/style.css' );
 	}
 
 	// --------------------------------------------------------------------
@@ -55,8 +55,8 @@ class APP_Assets
 	{
 		global $wp_query, $post, $current_user;
 		
-		wp_enqueue_script( 'app-autoNumeric-script', APP_TEMPLATE_DIR . 'assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
-		wp_enqueue_script( 'app-default-script', APP_TEMPLATE_DIR . 'assets/js/default.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-autoNumeric-script', APP()->plugin_url() . '/assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-default-script', APP()->plugin_url() . '/assets/js/default.js', array( 'jquery' ) );
 		
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
 	}

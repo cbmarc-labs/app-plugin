@@ -28,6 +28,22 @@ class APP_Property
 	 * @var $post WP_Post
 	 */
 	public $post = null;
+	
+	/**
+	 * Constructor
+	 *
+	 * @access public
+	 */
+	public function __construct( $property )
+	{
+		if ( is_numeric( $property ) ) {
+			$this->id   = absint( $property );
+			$this->post = get_post( $this->id );
+		} elseif ( isset( $property->ID ) ) {
+			$this->id   = absint( $property->ID );
+			$this->post = $property;
+		}
+	}
 
 	// --------------------------------------------------------------------
 	
@@ -39,25 +55,5 @@ class APP_Property
 	public function get_gallery_attachment_ids()
 	{
 		print_r($this->post);
-	}
-
-	/**
-	 * Get the product object
-	 * @param  mixed $the_product
-	 * @uses   WP_POST
-	 * @return WP_Post|bool false on failure
-	 */
-	public function get_property( $the_property ) {
-		if ( false === $the_property ) {
-			$the_property = $GLOBALS['post'];
-		} elseif ( is_numeric( $the_property ) ) {
-			$the_property = get_post( $the_property );
-		} elseif ( $the_property instanceof APP_Property ) {
-			$the_property = get_post( $the_property->id );
-		} elseif ( ! ( $the_property instanceof WP_Post ) ) {
-			$the_property = false;
-		}
-		
-		return $the_property;
 	}
 }

@@ -6,8 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! function_exists( 'app_show_property_images' ) ) {
 	function app_show_property_images() {
-		//app_get_template( 'single-property/property-image.php' );
-		include( APP_PLUGIN_PATH . "templates/single-property/property-image.php" );
+		app_get_template( 'single-property/property-image.php' );
 	}
 }
 

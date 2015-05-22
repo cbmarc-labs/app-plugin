@@ -13,8 +13,6 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( !class_exists( 'App' ) ) :
 
 define( 'APP_FILE', __FILE__ );
-define( 'APP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'APP_TEMPLATE_DIR', plugin_dir_url( __FILE__ ) );
 
 /**
  * Application
@@ -36,11 +34,6 @@ final class App
 
 	// The single instance of the class
 	private static $_instance = null;
-	
-	/**
-	 * @var APP_Property $property
-	 */
-	public $property = null;
 
 	/**
 	 * Constructor
@@ -48,7 +41,8 @@ final class App
 	 * @access public
 	 */
 	public function __construct()
-	{		
+	{
+		$this->define_constants();
 		$this->includes();		
 		$this->init_hooks();
 		
@@ -79,6 +73,32 @@ final class App
 		}
 		
 		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * define_constants method
+	 *
+	 * @access private
+	 */
+	private function define_constants()
+	{
+		$this->define( 'APP_PLUGIN_FILE', __FILE__ );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * define method
+	 *
+	 * @access private
+	 */
+	private function define( $name, $value )
+	{
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -115,8 +135,42 @@ final class App
 	 */
 	public function init()
 	{
-		// Load class instances
-		$this->property = new APP_Property();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * plugin_url method
+	 *
+	 * @access public
+	 */
+	public function plugin_url()
+	{
+		return untrailingslashit( plugins_url( '/', __FILE__ ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * plugin_path method
+	 *
+	 * @access public
+	 */
+	public function plugin_path()
+	{
+		return untrailingslashit( plugin_dir_path( __FILE__ ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * template_path method
+	 *
+	 * @access public
+	 */
+	public function template_path()
+	{
+		return apply_filters( 'app_template_path', 'app/' );
 	}
 
 	// --------------------------------------------------------------------

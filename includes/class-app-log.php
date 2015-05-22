@@ -43,7 +43,7 @@ class APP_Log
 				$message =  print_r( $message, TRUE );
 			}
 			
-			error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, APP_PLUGIN_PATH . 'app.log' );
+			error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, APP()->plugin_path() . 'app.log' );
 		}
 	}
 }

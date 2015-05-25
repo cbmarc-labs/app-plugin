@@ -48,12 +48,98 @@ class APP_Property
 	// --------------------------------------------------------------------
 	
 	/**
+	 * get_related_ids method
+	 *
+	 * @access public
+	 */
+	public function get_related_ids( $limit = 5 ) {
+		global $wpdb;
+	
+		$limit = absint( $limit );
+	
+		// Related properties are found from taxonomies
+		$type_array = array(0);
+		$feature_array = array(0);
+		$transaction_array = array(0);
+
+		// Get types
+		$terms = wp_get_post_terms( $this->id, 'property-type' );
+		foreach ( $terms as $term ) {
+			$type_array[] = $term->term_id;
+		}
+		
+		// Get features
+		$terms = wp_get_post_terms( $this->id, 'property-feature' );
+		foreach ( $terms as $term ) {
+			$feature_array[] = $term->term_id;
+		}
+		
+		// Get transaction
+		$terms = wp_get_post_terms( $this->id, 'property-transaction' );
+		foreach ( $terms as $term ) {
+			$transaction_array[] = $term->term_id;
+		}
+		
+		// Don't bother if none are set
+		if ( sizeof( $type_array ) == 1 && sizeof( $feature_array ) == 1 && 
+				sizeof( $transaction_array ) == 1 ) {
+			return array();
+		}
+		
+		// Sanitize
+		$type_array  = array_map( 'absint', $type_array );
+		$feature_array  = array_map( 'absint', $feature_array );
+		$transaction_array  = array_map( 'absint', $transaction_array );
+		
+		$myposts = get_posts(
+			array(
+				'numberposts'	=> $limit,
+				'post_type'		=> 'property',
+				'post__not_in'         => array( $this->id ),
+				'tax_query'		=> array(
+						'relation' => 'OR',
+						array(
+								'taxonomy'	=> 'property-type',
+								'terms'		=> $type_array,
+								'operator'	=> 'IN'
+						),
+						array(
+								'taxonomy'	=> 'property-feature',
+								'terms'		=> $feature_array,
+								'operator'	=> 'IN'
+						),
+						array(
+								'taxonomy'	=> 'property-transaction',
+								'terms'		=> $transaction_array,
+								'operator'	=> 'IN'
+						)
+				)
+			)
+		);
+		
+		$ids = array();
+		foreach ($myposts as $mypost) {
+			$ids[] = $mypost->ID;
+		}
+		
+		return implode( ",", $ids );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
 	 * get_gallery_attachment_ids method
 	 *
 	 * @access public
 	 */
 	public function get_gallery_attachment_ids()
 	{
-		print_r($this->post);
+		$image_ids = get_post_meta( $this->id, '_gallery_ids', 1 );
+		
+		if( $thumbnail_id = get_post_thumbnail_id( $this->id ) ) {
+			$image_ids = $thumbnail_id . ',' . $image_ids;
+		}
+		
+		return $image_ids; 
 	}
 }

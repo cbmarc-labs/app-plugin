@@ -28,6 +28,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		function initialize() {
 			map = new google.maps.Map(
 					document.getElementById("property_map_container"), {
+						scrollwheel: false,
 				        zoom: <?php echo $map_zoom; ?>,
 				        streetViewControl: false,
 				        center: new google.maps.LatLng('<?php echo $map_lat; ?>', '<?php echo $map_lng; ?>')

@@ -27,6 +27,7 @@ class APP_Assets
 	public static function init()
 	{
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'scripts' ) );
 	}
 
 	// --------------------------------------------------------------------

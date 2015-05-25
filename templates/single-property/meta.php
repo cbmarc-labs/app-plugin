@@ -16,8 +16,6 @@ $m2		= get_post_meta( $post->ID, '_property_m2', 1 );
 
 ?>
 
-<h1>Meta</h1>
-
 <span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $rooms; ?> Habitaciones
 <span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $baths; ?> Baños
 <span class="glyphicon glyphicon-th" aria-hidden="true"></span> <?php echo $m2; ?> m2

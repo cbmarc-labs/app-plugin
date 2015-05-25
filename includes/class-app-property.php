@@ -128,6 +128,24 @@ class APP_Property
 	// --------------------------------------------------------------------
 	
 	/**
+	 * get_post_thumbnail method
+	 *
+	 * @access public
+	 */
+	public function get_post_thumbnail( $size = 'medium' )
+	{
+		$thumbnail = get_the_post_thumbnail( $this->id, $size );
+		
+		if( ! $thumbnail ) {
+			echo '<img width="300" height="240" src="' . APP()->plugin_url() . '/assets/img/no_photo_available.jpg" />';
+		}
+		
+		return $thumbnail;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
 	 * get_gallery_attachment_ids method
 	 *
 	 * @access public

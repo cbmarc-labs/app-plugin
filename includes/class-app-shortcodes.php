@@ -59,5 +59,3 @@ class APP_Shortcodes
 		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Filter_Form', 'output' ) );
 	}
 }
-
-APP_Shortcodes::init();

@@ -43,7 +43,9 @@ class APP_Log
 				$message =  print_r( $message, TRUE );
 			}
 			
-			error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, APP()->plugin_path() . 'app.log' );
+			$file = APP()->plugin_path() . '/app.log';
+			if ( is_writable( $file ) )
+				error_log( date( "d/m/Y H:i:s" ) . " - " . $message . "\n", 3, $file );
 		}
 	}
 }

@@ -30,17 +30,11 @@ class APP_Post_Types
 		// Walkers
 		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
 		
-		// Widgets
-		include_once( 'widgets/class-app-widget-property-filter-form.php' );
-		include_once( 'widgets/class-app-widget-property-type.php' );
-		
 		// Initialise
 		add_action( 'init', array( &$this, 'init' ) );
-		add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
 		
 		add_filter( 'query_vars', array( &$this, 'query_vars' ) );
 		
-		add_action( 'app_property_form_filter', array( &$this, 'app_property_form_filter' ) );
 		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 	}
 
@@ -141,19 +135,6 @@ class APP_Post_Types
 		wp_enqueue_style( 'app-nouislider-style', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
 		
 		wp_enqueue_script( 'app-nouislider-script', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * widgets_init method
-	 *
-	 * @access public
-	 */
-	public function widgets_init()
-	{
-		register_widget( 'APP_Widget_Property_Filter_Form' );
-		register_widget( 'APP_Widget_Property_Type' );
 	}
 	
 	// --------------------------------------------------------------------

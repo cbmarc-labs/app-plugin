@@ -32,7 +32,9 @@ final class App
 	 */
 	public $version = '1.0.3';
 
-	// The single instance of the class
+	/**
+	 * @var The single instance of the class
+	 */
 	private static $_instance = null;
 
 	/**
@@ -112,6 +114,7 @@ final class App
 	{
 		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 11 );
 		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -183,10 +186,10 @@ final class App
 	public function includes()
 	{
 		include_once( 'includes/class-app-autoloader.php' );
+		include_once( 'includes/app-core-functions.php' );
 		include_once( 'includes/class-app-lang.php' );
 		include_once( 'includes/class-app-log.php' );
-		include_once( 'includes/class-app-shortcodes.php' );
-		include_once( 'includes/app-core-functions.php' );
+		include_once( 'includes/app-widget-functions.php' );
 		
 		if ( $this->is_request( 'admin' ) ) {
 			include_once( 'includes/admin/class-app-admin.php' );
@@ -215,6 +218,7 @@ final class App
 	{
 		include_once( 'includes/class-app-template-loader.php' );
 		include_once( 'includes/class-app-assets.php' );
+		include_once( 'includes/class-app-shortcodes.php' );
 	}
 
 	// --------------------------------------------------------------------

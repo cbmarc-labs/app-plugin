@@ -32,6 +32,7 @@ class APP_Post_Types
 		
 		// Widgets
 		include_once( 'widgets/class-app-widget-property-filter-form.php' );
+		include_once( 'widgets/class-app-widget-property-type.php' );
 		
 		// Initialise
 		add_action( 'init', array( &$this, 'init' ) );
@@ -152,6 +153,7 @@ class APP_Post_Types
 	public function widgets_init()
 	{
 		register_widget( 'APP_Widget_Property_Filter_Form' );
+		register_widget( 'APP_Widget_Property_Type' );
 	}
 	
 	// --------------------------------------------------------------------

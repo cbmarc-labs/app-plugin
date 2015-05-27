@@ -87,6 +87,7 @@ final class App
 	private function define_constants()
 	{
 		$this->define( 'APP_PLUGIN_FILE', __FILE__ );
+		$this->define( 'APP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -202,6 +203,7 @@ final class App
 		include_once( 'includes/class-app-lang.php' );
 		include_once( 'includes/class-app-log.php' );
 		include_once( 'includes/app-widget-functions.php' );
+		include_once( 'includes/class-app-install.php' );
 		
 		if ( $this->is_request( 'admin' ) ) {
 			include_once( 'includes/admin/class-app-admin.php' );

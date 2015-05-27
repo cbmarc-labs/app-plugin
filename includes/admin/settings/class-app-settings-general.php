@@ -52,11 +52,12 @@ class APP_Settings_General extends APP_Settings_Page
 								'title'    => __( 'Store Notice Text', 'app' ),
 								'desc'     => '',
 								'id'       => 'app_demo_store_notice',
-								'default'  => __( 'This is a demo store for testing purposes &mdash; no orders shall be fulfilled.', 'app' ),
+								'default'  => __( '', 'app' ),
 								'type'     => 'text',
 								'css'      => 'min-width:300px;',
 								'autoload' => false
 						),
+						array( 'type' => 'sectionend' )
 				)
 		);
 

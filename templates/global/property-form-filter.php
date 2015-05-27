@@ -151,6 +151,10 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 		</div>
 	</div>
 </div>
+
+<button class="test_ajax" class="btn btn-primary form-control" type="button">
+	<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Test AJAX
+</button>
 	
 </form>
 

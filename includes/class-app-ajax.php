@@ -22,15 +22,15 @@ class APP_AJAX
 	 */
 	public static function init()
 	{
-		// woocommerce_EVENT => nopriv
+		// app_EVENT => nopriv
 		$ajax_events = array(
 			'test' => true,
 		);
 		
-		foreach ( $ajax_events as $ajax_event => $nopriv ) {
+		foreach( $ajax_events as $ajax_event => $nopriv ) {
 			add_action( 'wp_ajax_app_' . $ajax_event, array( __CLASS__, $ajax_event ) );
 		
-			if ( $nopriv ) {
+			if( $nopriv ) {
 				add_action( 'wp_ajax_nopriv_app_' . $ajax_event, array( __CLASS__, $ajax_event ) );
 			}
 		}
@@ -44,8 +44,10 @@ class APP_AJAX
 	 * @access private
 	 */
 	public static function test()
-	{
-		ob_start();
+	{		
+		//ob_start();
+		
+		check_ajax_referer( 'app-params', 'security' );
 		
 		$data = array( 'test' => 'success' );
 		
@@ -54,3 +56,5 @@ class APP_AJAX
 		die();
 	}
 }
+
+APP_AJAX::init();

@@ -177,6 +177,18 @@ final class App
 	}
 
 	// --------------------------------------------------------------------
+	
+	/**
+	 * ajax_url method
+	 *
+	 * @access public
+	 */
+	public function ajax_url()
+	{
+		return admin_url( 'admin-ajax.php' );
+	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * includes method

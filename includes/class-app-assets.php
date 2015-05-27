@@ -28,6 +28,7 @@ class APP_Assets
 	{
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -60,6 +61,25 @@ class APP_Assets
 		wp_enqueue_script( 'app-default-script', APP()->plugin_url() . '/assets/js/default.js', array( 'jquery' ) );
 		
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
+		
+		wp_enqueue_script( 'app-script', APP()->plugin_url() . '/assets/js/frontend/app.js', array( 'jquery' ) );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * localize_scripts method
+	 *
+	 * @access public
+	 */
+	public static function localize_scripts()
+	{
+		$params = array(
+				'ajax_url'			=> APP()->ajax_url(),
+				'app_params_nonce'	=> wp_create_nonce( 'app-params' )
+		);
+
+		wp_localize_script( 'app-script', 'app_params', $params );
 	}
 }
 

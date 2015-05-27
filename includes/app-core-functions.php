@@ -2,6 +2,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+// Include core functions (available in both admin and frontend)
+include( 'app-conditional-functions.php' );
+include( 'app-formatting-functions.php' );
 include( 'app-property-functions.php' );
 
 // --------------------------------------------------------------------
@@ -13,7 +16,7 @@ function app_get_template_part( $slug, $name = '' )
 {
 	$template = '';
 	
-	// Look in yourtheme/slug-name.php and yourtheme/woocommerce/slug-name.php
+	// Look in yourtheme/slug-name.php and yourtheme/app/slug-name.php
 	if ( $name ) {
 		$template = locate_template( array( "{$slug}-{$name}.php", APP()->template_path() . "{$slug}-{$name}.php" ) );
 	}
@@ -23,7 +26,7 @@ function app_get_template_part( $slug, $name = '' )
 		$template = APP()->plugin_path() . "/templates/{$slug}-{$name}.php";
 	}
 	
-	// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/woocommerce/slug.php
+	// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/app/slug.php
 	if ( ! $template ) {
 		$template = locate_template( array( "{$slug}.php", APP()->template_path() . "{$slug}.php" ) );
 	}
@@ -102,6 +105,5 @@ function app_locate_template( $template_name, $template_path = '', $default_path
 	}
 
 	// Return what we found
-	//return apply_filters( 'woocommerce_locate_template', $template, $template_name, $template_path );
-	return $template;
+	return apply_filters( 'app_locate_template', $template, $template_name, $template_path );
 }

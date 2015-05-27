@@ -43,8 +43,6 @@ class APP_Admin_Menus
 				'app-settings',
 				array( $this, 'settings_page' )
 		);
-		
-		//add_action( 'load-' . $settings_page, array( $this, 'settings_page_init' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -54,8 +52,9 @@ class APP_Admin_Menus
 	 *
 	 * @access public
 	 */
-	public function settings_page() {
-		APP_Settings_General::output();
+	public function settings_page()
+	{
+		APP_Admin_Settings::output();
 	}
 }
 

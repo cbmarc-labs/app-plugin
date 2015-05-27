@@ -113,7 +113,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				<select name="min_m2" class="form-control">
 					<option value="">Todos</option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
-					<option value="<?php echo $value; ?>" <?php echo $min_m2 == $value ? 'selected="selected"':''; ?>><?php echo $value ?> m2</option>
+					<option value="<?php echo $value; ?>" 
+					<?php selected( $value, $min_m2 ); ?>><?php echo $value ?> m2</option>
 					<?php endforeach; ?>
 				</select>
 			</div>
@@ -125,7 +126,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 					<?php foreach( array(50000,100000,150000,200000,250000,300000,
 							350000,400000,450000,500000,550000,600000,650000,700000,800000,
 							1000000,1500000,3000000) as $value) : ?>
-					<option value="<?php echo $value; ?>" <?php echo $max_price == $value ? 'selected="selected"':''; ?>><?php echo number_format($value, 0, ',', '.') ?> €</option>
+					<option value="<?php echo $value; ?>" 
+					<?php selected( $value, $max_price ); ?>><?php echo number_format($value, 0, ',', '.') ?> €</option>
 					<?php endforeach; ?>
 				</select>
 			</div>

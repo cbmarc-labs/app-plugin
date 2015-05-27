@@ -119,7 +119,7 @@ class APP_Widget_Property_Type extends WP_Widget
 			<?php 
 			foreach( $taxonomies as $taxonomy ) {
 				echo '<option ';
-				if ( $taxonomy->name == $type ) echo 'selected="selected"';
+				selected( $taxonomy->name, $type );
 				echo ' value="' . $taxonomy->name . '">' . $taxonomy->labels->name . '</option>';
 			}
 			?>

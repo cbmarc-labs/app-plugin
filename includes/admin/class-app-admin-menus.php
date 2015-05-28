@@ -24,19 +24,7 @@ class APP_Admin_Menus
 	 */
 	public function __construct()
 	{
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
 		add_action( 'admin_menu', array( $this, 'settings_menu' ), 50 );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * admin_menu method
-	 *
-	 * @access public
-	 */
-	public function admin_menu()
-	{
 	}
 
 	// --------------------------------------------------------------------

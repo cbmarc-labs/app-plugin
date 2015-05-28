@@ -27,15 +27,8 @@ class APP_Post_Types
 	{
 		App_Log::log( 'APP_Property Class Initialized' );
 		
-		// Walkers
-		include_once( 'walkers/mc-walker-taxonomy-dropdown.php' );
-		
 		// Initialise
 		add_action( 'init', array( &$this, 'init' ) );
-		
-		add_filter( 'query_vars', array( &$this, 'query_vars' ) );
-		
-		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -113,6 +106,7 @@ class APP_Post_Types
 					'name' => APP_Lang::_x( 'property-transaction' )
 				),
 				'show_ui'           => true,
+				'show_in_menu'		=> 'app',
 				'show_admin_column' => true,
 				'query_var'         => true,
 			)
@@ -127,147 +121,11 @@ class APP_Post_Types
 					'name' => APP_Lang::_x( 'property-feature' )
 				),
 				'show_ui'           => true,
+				'show_in_menu'		=> 'app',
 				'show_admin_column' => true,
 				'query_var'         => true,
 			)
 		);
-		
-		wp_enqueue_style( 'app-nouislider-style', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.min.css' );
-		
-		wp_enqueue_script( 'app-nouislider-script', APP()->plugin_url() . '/assets/lib/noUiSlider.7.0.10/jquery.nouislider.all.min.js', array( 'jquery' ) );
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * query_vars method
-	 *
-	 * @access public
-	 */
-	public function query_vars( $vars )
-	{
-		$vars[] = "type";
-		$vars[] = "transaction";
-		$vars[] = "min_rooms";
-		$vars[] = "max_price";
-		$vars[] = "min_m2";
-		
-		return $vars;
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * pre_get_posts method
-	 * 
-	 * filtra la llista al front-end
-	 *
-	 * @access public
-	 */
-	public function pre_get_posts( $query )
-	{
-		// Check if on frontend and main query is modified
-		if( ! is_admin() && $query->is_main_query() && isset( $query->query_vars['post_type'] ) &&
-				$query->query_vars['post_type'] == 'property' ) {
-            
-			$meta_query = $query->get('meta_query');
-			
-			// Filter by type taxonomy
-			if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) ) {
-				$safe_type = sanitize_text_field( $query->query_vars['type'] );
-			
-				if( $safe_type != '0' ) {
-					$query->set( 
-						'tax_query',
-							array(
-								array(
-									'taxonomy' => 'property-type',
-									'field'    => 'slug',
-									'terms'    => $safe_type,
-								)
-							)
-					);
-				}
-			}
-			
-			// Filter by type taxonomy
-			if( isset( $query->query_vars['transaction'] ) && !empty( $query->query_vars['transaction'] ) ) {
-				$safe_transaction = sanitize_text_field( $query->query_vars['transaction'] );
-			
-				if( $safe_transaction != '0' ) {
-					$query->set( 
-						'tax_query',
-							array(
-								array(
-									'taxonomy' => 'property-transaction',
-									'field'    => 'slug',
-									'terms'    => $safe_transaction,
-								)
-							)
-					);
-				}
-			}
-			
-			// filter by min rooms
-			if( isset( $query->query_vars['min_rooms'] ) && 
-				! empty( $query->query_vars['min_rooms'] ) ) {
-				$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
-				
-				$meta_query[] = array(
-					'key'		=> '_property_rooms',
-					'value'		=> $safe_min_rooms,
-					'type'		=> 'NUMERIC',
-					'compare'	=> '>=',
-				);
-			}
-			
-			// filter by min rooms
-			if( isset( $query->query_vars['min_m2'] ) && 
-				! empty( $query->query_vars['min_m2'] ) ) {
-				$safe_min_m2 = intval( $query->query_vars['min_m2'] );
-				
-				$meta_query[] = array(
-					'key'		=> '_property_m2',
-					'value'		=> $safe_min_m2,
-					'type'		=> 'NUMERIC',
-					'compare'	=> '>=',
-				);
-			}
-			
-			// filter by max_price
-			if( isset( $query->query_vars['max_price'] ) && 
-				! empty( $query->query_vars['max_price'] ) ) {
-				$safe_max_price = intval( $query->query_vars['max_price'] );
-				
-				$meta_query[] = array(
-					'key'		=> '_property_price',
-					'value'		=> $safe_max_price,
-					'type'		=> 'NUMERIC',
-					'compare'	=> '<=',
-				);
-			}
-			
-			$query->set( 'meta_query', $meta_query );
-			
-			add_filter( 'posts_where', array( &$this, 'posts_where' ) );
- 		}
- 		
- 		return $query;
-	}
-	
-	// --------------------------------------------------------------------
-	
-	/**
-	 * posts_where method
-	 *
-	 * @access public
-	 */
-	public function posts_where( $where = '' )
-	{
-		//$today = date( 'Y-m-d' );
-		//$where .= " AND post_date >= '$today'";
-		
-		return $where;
 	}
 	
 }

@@ -13,6 +13,6 @@ class APP_Shortcode_Property_Filter_Form
 	 */
 	public static function output()
 	{
-		app_get_template( 'global/property-form-filter.php' );
+		app_get_template( 'global/form-property-filter.php' );
 	}
 }

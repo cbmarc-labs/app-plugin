@@ -478,116 +478,6 @@ class APP_Admin_Settings
 					}
 					break;
 
-				// Image width settings
-				case 'image_width' :
-
-					$image_size = str_replace( '_image_size', '', $value[ 'id' ] );
-					$size   = wc_get_image_size( $image_size );
-					$width  = isset( $size[ 'width' ] )  ? $size[ 'width' ]  : $value[ 'default' ][ 'width' ];
-					$height = isset( $size[ 'height' ] ) ? $size[ 'height' ] : $value[ 'default' ][ 'height' ];
-					$crop   = isset( $size[ 'crop' ] )   ? $size[ 'crop' ]   : $value[ 'default' ][ 'crop' ];
-
-					$disabled_attr    = '';
-					$disabled_message = '';
-
-					if ( has_filter( 'woocommerce_get_image_size_' . $image_size ) ) {
-						$disabled_attr = 'disabled="disabled"';
-						$disabled_message = "<p><small>" . __( 'The settings of this image size have been disabled because its values are being overwritten by a filter.', 'woocommerce' ) . "</small></p>";
-					}
-
-					?><tr valign="top">
-						<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?> <?php echo $tooltip_html; echo $disabled_message; ?></th>
-						<td class="forminp image_width_settings">
-
-							<input name="<?php echo esc_attr( $value['id'] ); ?>[width]" <?php echo $disabled_attr; ?> id="<?php echo esc_attr( $value['id'] ); ?>-width" type="text" size="3" value="<?php echo $width; ?>" /> &times; <input name="<?php echo esc_attr( $value['id'] ); ?>[height]" <?php echo $disabled_attr; ?> id="<?php echo esc_attr( $value['id'] ); ?>-height" type="text" size="3" value="<?php echo $height; ?>" />px
-
-							<label><input name="<?php echo esc_attr( $value['id'] ); ?>[crop]" <?php echo $disabled_attr; ?> id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" value="1" <?php checked( 1, $crop ); ?> /> <?php _e( 'Hard Crop?', 'woocommerce' ); ?></label>
-
-							</td>
-					</tr><?php
-					break;
-
-				// Single page selects
-				case 'single_select_page' :
-
-					$args = array(
-						'name'             => $value['id'],
-						'id'               => $value['id'],
-						'sort_column'      => 'menu_order',
-						'sort_order'       => 'ASC',
-						'show_option_none' => ' ',
-						'class'            => $value['class'],
-						'echo'             => false,
-						'selected'         => absint( self::get_option( $value['id'] ) )
-					);
-
-					if ( isset( $value['args'] ) ) {
-						$args = wp_parse_args( $value['args'], $args );
-					}
-
-					?><tr valign="top" class="single_select_page">
-						<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?> <?php echo $tooltip_html; ?></th>
-						<td class="forminp">
-							<?php echo str_replace(' id=', " data-placeholder='" . __( 'Select a page&hellip;', 'woocommerce' ) .  "' style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ); ?> <?php echo $description; ?>
-						</td>
-					</tr><?php
-					break;
-
-				// Single country selects
-				case 'single_select_country' :
-					$country_setting = (string) self::get_option( $value['id'] );
-
-					if ( strstr( $country_setting, ':' ) ) {
-						$country_setting = explode( ':', $country_setting );
-						$country         = current( $country_setting );
-						$state           = end( $country_setting );
-					} else {
-						$country = $country_setting;
-						$state   = '*';
-					}
-					?><tr valign="top">
-						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
-							<?php echo $tooltip_html; ?>
-						</th>
-						<td class="forminp"><select name="<?php echo esc_attr( $value['id'] ); ?>" style="<?php echo esc_attr( $value['css'] ); ?>" data-placeholder="<?php _e( 'Choose a country&hellip;', 'woocommerce' ); ?>" title="<?php _e( 'Country', 'woocommerce' ) ?>" class="wc-enhanced-select">
-							<?php WC()->countries->country_dropdown_options( $country, $state ); ?>
-						</select> <?php echo $description; ?>
-						</td>
-					</tr><?php
-					break;
-
-				// Country multiselects
-				case 'multi_select_countries' :
-
-					$selections = (array) self::get_option( $value['id'] );
-
-					if ( ! empty( $value['options'] ) ) {
-						$countries = $value['options'];
-					} else {
-						$countries = WC()->countries->countries;
-					}
-
-					asort( $countries );
-					?><tr valign="top">
-						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
-							<?php echo $tooltip_html; ?>
-						</th>
-						<td class="forminp">
-							<select multiple="multiple" name="<?php echo esc_attr( $value['id'] ); ?>[]" style="width:350px" data-placeholder="<?php _e( 'Choose countries&hellip;', 'woocommerce' ); ?>" title="<?php _e( 'Country', 'woocommerce' ) ?>" class="wc-enhanced-select">
-								<?php
-									if ( $countries ) {
-										foreach ( $countries as $key => $val ) {
-											echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $selections ), true, false ).'>' . $val . '</option>';
-										}
-									}
-								?>
-							</select> <?php echo ( $description ) ? $description : ''; ?> </br><a class="select_all button" href="#"><?php _e( 'Select all', 'woocommerce' ); ?></a> <a class="select_none button" href="#"><?php _e( 'Select none', 'woocommerce' ); ?></a>
-						</td>
-					</tr><?php
-					break;
-
 				// Default: run an action
 				default:
 					do_action( 'app_admin_field_' . $value['type'], $value );
@@ -690,42 +580,13 @@ class APP_Admin_Settings
 				case 'single_select_page' :
 				case 'single_select_country' :
 				case 'radio' :
-					if ( in_array( $value['id'], array( 'woocommerce_price_thousand_sep', 'woocommerce_price_decimal_sep' ) ) ) {
-						$option_value = wp_kses_post( $option_value );
-
-					} elseif ( 'woocommerce_price_num_decimals' == $value['id'] ) {
-						$option_value = is_null( $option_value ) ? 2 : absint( $option_value );
-
-					} elseif ( 'woocommerce_hold_stock_minutes' == $value['id'] ) {
-						$option_value = ! empty( $option_value ) ? absint( $option_value ) : ''; // Allow > 0 or set to ''
-
-						wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-
-						if ( '' !== $option_value ) {
-							wp_schedule_single_event( time() + ( absint( $option_value ) * 60 ), 'woocommerce_cancel_unpaid_orders' );
-						}
-
-					} else {
-						$option_value = app_clean( $option_value );
-					}
+					$option_value = app_clean( $option_value );
 					break;
 				case 'multiselect' :
-				case 'multi_select_countries' :
-					$option_value = array_filter( array_map( 'wc_clean', (array) $option_value ) );
-					break;
-				case 'image_width' :
-					if ( isset( $option_value['width'] ) ) {
-						$update_options[ $value['id'] ]['width']  = app_clean( $option_value['width'] );
-						$update_options[ $value['id'] ]['height'] = app_clean( $option_value['height'] );
-						$update_options[ $value['id'] ]['crop']   = isset( $option_value['crop'] ) ? 1 : 0;
-					} else {
-						$update_options[ $value['id'] ]['width']  = $value['default']['width'];
-						$update_options[ $value['id'] ]['height'] = $value['default']['height'];
-						$update_options[ $value['id'] ]['crop']   = $value['default']['crop'];
-					}
+					$option_value = array_filter( array_map( 'app_clean', (array) $option_value ) );
 					break;
 				default :
-					do_action( 'woocommerce_update_option_' . sanitize_title( $value['type'] ), $value );
+					do_action( 'app_update_option_' . sanitize_title( $value['type'] ), $value );
 					break;
 			}
 

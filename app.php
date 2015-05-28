@@ -30,7 +30,7 @@ final class App
 	/**
 	 * @var string
 	 */
-	public $version = '1.0.3';
+	public $version = '1.0.0';
 
 	/**
 	 * @var The single instance of the class
@@ -47,18 +47,6 @@ final class App
 		$this->define_constants();
 		$this->includes();		
 		$this->init_hooks();
-		
-		// Activate after plugins loaded
-		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
-		
-		// Methods for activation/desactivation this plugin
-		register_activation_hook( __FILE__, array( &$this, 'register_activation_hook' ) );
-		register_deactivation_hook( __FILE__, array( &$this, 'register_deactivation_hook' ) );
-		
-		// Error ?
-		// register_uninstall_hook was called incorrectly...
-		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
-		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
 	}
 
 	// --------------------------------------------------------------------
@@ -190,6 +178,26 @@ final class App
 	}
 
 	// --------------------------------------------------------------------
+	
+	/**
+	 * is_request method
+	 *
+	 * @access public
+	 */
+	private function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin' :
+				return is_admin();
+			case 'ajax' :
+				return defined( 'DOING_AJAX' );
+			case 'cron' :
+				return defined( 'DOING_CRON' );
+			case 'frontend' :
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
+
+	// --------------------------------------------------------------------
 
 	/**
 	 * includes method
@@ -216,6 +224,8 @@ final class App
 		if ( $this->is_request( 'frontend' ) ) {
 			$this->frontend_includes();
 		}
+		
+		include( 'includes/class-app-query.php' );
 
 		include_once( 'includes/class-app-post-types.php' );
 		include_once( 'includes/class-app-property.php' );
@@ -233,124 +243,9 @@ final class App
 		include_once( 'includes/class-app-template-loader.php' );
 		include_once( 'includes/class-app-assets.php' );
 		include_once( 'includes/class-app-shortcodes.php' );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * is_request method
-	 *
-	 * @access public
-	 */
-	private function is_request( $type ) {
-		switch ( $type ) {
-			case 'admin' :
-				return is_admin();
-			case 'ajax' :
-				return defined( 'DOING_AJAX' );
-			case 'cron' :
-				return defined( 'DOING_CRON' );
-			case 'frontend' :
-				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
-		}
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * plugin_setup method
-	 *
-	 * @access public
-	 */
-	public function plugins_loaded()
-	{		
-		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * app_daily_cron_event method
-	 *
-	 * @access public
-	 */
-	public static function app_daily_cron_event()
-	{
-		App_Log::log( 'App Class : app_daily_cron_event' );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * register_activation_hook method
-	 *
-	 * @access public
-	 */
-	public static function register_activation_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
 		
-		$plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-		check_admin_referer( "activate-plugin_{$plugin}" );
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_schedule_event( time(), 'daily', 'app_daily_hook_event' );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * on_deactivation method
-	 *
-	 * @access public
-	 */
-	public static function register_deactivation_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-		
-		$plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-		check_admin_referer( "deactivate-plugin_{$plugin}" );
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_clear_scheduled_hook( 'app_daily_hook_event' );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * on_uninstall method
-	 * 
-	 * thanks to: 
-	 * http://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to
-	 *
-	 * @access public
-	 */
-	public static function register_uninstall_hook()
-	{
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-		
-		check_admin_referer( 'bulk-plugins' );
-	
-		// Important: Check if the file is the one
-		// that was registered during the uninstall hook.
-		if ( __FILE__ != WP_UNINSTALL_PLUGIN ) {
-			return;
-		}
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_clear_scheduled_hook( 'app_daily_hook_event' );
+		// Walkers
+		include_once( 'includes/walkers/mc-walker-taxonomy-dropdown.php' );
 	}
 
 } // end class App

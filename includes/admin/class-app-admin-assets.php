@@ -57,7 +57,7 @@ class APP_Admin_Assets
 		$screen = get_current_screen();
 		
 		wp_enqueue_script( 'app-autoNumeric-script', APP()->plugin_url() . '/assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
-		wp_enqueue_script( 'app-admin-meta-box-gallery-script', APP()->plugin_url() . '/assets/js/admin/meta-box-gallery.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-meta-boxes-property-script', APP()->plugin_url() . '/assets/js/admin/meta-boxes-property.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-default-script', APP()->plugin_url() . '/assets/js/default.js', array( 'jquery' ) );
 		
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );

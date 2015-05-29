@@ -36,6 +36,10 @@ class APP_Admin_Post_Types
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 		
 		add_filter( "request", array( $this, 'request' ) );
+		
+		if ( ! function_exists( 'duplicate_post_plugin_activation' ) ) {
+			include( 'class-app-admin-duplicate-property.php' );
+		}
 	}
 
 	// --------------------------------------------------------------------

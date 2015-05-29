@@ -46,15 +46,15 @@ class APP_Meta_Box_Property
 	public static function save_post( $post_id, $post )
 	{		
 		// OK, we're authenticated: we need to find and save the data		
-		$rooms	= preg_replace( '/\D/', "", $_POST['_property_rooms'] );
-		$baths	= preg_replace( '/\D/', "", $_POST['_property_baths'] );		
-		$price	= preg_replace( '/\D/', "", $_POST['_property_price'] );
-		$m2		= preg_replace( '/\D/', "", $_POST['_property_m2'] );
+		$property_rooms	= preg_replace( '/\D/', "", $_POST['_property_rooms'] );
+		$property_baths	= preg_replace( '/\D/', "", $_POST['_property_baths'] );		
+		$property_price	= preg_replace( '/\D/', "", $_POST['_property_price'] );
+		$property_m2	= preg_replace( '/\D/', "", $_POST['_property_m2'] );
 		
-		update_post_meta( $post_id, '_property_rooms', $rooms );
-		update_post_meta( $post_id, '_property_baths', $baths );
-		update_post_meta( $post_id, '_property_price', $price );
-		update_post_meta( $post_id, '_property_m2', $m2 );
+		update_post_meta( $post_id, '_property_rooms', $property_rooms );
+		update_post_meta( $post_id, '_property_baths', $property_baths );
+		update_post_meta( $post_id, '_property_price', $property_price );
+		update_post_meta( $post_id, '_property_m2', $property_m2 );
 	}
 
 } // end class APP_Meta_Box_Property

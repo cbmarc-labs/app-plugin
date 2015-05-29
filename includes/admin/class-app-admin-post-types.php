@@ -30,7 +30,10 @@ class APP_Admin_Post_Types
 		add_filter( "manage_property_posts_columns", array( $this, 'manage_posts_columns' ) );
 		add_action( "manage_property_posts_custom_column", array( $this, 'manage_posts_custom_column' ) , 5, 2);
 		
-		add_filter( "manage_edit-property_sortable_columns", array( &$this, 'manage_edit_sortable_columns' ) );
+		add_filter( "manage_edit-property_sortable_columns", array( $this, 'manage_edit_sortable_columns' ) );
+		
+		add_action( 'quick_edit_custom_box',  array( $this, 'quick_edit_custom_box' ), 10, 2 );
+		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 		
 		add_filter( "request", array( $this, 'request' ) );
 	}
@@ -80,6 +83,14 @@ class APP_Admin_Post_Types
 			case 'price':
 				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="9999999" data-a-sign=" €" data-p-sign="s">' . get_post_meta( $post_id , '_property_price' , true ) . '</span>';
 				
+				$property_rooms = get_post_meta( $post_id, '_property_rooms', 1 );
+				
+				echo '
+					<div class="hidden" id="app_inline_' . $post_id . '">
+						<div class="property_rooms">' . $property_rooms . '</div>
+					</div>
+				';
+				
 				break;
 			case 'm2':
 				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_property_m2' , true ) . '</span>';
@@ -101,6 +112,67 @@ class APP_Admin_Post_Types
 		$columns[ 'm2' ]	= 'm2';
 			
 		return $columns;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * quick_edit_custom_box method
+	 *
+	 * @access public
+	 */
+	public function quick_edit_custom_box( $column_name, $post_type )
+	{
+		if( 'price' != $column_name || 'property' != $post_type ) {
+			return;
+		}
+	
+		include( APP()->plugin_path() . '/includes/admin/views/html-quick-edit-property.php' );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * save_post method
+	 *
+	 * @access public
+	 */
+	public function save_post( $post_id, $post )
+	{	
+		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return $post_id;
+		}
+	
+		// Don't save revisions and autosaves
+		if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+			return $post_id;
+		}
+	
+		// Check post type is property
+		if ( 'property' != $post->post_type ) {
+			return $post_id;
+		}
+	
+		// Check user permission
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return $post_id;
+		}
+	
+		// Check nonces
+		if ( ! isset( $_REQUEST['app_quick_edit_nonce'] ) ) {
+			return $post_id;
+		}
+		if ( isset( $_REQUEST['app_quick_edit_nonce'] ) && ! wp_verify_nonce( $_REQUEST['app_quick_edit_nonce'], 'app_quick_edit_nonce' ) ) {
+			return $post_id;
+		}
+	
+		if ( isset( $_REQUEST['_property_rooms'] ) ) {
+			$property_rooms	= preg_replace( '/\D/', "", $_POST['_property_rooms'] );
+			update_post_meta( $post_id, '_property_rooms', app_clean( $_REQUEST['_property_rooms'] ) );
+		}
+	
+		return $post_id;
 	}
 
 	// --------------------------------------------------------------------

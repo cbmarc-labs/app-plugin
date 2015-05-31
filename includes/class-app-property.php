@@ -152,10 +152,14 @@ class APP_Property
 	 */
 	public function get_gallery_attachment_ids()
 	{
-		$image_ids = get_post_meta( $this->id, '_gallery_ids', 1 );
+		$image_ids = NULL;
 		
 		if( $thumbnail_id = get_post_thumbnail_id( $this->id ) ) {
-			$image_ids = $thumbnail_id . ',' . $image_ids;
+			$image_ids = $thumbnail_id;
+		}
+		
+		if( $image_gallery = get_post_meta( $this->id, '_property_image_gallery', 1 ) ) {
+			$image_ids .=  ',' . $image_gallery;
 		}
 		
 		return $image_ids; 

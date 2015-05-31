@@ -17,11 +17,12 @@ global $post, $property;
 <?php 
 $images_ids = $property->get_gallery_attachment_ids();
 
+if( $images_ids ):
 $images_array = explode( ",", $images_ids );
-
 foreach( $images_array as $id ):
 ?>
 
 <img width="64" height="64" src="<?php echo wp_get_attachment_url( $id ); ?>" class="">
 
 <?php endforeach; ?>
+<?php endif; ?>

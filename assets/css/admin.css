@@ -1,0 +1,149 @@
+@CHARSET "UTF-8";
+
+#app-property-images .inside {
+    margin: 0;
+    padding: 0;
+}
+#app-property-images .inside .add_property_images {
+    padding: 0 12px 12px;
+}
+#app-property-images .inside #property_images_container {
+    padding: 0 0 0 9px;
+}
+#app-property-images .inside #property_images_container ul {
+    margin: 0;
+    padding: 0;
+}
+#app-property-images .inside #property_images_container ul:after, #app-property-images .inside #property_images_container ul:before {
+    content: " ";
+    display: table;
+}
+#app-property-images .inside #property_images_container ul:after {
+    clear: both;
+}
+#app-property-images .inside #property_images_container ul li.add, #app-property-images .inside #property_images_container ul li.image, #app-property-images .inside #property_images_container ul li.app-metabox-sortable-placeholder {
+    width: 80px;
+    float: left;
+    cursor: move;
+    border: 1px solid #d5d5d5;
+    margin: 9px 9px 0 0;
+    background: #f7f7f7;
+    border-radius: 2px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#app-property-images .inside #property_images_container ul li.add img, #app-property-images .inside #property_images_container ul li.image img, #app-property-images .inside #property_images_container ul li.app-metabox-sortable-placeholder img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+#app-property-images .inside #property_images_container ul li.app-metabox-sortable-placeholder {
+    border: 3px dashed #ddd;
+    position: relative;
+}
+#app-property-images .inside #property_images_container ul li.app-metabox-sortable-placeholder:after {
+    font-family: app;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 2.618em;
+    line-height: 72px;
+    color: #ddd;
+}
+#app-property-images .inside #property_images_container ul ul.actions {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 2px;
+    display: none;
+}
+#app-property-images .inside #property_images_container ul ul.actions li {
+    float: right;
+    margin: 0 0 0 2px;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a {
+    width: 1em;
+    margin: 0;
+    height: 0;
+    display: block;
+    overflow: hidden;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.tips {
+    cursor: pointer;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.view {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    font-size: 1.4em;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.view:before {
+    font-family: app;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "\039e";
+    background-color: #000;
+    color: #fff;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.delete {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    font-size: 1.4em;
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.delete:before {
+    font-family: app;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "\00d7";
+    color: #fff;
+    background-color: #000;
+    border-radius: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+#app-property-images .inside #property_images_container ul ul.actions li a.delete:hover before {
+    background-color: #a00;
+}
+#app-property-images .inside #property_images_container ul li:hover ul.actions {
+    display: block;
+}

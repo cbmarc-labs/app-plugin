@@ -26,10 +26,10 @@ class APP_Meta_Box_Property
 
 		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
-		$data['rooms']	= get_post_meta( $post->ID, '_property_rooms', 1 );
-		$data['baths']	= get_post_meta( $post->ID, '_property_baths', 1 );
-		$data['price']	= get_post_meta( $post->ID, '_property_price', 1 );
-		$data['m2']		= get_post_meta( $post->ID, '_property_m2', 1 );
+		$data['property_rooms']	= get_post_meta( $post->ID, '_property_rooms', 1 );
+		$data['property_baths']	= get_post_meta( $post->ID, '_property_baths', 1 );
+		$data['property_price']	= get_post_meta( $post->ID, '_property_price', 1 );
+		$data['property_m2']	= get_post_meta( $post->ID, '_property_m2', 1 );
 		
 		include_once( 'views/html-meta-box-property.php' );
 	}
@@ -46,10 +46,10 @@ class APP_Meta_Box_Property
 	public static function save_post( $post_id, $post )
 	{		
 		// OK, we're authenticated: we need to find and save the data		
-		$property_rooms	= preg_replace( '/\D/', "", $_POST['_property_rooms'] );
-		$property_baths	= preg_replace( '/\D/', "", $_POST['_property_baths'] );		
-		$property_price	= preg_replace( '/\D/', "", $_POST['_property_price'] );
-		$property_m2	= preg_replace( '/\D/', "", $_POST['_property_m2'] );
+		$property_rooms	= preg_replace( '/\D/', "", $_POST['property_rooms'] );
+		$property_baths	= preg_replace( '/\D/', "", $_POST['property_baths'] );		
+		$property_price	= preg_replace( '/\D/', "", $_POST['property_price'] );
+		$property_m2	= preg_replace( '/\D/', "", $_POST['property_m2'] );
 		
 		update_post_meta( $post_id, '_property_rooms', $property_rooms );
 		update_post_meta( $post_id, '_property_baths', $property_baths );

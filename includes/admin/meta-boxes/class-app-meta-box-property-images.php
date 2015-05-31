@@ -23,6 +23,7 @@ class APP_Meta_Box_Property_Images
 	 * @access public
 	 */
 	public static function output( $post ) {
+		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		?>
 		<div id="property_images_container">
 			<ul class="property_images">
@@ -66,8 +67,8 @@ class APP_Meta_Box_Property_Images
 	 *
 	 * @access public
 	 */
-	public static function save( $post_id, $post )
-	{
+	public static function save_post( $post_id, $post )
+	{		
 		$attachment_ids = isset( $_POST['property_image_gallery'] ) ? array_filter( explode( ',', app_clean( $_POST['property_image_gallery'] ) ) ) : array();
 
 		update_post_meta( $post_id, '_property_image_gallery', implode( ',', $attachment_ids ) );

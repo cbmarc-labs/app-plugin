@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-$map	= explode( ",", $data['_property_location_map'] );
-$marker	= explode( ",", $data['_property_location_marker'] );
+$map	= explode( ",", $data['property_location_map'] );
+$marker	= explode( ",", $data['property_location_marker'] );
 
 // default values
 $map_lat	= '40.2085';
@@ -60,7 +60,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		}
 
 		function searchAddress() {
-			var address = $('#_property_location_address').val();
+			var address = $('#property_location_address').val();
 
 		    geocoder.geocode({
 		        'address': address
@@ -88,7 +88,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 			var zoom = map.getZoom();
 
 			var map_data = lat+','+lng+','+zoom;
-			$('#_property_location_map').val(map_data);
+			$('#property_location_map').val(map_data);
 
 			var m = marker.getPosition();
 			var marker_data = '';
@@ -99,7 +99,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 				var marker_data = mlat+','+mlng;
 			}
 
-			$('#_property_location_marker').val(marker_data);
+			$('#property_location_marker').val(marker_data);
 		}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
@@ -128,9 +128,9 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		<tr>
 			<td>Dirección :</td>
 			<td>
-				<input id="_property_location_address" style="width:100%;"
-					name="_property_location_address" class="" type="text" 
-					value="<?php echo $data[ '_property_location_address' ]; ?>"/>
+				<input id="property_location_address" style="width:100%;"
+					name="property_location_address" class="" type="text" 
+					value="<?php echo $data['property_location_address']; ?>"/>
 			</td>
 		</tr>
 		
@@ -141,10 +141,10 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 			</td>
 		</tr>
 		
-		<input id="_property_location_map" name="_property_location_map" type="hidden" 
-					value="<?php echo $data[ '_property_location_map' ]; ?>" />
-		<input id="_property_location_marker" name="_property_location_marker" type="hidden" 
-					value="<?php echo $data[ '_property_location_marker' ]; ?>" />
+		<input id="property_location_map" name="property_location_map" type="hidden" 
+					value="<?php echo $data['property_location_map']; ?>" />
+		<input id="property_location_marker" name="property_location_marker" type="hidden" 
+					value="<?php echo $data['property_location_marker']; ?>" />
 		
 		<tr>
 			<td colspan="2">

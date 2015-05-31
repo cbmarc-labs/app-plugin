@@ -26,9 +26,9 @@ class APP_Meta_Box_Property_Location
 
 		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
-		$data['_property_location_address']	= get_post_meta( $post->ID, '_property_location_address', 1 );
-		$data['_property_location_map']	= get_post_meta( $post->ID, '_property_location_map', 1 );
-		$data['_property_location_marker']	= get_post_meta( $post->ID, '_property_location_marker', 1 );
+		$data['property_location_address']	= get_post_meta( $post->ID, '_property_location_address', 1 );
+		$data['property_location_map']	= get_post_meta( $post->ID, '_property_location_map', 1 );
+		$data['property_location_marker']	= get_post_meta( $post->ID, '_property_location_marker', 1 );
 		
 		include_once( 'views/html-meta-box-property-location.php' );
 	}
@@ -44,9 +44,9 @@ class APP_Meta_Box_Property_Location
 	 */
 	public static function save_post( $post_id, $post )
 	{
-		update_post_meta( $post_id, '_property_location_address', $_POST['_property_location_address'] );
-		update_post_meta( $post_id, '_property_location_map', $_POST['_property_location_map'] );
-		update_post_meta( $post_id, '_property_location_marker', $_POST['_property_location_marker'] );
+		update_post_meta( $post_id, '_property_location_address', $_POST['property_location_address'] );
+		update_post_meta( $post_id, '_property_location_map', $_POST['property_location_map'] );
+		update_post_meta( $post_id, '_property_location_marker', $_POST['property_location_marker'] );
 	}
 
 } // end class APP_Meta_Box_Property_Location

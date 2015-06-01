@@ -52,7 +52,7 @@ class APP_Property
 	 *
 	 * @access public
 	 */
-	public function get_related_ids( $limit = 5 ) {
+	public function get_related( $limit = 5 ) {
 		global $wpdb;
 	
 		$limit = absint( $limit );
@@ -122,7 +122,19 @@ class APP_Property
 			$ids[] = $mypost->ID;
 		}
 		
-		return implode( ",", $ids );
+		return $ids; //implode( ",", $ids );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * exists method
+	 *
+	 * @access public
+	 */
+	public function exists()
+	{
+		return empty( $this->post ) ? false : true;
 	}
 
 	// --------------------------------------------------------------------

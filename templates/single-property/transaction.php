@@ -16,7 +16,8 @@ global $post, $property;
 
 <?php
 $terms = get_the_terms( $post->ID, 'property-transaction' );
-						
+
+$out = array();
 if ( $terms && ! is_wp_error( $terms ) ) {
 	foreach ( $terms as $term ) {
 		$out[] = '<a href="' . get_term_link( $term->slug, 'property-transaction' ) . '">' . $term->name . "</a>";

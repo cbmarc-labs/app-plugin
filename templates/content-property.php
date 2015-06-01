@@ -13,14 +13,14 @@ global $property;
 
 <div class="bootstrap">
 	<div class="row">
-		<div class="col-md-offset-1 col-md-3">
+		<div class="col-md-3">
 			<div class="post-thumbnail">
 				<a href="<?php echo esc_url( get_permalink() ); ?>">
 					<?php echo $property->get_post_thumbnail(); ?>
 				</a>
 			</div>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-9">
 			<?php
 			the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
 			

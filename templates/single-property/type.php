@@ -16,7 +16,8 @@ global $post, $property;
 
 <?php
 $terms = get_the_terms( $post->ID, 'property-type' );
-						
+
+$out = array();
 if ( $terms && ! is_wp_error( $terms ) ) {
 	foreach ( $terms as $term ) {
 		$out[] = '<a href="' . get_term_link( $term->slug, 'property-type' ) . '">' . $term->name . "</a>";

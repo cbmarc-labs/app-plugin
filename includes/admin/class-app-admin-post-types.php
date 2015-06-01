@@ -51,9 +51,9 @@ class APP_Admin_Post_Types
 	 */
 	function manage_posts_columns( $columns )
 	{
-		$col_featured_image	= array( 'featured_image' => __('Featured Image') );
-		$col_price			= array( 'price' => APP_Lang::_x( 'property_field_price' ) );
-		$col_m2				= array( 'm2' => APP_Lang::_x( 'property_field_m2' ) );
+		$col_featured_image	= array( 'featured_image' => __( 'Featured Image' , 'app' ) );
+		$col_price			= array( 'price' => __( 'Price', 'app' ) );
+		$col_m2				= array( 'm2' => __( 'Square meters', 'app' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 4, true ) + $col_price + array_slice( $columns, 4, NULL, true );

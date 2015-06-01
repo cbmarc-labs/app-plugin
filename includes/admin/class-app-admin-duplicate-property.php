@@ -6,15 +6,15 @@ if( !class_exists( 'APP_Admin_Duplicate_Property' ) ) :
 
 /**
  * APP_Admin_Duplicate_Property
-*
-* APP_Admin_Duplicate_Property
-*
-* @class 		APP_Admin_Duplicate_Property
-* @version		1.0.0
-* @package		application/includes/admin/APP_Admin_Duplicate_Property
-* @category		Class
-* @author 		cbmarc
-*/
+ *
+ * APP_Admin_Duplicate_Property
+ *
+ * @class 		APP_Admin_Duplicate_Property
+ * @version		1.0.0
+ * @package		application/includes/admin/APP_Admin_Duplicate_Property
+ * @category		Class
+ * @author 		cbmarc
+ */
 class APP_Admin_Duplicate_Property
 {
 

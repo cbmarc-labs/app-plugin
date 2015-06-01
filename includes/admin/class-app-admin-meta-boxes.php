@@ -43,7 +43,7 @@ class APP_Admin_Meta_Boxes
 		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'app_meta_box_property',
-				APP_Lang::_x( 'property_meta_box_title' ), 
+				__( 'Property data', 'app' ), 
 				'APP_Meta_Box_Property::output',
 				$screen,
 				'normal',
@@ -52,7 +52,7 @@ class APP_Admin_Meta_Boxes
 			
 			add_meta_box(
 				'app_meta_box_property_location',
-				APP_Lang::_x( 'app_meta_box_property_location_title' ), 
+				__( 'Property location', 'app' ), 
 				'APP_Meta_Box_Property_Location::output',
 				$screen,
 				'normal',
@@ -61,7 +61,7 @@ class APP_Admin_Meta_Boxes
 			
 			add_meta_box(
 				'app-property-images',
-				'Property Gallery', //APP_Lang::_x( 'Property Gallery' ),
+				__( 'Property Gallery', 'app' ),
 				'APP_Meta_Box_Property_Images::output',
 				$screen,
 				'side',

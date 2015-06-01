@@ -60,7 +60,7 @@ class APP_Post_Types
 			'property', 
 			array(
 				'labels'				=> array(
-					'name' => APP_Lang::_x( 'property' )
+					'name' => __( 'Properties', 'app' )
 				),
 		        'menu_icon'				=> 'dashicons-format-aside',
 				'public'				=> true,
@@ -89,7 +89,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => APP_Lang::_x( 'property-type' )
+					'name' => __( 'Types', 'app' )
 				),
 				'show_ui'           => true,
 				'show_admin_column' => true,
@@ -103,7 +103,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => APP_Lang::_x( 'property-transaction' )
+					'name' => __( 'Transactions', 'app' )
 				),
 				'show_ui'           => true,
 				'show_in_menu'		=> 'app',
@@ -118,7 +118,7 @@ class APP_Post_Types
 			array( 'property' ),
 			array(
 				'labels'            => array(
-					'name' => APP_Lang::_x( 'property-feature' )
+					'name' => __( 'Features', 'app' )
 				),
 				'show_ui'           => true,
 				'show_in_menu'		=> 'app',

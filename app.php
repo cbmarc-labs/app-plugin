@@ -127,6 +127,27 @@ final class App
 	 */
 	public function init()
 	{
+		$this->load_plugin_textdomain();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * load_plugin_textdomain method
+	 *
+	 * @access public
+	 */
+	public function load_plugin_textdomain()
+	{
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'app' );
+	
+		if ( $this->is_request( 'admin' ) ) {
+			load_textdomain( 'app', WP_LANG_DIR . '/app/app-admin-' . $locale . '.mo' );
+			load_textdomain( 'app', WP_LANG_DIR . '/plugins/app-admin-' . $locale . '.mo' );
+		}
+	
+		load_textdomain( 'app', WP_LANG_DIR . '/app/app-' . $locale . '.mo' );
+		load_plugin_textdomain( 'app', false, plugin_basename( dirname( __FILE__ ) ) . "/i18n/languages" );
 	}
 
 	// --------------------------------------------------------------------
@@ -208,7 +229,6 @@ final class App
 	{
 		include_once( 'includes/class-app-autoloader.php' );
 		include_once( 'includes/app-core-functions.php' );
-		include_once( 'includes/class-app-lang.php' );
 		include_once( 'includes/class-app-log.php' );
 		include_once( 'includes/app-widget-functions.php' );
 		include_once( 'includes/class-app-install.php' );

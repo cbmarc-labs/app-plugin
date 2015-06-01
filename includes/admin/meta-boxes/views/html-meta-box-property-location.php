@@ -118,15 +118,9 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		<th style="width:75%;"></th>
 	</thead>
 	<tbody>
-	
-		<!-- <tr>
-			<td colspan="2">
-				<h4><?php APP_Lang::_ex( 'property_meta_box_property_location_title' ) ?></h4>
-			</td>
-		</tr> -->
 		
 		<tr>
-			<td>Dirección :</td>
+			<td> <?php _e( 'Address', 'app' ); ?> :</td>
 			<td>
 				<input id="property_location_address" style="width:100%;"
 					name="property_location_address" class="" type="text" 
@@ -137,7 +131,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		<tr>
 			<td></td>
 			<td>
-				<small>Per exemple: carrer santa anna, 1, el vendrell, tarragona</small>
+				<small><?php _e( 'e.g.', 'app' ); ?>: carrer santa anna, 1, el vendrell, tarragona</small>
 			</td>
 		</tr>
 		
@@ -149,7 +143,7 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 		<tr>
 			<td colspan="2">
 				<input id="property_location_search_button" type="button" 
-					value="Localizar en el mapa" class="button">
+					value="<?php _e( 'Locate on the map', 'app' ); ?>" class="button">
 			</td>
 		</tr>
 		

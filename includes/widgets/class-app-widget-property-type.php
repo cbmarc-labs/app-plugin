@@ -28,7 +28,7 @@ class APP_Widget_Property_Type extends WP_Widget
 		
 		parent::__construct(
 				'APP_Widget_Property_Type', // Base ID
-				__('Widget Property Type', 'app'), // Name
+				__( 'Widget Property Type', 'app' ), // Name
 				array( 'description' => __( 'Widget Property Type', 'app' ) )
 		);
 	}
@@ -109,12 +109,12 @@ class APP_Widget_Property_Type extends WP_Widget
 		
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'app' ); ?> :</label> 
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" 
 				name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" 
 				value="<?php echo esc_attr( $title ); ?>">
 			
-			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Type:' ); ?></label>	
+			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e( 'Type', 'app' ); ?> :</label>	
 			<select id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>" class="widefat" style="width:100%;">
 			<?php 
 			foreach( $taxonomies as $taxonomy ) {

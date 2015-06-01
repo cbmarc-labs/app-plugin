@@ -28,8 +28,8 @@ class APP_Widget_Property_Filter_Form extends WP_Widget
 		
 		parent::__construct(
 				'APP_Widget_Property_Filter_Form', // Base ID
-				__('Property Filter Form', 'app'), // Name
-				array( 'description' => __( 'Property Filter Form', 'app' ) )
+				__( 'Property form filter', 'app' ), // Name
+				array( 'description' => __( 'Property form filter', 'app' ) )
 		);
 	}
 
@@ -75,7 +75,7 @@ class APP_Widget_Property_Filter_Form extends WP_Widget
 		
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'app' ); ?> :</label> 
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" 
 				name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" 
 				value="<?php echo esc_attr( $title ); ?>">

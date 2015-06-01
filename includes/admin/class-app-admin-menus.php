@@ -37,8 +37,8 @@ class APP_Admin_Menus
 	public function settings_menu() {
 		$settings_page = add_submenu_page(
 				'edit.php?post_type=property',
-				'Property Settings',
-				'Settings',
+				__( 'Property Settings' , 'app' ),
+				__( 'Settings' , 'app' ),
 				'manage_options',
 				'app-settings',
 				array( $this, 'settings_page' )

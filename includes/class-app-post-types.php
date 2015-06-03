@@ -15,37 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 class APP_Post_Types
 {
-	// The single instance of the class
-	private static $_instance = null;
-
-	/**
-	 * Constructor
-	 *
-	 * @access public
-	 */
-	public function __construct()
-	{
-		App_Log::log( 'APP_Property Class Initialized' );
-		
-		// Initialise
-		add_action( 'init', array( &$this, 'init' ) );
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * getInstance method
-	 *
-	 * @access public
-	 */
-	public static function instance()
-	{
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		
-		return self::$_instance;
-	}
 
 	// --------------------------------------------------------------------
 
@@ -54,8 +23,25 @@ class APP_Post_Types
 	 *
 	 * @access public
 	 */
-	function init()
-	{				
+	public static function init()
+	{
+		add_action( 'init', array( __CLASS__, 'register_taxonomies' ), 5 );
+		add_action( 'init', array( __CLASS__, 'register_post_types' ), 5 );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * register_post_types method
+	 *
+	 * @access public
+	 */
+	public static function register_post_types()
+	{
+		if ( post_type_exists('property') ) {
+			return;
+		}
+		
 		register_post_type(
 			'property', 
 			array(
@@ -82,66 +68,79 @@ class APP_Post_Types
 				)
 			)
 		);
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * register_taxonomies method
+	 *
+	 * @access public
+	 */
+	public static function register_taxonomies()
+	{
+		if ( taxonomy_exists( 'property-type' ) ) {
+			return;
+		}
 		
 		// Type Taxonomy
 		register_taxonomy(
-			'property-type',
-			array( 'property' ),
-			array(
-				'labels'            => array(
-					'name' => __( 'Types', 'app' )
-				),
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'query_var'         => true,
-			)
+				'property-type',
+				array( 'property' ),
+				array(
+						'labels'	=> array(
+								'name'	=> __( 'Types', 'app' )
+						),
+				'show_ui'			=> true,
+				'show_admin_column'	=> true,
+				'query_var'			=> true,
+				)
 		);
 		
 		// Transaction Taxonomy
 		register_taxonomy(
-			'property-transaction',
-			array( 'property' ),
-			array(
-				'labels'            => array(
-					'name' => __( 'Transactions', 'app' )
-				),
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'query_var'         => true,
+				'property-transaction',
+				array( 'property' ),
+				array(
+						'labels'	=> array(
+								'name'	=> __( 'Transactions', 'app' )
+						),
+				'show_ui'			=> true,
+				'show_admin_column'	=> true,
+				'query_var'			=> true,
 			)
 		);
 		
 		// Features Taxonomy
 		register_taxonomy(
-			'property-feature',
-			array( 'property' ),
-			array(
-				'labels'            => array(
-					'name' => __( 'Features', 'app' )
-				),
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'query_var'         => true,
-			)
+				'property-feature',
+				array( 'property' ),
+				array(
+						'labels'	=> array(
+								'name'	=> __( 'Features', 'app' )
+						),
+				'show_ui'			=> true,
+				'show_admin_column'	=> true,
+				'query_var'			=> true,
+				)
 		);
 		
 		// Location Taxonomy
 		register_taxonomy(
-			'property-location',
-			array( 'property' ),
-			array(
-				'labels'            => array(
-					'name' => __( 'Locations', 'app' )
-				),
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'query_var'         => true,
+				'property-location',
+				array( 'property' ),
+				array(
+						'labels'	=> array(
+								'name'	=> __( 'Locations', 'app' )
+						),
+				'show_ui'			=> true,
+				'show_admin_column'	=> true,
+				'query_var'			=> true,
 				'hierarchical'		=> true
-			)
+				)
 		);
 	}
 	
 }
 
-
-APP_Post_Types::instance();
+APP_Post_types::init();

@@ -1,0 +1,1 @@
+* Thanks to WooCommerce, the powerful plugin on which this is based.

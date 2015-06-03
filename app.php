@@ -2,7 +2,7 @@
 /*
  * Plugin Name:       App
  * Description:       Wordpress general plugin
- * Version:           1.0.4
+ * Version:           1.0.0
  * Author:            Marc Costa
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -13,8 +13,6 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( !class_exists( 'App' ) ) :
 
 define( 'APP_FILE', __FILE__ );
-define( 'APP_TEMPLATE_PATH', plugin_dir_path( __FILE__ ) );
-define( 'APP_TEMPLATE_DIR', plugin_dir_url( __FILE__ ) );
 
 /**
  * Application
@@ -22,7 +20,7 @@ define( 'APP_TEMPLATE_DIR', plugin_dir_url( __FILE__ ) );
  * Application
  *
  * @class 		App
- * @version		1.0.4
+ * @version		1.0.3
  * @package		App
  * @category	Class
  * @author 		marc
@@ -32,9 +30,11 @@ final class App
 	/**
 	 * @var string
 	 */
-	public $version = '1.0.4';
+	public $version = '1.0.0';
 
-	// The single instance of the class
+	/**
+	 * @var The single instance of the class
+	 */
 	private static $_instance = null;
 
 	/**
@@ -43,35 +43,10 @@ final class App
 	 * @access public
 	 */
 	public function __construct()
-	{		
-		App::log( 'App Class Initialized' );
-		
-		// Activate after plugins loaded
-		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
-		
-		// Methods for activation/desactivation this plugin
-		register_activation_hook( __FILE__, array( &$this, 'register_activation_hook' ) );
-		register_deactivation_hook( __FILE__, array( &$this, 'register_deactivation_hook' ) );
-		
-		// Error ?
-		// register_uninstall_hook was called incorrectly...
-		// https://wordpress.org/support/topic/register_uninstall_hook-was-called-incorrectly
-		register_uninstall_hook( __FILE__, array( 'App', 'register_uninstall_hook' ) );
-	}
-
-	// --------------------------------------------------------------------
-	
-	/**
-	 * plugin_setup method
-	 *
-	 * @access public
-	 */
-	public function plugins_loaded()
-	{		
-		// Controllers
-		include_once( 'includes/admin/class-app-gallery.php' );
-		
-		add_action( 'app_daily_hook_event', array( &$this, 'app_daily_cron_event' ) );
+	{
+		$this->define_constants();
+		$this->includes();		
+		$this->init_hooks();
 	}
 
 	// --------------------------------------------------------------------
@@ -83,8 +58,7 @@ final class App
 	 */
 	public static function instance()
 	{
-		if ( is_null( self::$_instance ) )
-		{
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		
@@ -94,127 +68,213 @@ final class App
 	// --------------------------------------------------------------------
 	
 	/**
-	 * app_daily_cron_event method
+	 * define_constants method
 	 *
-	 * @access public
+	 * @access private
 	 */
-	public static function app_daily_cron_event()
+	private function define_constants()
 	{
-		App::log( 'App Class : app_daily_cron_event' );
+		$this->define( 'APP_PLUGIN_FILE', __FILE__ );
+		$this->define( 'APP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	}
 
 	// --------------------------------------------------------------------
 	
 	/**
-	 * register_activation_hook method
+	 * define method
 	 *
-	 * @access public
+	 * @access private
 	 */
-	public static function register_activation_hook()
+	private function define( $name, $value )
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
-			return;
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
 		}
-		
-		$plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-		check_admin_referer( "activate-plugin_{$plugin}" );
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_schedule_event( time(), 'daily', 'app_daily_hook_event' );
 	}
 
 	// --------------------------------------------------------------------
 	
 	/**
-	 * on_deactivation method
+	 * init_hooks method
 	 *
-	 * @access public
+	 * @access private
 	 */
-	public static function register_deactivation_hook()
+	private function init_hooks()
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
-			return;
-		}
-		
-		$plugin = isset( $_REQUEST['plugin'] ) ? $_REQUEST['plugin'] : '';
-		check_admin_referer( "deactivate-plugin_{$plugin}" );
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_clear_scheduled_hook( 'app_daily_hook_event' );
+		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 11 );
+		add_action( 'init', array( $this, 'init' ), 0 );
+		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );
 	}
 
 	// --------------------------------------------------------------------
 	
 	/**
-	 * on_uninstall method
-	 * 
-	 * thanks to: 
-	 * http://wordpress.stackexchange.com/questions/25910/uninstall-activate-deactivate-a-plugin-typical-features-how-to
+	 * include_template_functions method
 	 *
-	 * @access public
+	 * @access private
 	 */
-	public static function register_uninstall_hook()
+	public function include_template_functions()
 	{
-		if ( ! current_user_can( 'activate_plugins' ) )
-		{
-			return;
-		}
-		
-		check_admin_referer( 'bulk-plugins' );
-	
-		// Important: Check if the file is the one
-		// that was registered during the uninstall hook.
-		if ( __FILE__ != WP_UNINSTALL_PLUGIN )
-		{
-			return;
-		}
-	
-		# Uncomment the following line to see the function in action
-		#exit( var_dump( $_GET ) );
-		
-		wp_clear_scheduled_hook( 'app_daily_hook_event' );
+		include_once( 'includes/app-template-functions.php' );
 	}
 	
 	// --------------------------------------------------------------------
 	
 	/**
-	 * log_app method
-	 * 
-	 * Example: App::log( "Test message" );
-	 * 
-	 * Change permissions on: wp-admin/error_log
-	 * Change definition on wp-config.php: define('WP_DEBUG', true);
+	 * init method
 	 *
 	 * @access public
 	 */
-	public static function log($message)
+	public function init()
 	{
-		if (WP_DEBUG === TRUE)
-		{
-			if (is_array($message) || is_object($message))
-			{
-				$message =  print_r( $message, TRUE );
-			}
-			
-			error_log( date("d/m/Y H:i:s") . " - " . $message . "\n", 3, 'error_log' );
+		$this->load_plugin_textdomain();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * load_plugin_textdomain method
+	 *
+	 * @access public
+	 */
+	public function load_plugin_textdomain()
+	{
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'app' );
+	
+		if ( $this->is_request( 'admin' ) ) {
+			load_textdomain( 'app', WP_LANG_DIR . '/app/app-admin-' . $locale . '.mo' );
+			load_textdomain( 'app', WP_LANG_DIR . '/plugins/app-admin-' . $locale . '.mo' );
 		}
+	
+		load_textdomain( 'app', WP_LANG_DIR . '/app/app-' . $locale . '.mo' );
+		load_plugin_textdomain( 'app', false, plugin_basename( dirname( __FILE__ ) ) . "/i18n/languages" );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * plugin_url method
+	 *
+	 * @access public
+	 */
+	public function plugin_url()
+	{
+		return untrailingslashit( plugins_url( '/', __FILE__ ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * plugin_path method
+	 *
+	 * @access public
+	 */
+	public function plugin_path()
+	{
+		return untrailingslashit( plugin_dir_path( __FILE__ ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * template_path method
+	 *
+	 * @access public
+	 */
+	public function template_path()
+	{
+		return apply_filters( 'app_template_path', 'app/' );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * ajax_url method
+	 *
+	 * @access public
+	 */
+	public function ajax_url()
+	{
+		return admin_url( 'admin-ajax.php' );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * is_request method
+	 *
+	 * @access public
+	 */
+	private function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin' :
+				return is_admin();
+			case 'ajax' :
+				return defined( 'DOING_AJAX' );
+			case 'cron' :
+				return defined( 'DOING_CRON' );
+			case 'frontend' :
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * includes method
+	 *
+	 * @access public
+	 */
+	public function includes()
+	{
+		include_once( 'includes/class-app-autoloader.php' );
+		include_once( 'includes/app-core-functions.php' );
+		include_once( 'includes/class-app-log.php' );
+		include_once( 'includes/app-widget-functions.php' );
+		include_once( 'includes/class-app-install.php' );
+		
+		if ( $this->is_request( 'admin' ) ) {
+			include_once( 'includes/admin/class-app-admin.php' );
+		}
+		
+		if ( $this->is_request( 'ajax' ) ) {
+			include_once( 'includes/class-app-ajax.php' );
+		}
+
+		if ( $this->is_request( 'frontend' ) ) {
+			$this->frontend_includes();
+		}
+		
+		include( 'includes/class-app-query.php' );
+
+		include_once( 'includes/class-app-post-types.php' );
+		include_once( 'includes/class-app-property.php' );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * includes method
+	 *
+	 * @access public
+	 */
+	public function frontend_includes()
+	{
+		include_once( 'includes/class-app-template-loader.php' );
+		include_once( 'includes/class-app-assets.php' );
+		include_once( 'includes/class-app-shortcodes.php' );
+		
+		// Walkers
+		include_once( 'includes/walkers/mc-walker-taxonomy-dropdown.php' );
 	}
 
 } // end class App
 
 endif;
 
-/**
- * Create instance
- */
-global $App;
-if( class_exists( 'App' ) && !$App )
-{
-	$App = App::instance();
+function APP() {
+	return App::instance();
 }
+
+// Global for backwards compatibility.
+$GLOBALS['app'] = APP();

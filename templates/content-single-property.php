@@ -17,3 +17,4 @@
 <?php app_get_template( 'single-property/transaction.php' ); ?>
 <?php app_get_template( 'single-property/features.php' ); ?>
 <?php app_get_template( 'single-property/location.php' ); ?>
+<?php app_get_template( 'single-property/map.php' ); ?>

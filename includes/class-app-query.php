@@ -39,6 +39,7 @@ class APP_Query
 	{
 		$vars[] = "type";
 		$vars[] = "transaction";
+		$vars[] = "location";
 		$vars[] = "min_rooms";
 		$vars[] = "max_price";
 		$vars[] = "min_m2";
@@ -99,6 +100,23 @@ class APP_Query
 										'taxonomy' => 'property-transaction',
 										'field'    => 'slug',
 										'terms'    => $safe_transaction,
+								)
+						)
+				);
+			}
+		}
+		
+		// Filter by location taxonomy
+		if( isset( $query->query_vars['location'] ) && !empty( $query->query_vars['location'] ) ) {
+			$safe_location = sanitize_text_field( $query->query_vars['location'] );
+		
+			if( $safe_location != '0' ) {
+				$query->set( 'tax_query',
+						array(
+								array(
+										'taxonomy' => 'property-location',
+										'field'    => 'slug',
+										'terms'    => $safe_location,
 								)
 						)
 				);

@@ -51,7 +51,7 @@ class APP_Template_Loader
 			$term   = get_queried_object();
 
 			if ( is_tax( 'property-type' ) || is_tax( 'property-transaction' ) || 
-					is_tax( 'property-feature' ) ) {
+					is_tax( 'property-feature' ) || is_tax( 'property-location' ) ) {
 				$file = 'taxonomy-' . $term->taxonomy . '.php';
 			} else {
 				$file = 'archive-property.php';

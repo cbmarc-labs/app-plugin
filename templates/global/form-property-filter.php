@@ -8,6 +8,7 @@ if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_perma
 // default values
 $type			= 0;
 $transaction	= 0;
+$location		= 0;
 $min_rooms		= '';
 $min_m2			= '';
 $max_price		= '';
@@ -18,6 +19,9 @@ if( isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['typ
 
 if( isset( $wp_query->query_vars['transaction'] ) && !empty( $wp_query->query_vars['transaction'] ) )
 	$transaction = sanitize_text_field( $wp_query->query_vars['transaction'] );
+
+if( isset( $wp_query->query_vars['location'] ) && !empty( $wp_query->query_vars['location'] ) )
+	$location = sanitize_text_field( $wp_query->query_vars['location'] );
 
 if( isset( $wp_query->query_vars['min_rooms'] ) && !empty( $wp_query->query_vars['min_rooms'] ) )
 	$min_rooms = intval( $wp_query->query_vars['min_rooms'] );
@@ -56,7 +60,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				</p>
 			</div>
 		
-			<div class="col-xs-12 col-sm-4 form-group">
+			<div class="col-xs-12 col-sm-3 form-group">
 				<label for="type" class="control-label">Tipus</label>
 				<?php
 					$args = array(
@@ -85,7 +89,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 			
-			<div class="col-xs-12 col-sm-4 form-group">
+			<div class="col-xs-12 col-sm-3 form-group">
 				<label for="transaction" class="control-label">Transacción</label>
 				<?php
 					$args = array(
@@ -113,8 +117,37 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 					wp_dropdown_categories( $args );
 				?>
 			</div>
+			
+			<div class="col-xs-12 col-sm-3 form-group">
+				<label for="transaction" class="control-label">Location</label>
+				<?php
+					$args = array(
+						'show_option_all'    => 'Todos',
+						'orderby'            => 'slug',
+						'order'              => 'ASC',
+						'show_count'         => 0,
+						'hide_empty'         => 0,
+						'child_of'           => 0,
+						'exclude'            => '',
+						'echo'               => 1,
+						'selected'           => $location,
+						'hierarchical'       => 1,
+						'name'               => 'location',
+						'id'                 => '',
+						'class'              => 'form-control',
+						'depth'              => 0,
+						'tab_index'          => 0,
+						'taxonomy'           => 'property-location',
+						'hide_if_empty'      => false,
+						'walker'             => new SH_Walker_TaxonomyDropdown(),
+						'value'              => 'slug'
+					);
+				
+					wp_dropdown_categories( $args );
+				?>
+			</div>
 	
-			<div class="col-xs-12 col-sm-4 form-group">
+			<div class="col-xs-12 col-sm-3 form-group">
 				<label for="" class="control-label">Superficie mínima</label>
 				<select name="min_m2" class="form-control">
 					<option value="">Todos</option>

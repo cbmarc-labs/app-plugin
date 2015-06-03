@@ -106,7 +106,6 @@ class APP_Post_Types
 					'name' => __( 'Transactions', 'app' )
 				),
 				'show_ui'           => true,
-				'show_in_menu'		=> 'app',
 				'show_admin_column' => true,
 				'query_var'         => true,
 			)
@@ -121,9 +120,23 @@ class APP_Post_Types
 					'name' => __( 'Features', 'app' )
 				),
 				'show_ui'           => true,
-				'show_in_menu'		=> 'app',
 				'show_admin_column' => true,
 				'query_var'         => true,
+			)
+		);
+		
+		// Location Taxonomy
+		register_taxonomy(
+			'property-location',
+			array( 'property' ),
+			array(
+				'labels'            => array(
+					'name' => __( 'Locations', 'app' )
+				),
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'hierarchical'		=> true
 			)
 		);
 	}

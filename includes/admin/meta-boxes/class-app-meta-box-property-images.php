@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class 		APP_Meta_Box_Property_Images
  * @version		1.0.0
- * @package		application/includes/admin/APP_Meta_Box_Property_Images
+ * @package		application/includes/admin/meta-boxes/APP_Meta_Box_Property_Images
  * @category		Class
  * @author 		cbmarc
  */
@@ -22,7 +22,8 @@ class APP_Meta_Box_Property_Images
 	 *
 	 * @access public
 	 */
-	public static function output( $post ) {
+	public static function output( $post )
+	{
 		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		?>
 		<div id="property_images_container">

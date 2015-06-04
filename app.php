@@ -44,6 +44,8 @@ final class App
 	 */
 	public function __construct()
 	{
+		add_action( 'app_cron_daily', array( $this, 'app_cron_daily' ), 10 );
+		
 		$this->define_constants();
 		$this->includes();		
 		$this->init_hooks();
@@ -63,6 +65,18 @@ final class App
 		}
 		
 		return self::$_instance;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * app_cron_daily method
+	 *
+	 * @access private
+	 */
+	public function app_cron_daily()
+	{
+		App_Log::log( 'app_cron_daily done' );
 	}
 
 	// --------------------------------------------------------------------
@@ -101,6 +115,7 @@ final class App
 	 */
 	private function init_hooks()
 	{
+		register_activation_hook( __FILE__, array( 'APP_Install', 'install' ) );
 		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 11 );
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_action( 'init', array( 'APP_Shortcodes', 'init' ) );

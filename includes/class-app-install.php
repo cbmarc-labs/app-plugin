@@ -54,10 +54,26 @@ class APP_Install
 		if ( ! defined( 'APP_INSTALLING' ) ) {
 			define( 'APP_INSTALLING', true );
 		}
+		
+		self::create_cron_jobs();
 
 		// Update version
 		delete_option( 'app_version' );
 		add_option( 'app_version', APP()->version );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * create_cron_jobs method
+	 *
+	 * @access public
+	 */
+	private static function create_cron_jobs()
+	{
+		wp_clear_scheduled_hook( 'app_cron_daily' );
+		
+		wp_schedule_event( time(), 'daily', 'app_cron_daily' );
 	}
 }
 

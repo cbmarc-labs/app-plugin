@@ -53,12 +53,6 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				<h3>Filtre</h3>
 				<hr>
 			</div>
-			
-			<div class="col-xs-12">
-				<p>
-				Utilitzeu aquest formulari per filtrar.
-				</p>
-			</div>
 		
 			<div class="col-xs-12 col-sm-3 form-group">
 				<label for="type" class="control-label">Tipus</label>

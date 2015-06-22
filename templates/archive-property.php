@@ -20,6 +20,7 @@ get_header(); ?>
 
 <?php app_get_template( 'global/form-property-filter.php' ); ?>
 
+
 <section id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 
@@ -32,11 +33,12 @@ get_header(); ?>
 			?>
 		</header><!-- .page-header -->
 		
+		<div class="bootstrap">
+		<div class="row">
+		
 		<?php
 		// Start the Loop.
-		while ( have_posts() ) : the_post();
-			echo "<hr>";
-		
+		while ( have_posts() ) : the_post();		
 			app_get_template_part( 'content', 'property' );
 
 		// End the loop.
@@ -55,6 +57,9 @@ get_header(); ?>
 
 	endif;
 	?>
+	
+	</div>	
+	</div>
 
 	</main><!-- .site-main -->
 </section><!-- .content-area -->

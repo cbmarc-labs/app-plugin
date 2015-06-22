@@ -1,3 +1,7 @@
 .currency, .autonumeric {
 	text-align: right;
 }
+
+.bootstrap input {
+	width: 100%;
+}

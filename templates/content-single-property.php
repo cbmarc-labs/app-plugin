@@ -1,20 +1,28 @@
-<h1>Título</h1>
-<a href="<?php the_permalink(); ?>">
-	<?php the_title(); ?>
-</a>
+<div class="row">
+	<div class="col-sm-8">
+		<?php app_get_template( 'single-property/image.php' ); ?>
+	</div>
+	<div class="col-sm-4">
+		<h4>Características</h4>
+		<?php app_get_template( 'single-property/meta.php' ); ?>
+	</div>
+</div>
 
-<h1>Descripción</h1>
-<?php the_content(); ?>
+<h3>
+	<a href="<?php the_permalink(); ?>">
+		<?php the_title(); ?>
+	</a>
+</h3>
 
-<?php app_get_template( 'single-property/related.php' ); ?>
+<p>
+	<?php the_content(); ?>
+</p>
 
-<h1>Meta</h1>
-
-<?php app_get_template( 'single-property/meta.php' ); ?>
-
-<?php app_get_template( 'single-property/image.php' ); ?>
 <?php app_get_template( 'single-property/type.php' ); ?>
 <?php app_get_template( 'single-property/transaction.php' ); ?>
 <?php app_get_template( 'single-property/features.php' ); ?>
 <?php app_get_template( 'single-property/location.php' ); ?>
 <?php app_get_template( 'single-property/map.php' ); ?>
+
+
+<?php app_get_template( 'single-property/related.php' ); ?>

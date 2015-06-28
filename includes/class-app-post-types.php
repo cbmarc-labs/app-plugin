@@ -51,7 +51,7 @@ class APP_Post_Types
 		        'menu_icon'				=> 'dashicons-format-aside',
 				'public'				=> true,
 				'show_ui'				=> true,
-				'has_archive'			=> true,
+				'has_archive'			=> 'properties',
         		'publicly_queryable'	=> true,
 				'query_var'				=> true,
 				'show_in_menu'			=> true,

@@ -69,7 +69,9 @@ class APP_Query
 		if( $query->query_vars['post_type'] !== 'property' ) {
 			return;
 		}
-            
+        
+		$query->set( 'posts_per_page', 12 );
+		
 		$meta_query = $query->get('meta_query');
 		
 		// Filter by type taxonomy

@@ -1,67 +1,80 @@
 <?php
-/**
- * The template for displaying archive pages
- *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each one. For example, tag.php (Tag archives),
- * category.php (Category archives), author.php (Author archives), etc.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package WordPress
- * @subpackage Twenty_Fifteen
- * @since Twenty Fifteen 1.0
- */
+	global $avia_config, $more;
 
-get_header(); ?>
-
-<?php app_get_template( 'global/form-property-filter.php' ); ?>
-
-
-<section id="primary" class="content-area">
-	<main id="main" class="site-main" role="main">
-
-	<?php if ( have_posts() ) : ?>
-
-		<header class="page-header">
-			<?php
-				the_archive_title( '<h1 class="page-title">', '</h1>' );
-				the_archive_description( '<div class="taxonomy-description">', '</div>' );
-			?>
-		</header><!-- .page-header -->
+	/*
+	 * get_header is a basic wordpress function, used to retrieve the header.php file in your theme directory.
+	 */
+	 get_header();
 		
-		<div class="bootstrap">
-		<div class="row">
+		$showheader = true;
+		if(avia_get_option('frontpage') && $blogpage_id = avia_get_option('blogpage'))
+		{
+			if(get_post_meta($blogpage_id, 'header', true) == 'no') $showheader = false;
+		}
 		
-		<?php
-		// Start the Loop.
-		while ( have_posts() ) : the_post();		
-			app_get_template_part( 'content', 'property' );
-
-		// End the loop.
-		endwhile;
-
-		// Previous/next page navigation.
-		the_posts_pagination( array(
-			'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
-			'next_text'          => __( 'Next page', 'twentyfifteen' ),
-			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
-		) );
-
-	// If no content, include the "No posts found" template.
-	else :
-		get_template_part( 'content', 'none' );
-
-	endif;
+	 	if($showheader)
+	 	{
+			echo avia_title(array('title' => avia_which_archive()));
+		}
 	?>
-	
-	</div>	
-	</div>
 
-	</main><!-- .site-main -->
-</section><!-- .content-area -->
+		<div class='container_wrap container_wrap_first main_color <?php avia_layout_class( 'main' ); ?>'>
+
+			<div class='container template-blog '>
+
+				<main class='content <?php avia_layout_class( 'content' ); ?> units' <?php avia_markup_helper(array('context' => 'content','post_type'=>'property'));?> style="padding-top:10px;">
+                    
+                    <div class="bootstrap">
+                    <div class="container-fluid">
+                    <div class="row">
+                    
+                    <?php app_get_template( 'global/form-property-filter.php' ); ?>
+
+                    
+                    <?php
+                    
+                    $it = 1;
+                    while ( have_posts() ) : the_post();
+                    	app_get_template_part( 'content', 'property' );
+                    	                    	                    	
+                    	if( ! ( $it % 3 ) ) {
+                    		echo '<div class="clearfix visible-md visible-lg"></div>';
+                    	}
+                    	
+                    	if( ! ( $it % 2 ) ) {
+                    		echo '<div class="clearfix visible-sm"></div>';
+                    	}
+
+                    	$it ++;
+                    
+                    // End the loop.
+                    endwhile;
+                    
+                    ?>
+                    </div>
+                    
+                    </div>
+                    </div>
+
+				<!--end content-->
+				</main>
+		
+		<?php		
+				// Previous/next page navigation.
+			echo avia_pagination('', 'nav');
+		
+
+				//get the sidebar
+				$avia_config['currently_viewing'] = 'blog';
+				get_sidebar();
+
+				?>
+
+			</div><!--end container-->
+
+		</div><!-- close default .container_wrap element -->
+
+
+
 
 <?php get_footer(); ?>

@@ -146,10 +146,14 @@ class APP_Property
 	 */
 	public function get_post_thumbnail( $size = 'medium' )
 	{
-		$thumbnail = get_the_post_thumbnail( $this->id, $size );
+		$image_id = get_post_thumbnail_id( $this->id );
+		$image_attributes = wp_get_attachment_image_src( $image_id, $size );
+		$thumbnail = '<img src="' . $image_attributes[0] . '" style="width:100%;min-height:250px;">';
+		
+		//$thumbnail = get_the_post_thumbnail( $this->id, $size, array('class' => 'attachment-portfolio') );
 		
 		if( ! $thumbnail ) {
-			echo '<img width="300" height="240" src="' . APP()->plugin_url() . '/assets/img/no_photo_available.jpg" />';
+			$thumbnail = '<img style="position:relative;" src="' . APP()->plugin_url() . '/assets/img/no_photo_available.jpg" />';
 		}
 		
 		return $thumbnail;

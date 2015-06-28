@@ -26,7 +26,7 @@ class APP_Assets
 	 */
 	public static function init()
 	{
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'styles' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'localize_scripts' ) );
 	}
@@ -62,6 +62,7 @@ class APP_Assets
 		
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
 		
+		wp_enqueue_script( 'app-bootstrap-script', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-script', APP()->plugin_url() . '/assets/js/frontend/app.js', array( 'jquery' ) );
 	}
 

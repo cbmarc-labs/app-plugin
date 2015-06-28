@@ -12,17 +12,37 @@ global $post, $property;
 
 ?>
 
-<h1>Imágenes</h1>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
-<?php 
+<div class="carousel-inner" role="listbox">
+
+
+<?php
+$active = 'active';
 $images_ids = $property->get_gallery_attachment_ids();
-
 if( $images_ids ):
 $images_array = explode( ",", $images_ids );
 foreach( $images_array as $id ):
 ?>
+<div class="item <?php echo $active; ?>">
+      <img width="100%;" src="<?php echo wp_get_attachment_url( $id ); ?>" alt="...">
+                </div>
 
-<img width="64" height="64" src="<?php echo wp_get_attachment_url( $id ); ?>" class="">
+<?php 
+$active = '';
 
-<?php endforeach; ?>
+endforeach; ?>
 <?php endif; ?>
+
+
+</div>
+<!-- Controls -->
+  <a class="left carousel-control" onclick="jQuery(this).closest('.carousel').carousel('prev');" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" onclick="jQuery(this).closest('.carousel').carousel('next');" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

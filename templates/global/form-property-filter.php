@@ -34,9 +34,22 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 
 ?>
 
-<br>
-
 <div class="bootstrap">
+<div class="container-fluid">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle search</span>
+        <span class="glyphicon glyphicon-search">&nbsp;Buscar inmueble</span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <br>
+      
 
 <?php if( isset( $action ) ): ?>
 <form action="<?php echo $action; ?>" method="get">
@@ -45,17 +58,10 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 	<input type="hidden" name="post_type" value='property' />
 <?php endif; ?>
 
-<div class="container-fluid">
-	<div class="well">
 		<div class="row">
 		
-			<div class="col-xs-12">
-				<h3>Filtre</h3>
-				<hr>
-			</div>
-		
-			<div class="col-xs-12 col-sm-3 form-group">
-				<label for="type" class="control-label">Tipus</label>
+			<div class="col-xs-12 col-sm-3">
+				<label for="type">Tipus</label>
 				<?php
 					$args = array(
 						'show_option_all'    => 'Todos',
@@ -70,7 +76,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 						'hierarchical'       => 1,
 						'name'               => 'type',
 						'id'                 => '',
-						'class'              => 'form-control',
+						'class'              => 'bootstrap-input',
 						'depth'              => 0,
 						'tab_index'          => 0,
 						'taxonomy'           => 'property-type',
@@ -83,8 +89,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 			
-			<div class="col-xs-12 col-sm-3 form-group">
-				<label for="transaction" class="control-label">Transacción</label>
+			<div class="col-xs-12 col-sm-3">
+				<label for="transaction">Transacción</label>
 				<?php
 					$args = array(
 						'show_option_all'    => 'Todos',
@@ -99,7 +105,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 						'hierarchical'       => 1,
 						'name'               => 'transaction',
 						'id'                 => '',
-						'class'              => 'form-control',
+						'class'              => '',
 						'depth'              => 0,
 						'tab_index'          => 0,
 						'taxonomy'           => 'property-transaction',
@@ -112,8 +118,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 			
-			<div class="col-xs-12 col-sm-3 form-group">
-				<label for="transaction" class="control-label">Location</label>
+			<div class="col-xs-12 col-sm-3">
+				<label for="transaction">Location</label>
 				<?php
 					$args = array(
 						'show_option_all'    => 'Todos',
@@ -128,7 +134,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 						'hierarchical'       => 1,
 						'name'               => 'location',
 						'id'                 => '',
-						'class'              => 'form-control',
+						'class'              => '',
 						'depth'              => 0,
 						'tab_index'          => 0,
 						'taxonomy'           => 'property-location',
@@ -141,9 +147,9 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 	
-			<div class="col-xs-12 col-sm-3 form-group">
-				<label for="" class="control-label">Superficie mínima</label>
-				<select name="min_m2" class="form-control">
+			<div class="col-xs-12 col-sm-3">
+				<label for="">Superficie mínima</label>
+				<select name="min_m2" style="width:100%">
 					<option value="">Todos</option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
@@ -152,9 +158,9 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				</select>
 			</div>
 	
-			<div class="col-xs-12 col-sm-4 form-group">
-				<label for="" class="control-label">Precio máximo</label>
-				<select name="max_price" class="form-control">
+			<div class="col-xs-12 col-sm-4">
+				<label for="">Precio máximo</label>
+				<select name="max_price" style="width:100%">
 					<option value="">Todos</option>
 					<?php foreach( array(50000,100000,150000,200000,250000,300000,
 							350000,400000,450000,500000,550000,600000,650000,700000,800000,
@@ -165,12 +171,12 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				</select>
 			</div>
 	
-			<div class="col-xs-12 col-sm-4 form-group">
-				<label for="" class="control-label">Habitaciones mínimas</label>
-				<input type="number" name="min_rooms" min="0" class="form-control" value="<?php echo $min_rooms; ?>" />
+			<div class="col-xs-12 col-sm-4">
+				<label for="">Habitaciones mínimas</label>
+				<input style="width:100%;" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>
 			
-			<div class="col-xs-12 col-sm-4 form-group">
+			<div class="col-xs-12 col-sm-4">
 				<label class="control-label">&nbsp;</label>
 				<button class="btn btn-primary form-control" type="submit">
 					<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Buscar
@@ -178,9 +184,13 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 			</div>
 			
 		</div>
-	</div>
-</div>
-	
+
 </form>
 
+</div>
+
+
+    </div><!-- /.navbar-collapse -->
+    </nav>
+  </div><!-- /.container-fluid -->
 </div>

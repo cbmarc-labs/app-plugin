@@ -5,3 +5,31 @@
 .bootstrap input {
 	width: 100%;
 }
+
+.box-container {
+	background: #fff;
+	margin-bottom: 30px;
+	border-bottom: 2px solid #EAEAEA;
+	overflow: hidden;
+	position: relative;
+}
+
+.prop-info {
+	padding: 30px 30px 20px;
+}
+
+.more-info {
+	margin-left: 0px;
+}
+
+.more-info .info-label {
+	border-bottom: 1px dotted #E9E9E9;
+}
+
+.more-info .info-label:last-child {
+	border-bottom: none;
+}
+
+select {
+	width: 100%;
+}

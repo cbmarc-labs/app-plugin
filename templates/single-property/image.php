@@ -13,27 +13,26 @@ global $post, $property;
 ?>
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-<div class="carousel-inner" role="listbox">
-
+	<div class="carousel-inner" role="listbox">
 
 <?php
-$active = 'active';
+
 $images_ids = $property->get_gallery_attachment_ids();
-if( $images_ids ):
-$images_array = explode( ",", $images_ids );
-foreach( $images_array as $id ):
+
+if( $images_ids ) {
+	$images_array = explode( ",", $images_ids );
+	$active = 'active';
+	
+	foreach( $images_array as $id ) {
+		echo '<div class="item ' . $active . '">';
+		echo '<img width="100%;" src="' . wp_get_attachment_url( $id ) . '">';
+		echo '</div>';
+		
+		$active = '';
+	}
+}
+
 ?>
-<div class="item <?php echo $active; ?>">
-      <img width="100%;" src="<?php echo wp_get_attachment_url( $id ); ?>" alt="...">
-                </div>
-
-<?php 
-$active = '';
-
-endforeach; ?>
-<?php endif; ?>
-
 
 </div>
 <!-- Controls -->

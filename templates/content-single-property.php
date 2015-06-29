@@ -26,3 +26,5 @@
 
 
 <?php app_get_template( 'single-property/related.php' ); ?>
+
+<?php avia_social_share_links(); ?>

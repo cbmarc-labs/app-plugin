@@ -23,3 +23,6 @@ $price	= get_post_meta( $post->ID, '_property_price', 1 );
 	<li class="info-label"><span>m2</span><span style="float:right;"><?php echo $m2; ?></span></li>
 	<li class="info-label"><span>precio</span><span style="float:right;" class="currency"><?php echo $price; ?></span></li>
 </ul>
+
+
+<?php avia_social_share_links(); ?>

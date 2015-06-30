@@ -13,17 +13,13 @@ global $property;
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 	<div class="box-container">
-	
 		<div class="post-thumbnail">
 			<a href="<?php echo esc_url( get_permalink() ); ?>" style="display: block !important;">
 				<?php echo $property->get_post_thumbnail(); ?>
 			</a>
 		</div>
-		
 		<div class="clearfix"></div>
-		
 		<div class="prop-info">
-		
 			<div class="prop-title" style="min-height: 44px;">
 				<a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 				<?php
@@ -35,12 +31,9 @@ global $property;
 				?>
 				</a>
 			</div>
-			
 			<div class="">			
 				<?php app_get_template( 'single-property/meta.php' ); ?>
 			</div>
-			
 		</div>
-		
 	</div>
 </div>

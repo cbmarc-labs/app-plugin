@@ -25,7 +25,7 @@ if( $images_ids ) {
 	
 	foreach( $images_array as $id ) {
 		echo '<div class="item ' . $active . '">';
-		echo '<img width="100%;" src="' . wp_get_attachment_url( $id ) . '">';
+		echo '<img width="100%;" style="height:400px;" src="' . wp_get_attachment_url( $id ) . '">';
 		echo '</div>';
 		
 		$active = '';

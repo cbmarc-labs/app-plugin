@@ -35,21 +35,21 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 ?>
 
 <div class="bootstrap">
-<div class="container-fluid">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle search</span>
-        <span class="glyphicon glyphicon-search">&nbsp;Buscar inmueble</span>
-      </button>
-    </div>
+	<div class="container-fluid">
+	
+		<nav class="navbar navbar-default">
+  			<div class="container-fluid">
+    			<!-- Brand and toggle get grouped for better mobile display -->
+    			<div class="navbar-header">
+      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        				<span class="sr-only">Toggle search</span>
+        				<span class="glyphicon glyphicon-search">&nbsp;Buscar inmueble</span>
+					</button>
+				</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <br>
-      
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<br>      
 
 <?php if( isset( $action ) ): ?>
 <form action="<?php echo $action; ?>" method="get">
@@ -187,10 +187,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 
 </form>
 
-</div>
-
-
-    </div><!-- /.navbar-collapse -->
-    </nav>
-  </div><!-- /.container-fluid -->
+				</div>
+			</div><!-- /.navbar-collapse -->
+		</nav>
+	</div><!-- /.container-fluid -->
 </div>

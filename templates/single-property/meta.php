@@ -17,12 +17,10 @@ $price	= get_post_meta( $post->ID, '_property_price', 1 );
 
 ?>
 
+<h3 class="currency" style="margin-top:0px;font-weight:bolder;"><?php echo $price; ?></h3>
+
 <ul class="more-info">
-	<li class="info-label"><span>Habitaciones</span><span style="float:right;"><?php echo $rooms; ?></span></li>
-	<li class="info-label"><span>Baños</span><span style="float:right;"><?php echo $baths; ?></span></li>
-	<li class="info-label"><span>m2</span><span style="float:right;"><?php echo $m2; ?></span></li>
-	<li class="info-label"><span>precio</span><span style="float:right;" class="currency"><?php echo $price; ?></span></li>
+	<li class="info-label"><span><?php _e( 'Rooms', 'app' ); ?></span><span style="float:right;"><?php echo $rooms; ?></span></li>
+	<li class="info-label"><span><?php _e( 'Baths', 'app' ); ?></span><span style="float:right;"><?php echo $baths; ?></span></li>
+	<li class="info-label"><span><?php _e( 'Floor space', 'app' ); ?></span><span style="float:right;"><?php echo $m2; ?></span></li>
 </ul>
-
-
-<?php avia_social_share_links(); ?>

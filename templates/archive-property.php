@@ -30,47 +30,58 @@
                     <div class="category-term-description">
                         <?php echo term_description(); ?>
                     </div>
+                    
+                    <?php if ( have_posts() ) : ?>
+                    
+					<div class="bootstrap">
+						<div class="container-fluid">
+							<div class="row">
 
-                    <?php
-                    $avia_config['blog_style'] = apply_filters('avf_blog_style', avia_get_option('blog_style','multi-big'), 'archive');
-                    if($avia_config['blog_style'] == 'blog-grid')
-                    {
-                        global $posts;
-                        $post_ids = array();
-                        foreach($posts as $post) $post_ids[] = $post->ID;
-                                                
-                        if(!empty($post_ids))
-                        {
-                            $atts   = array(
-                                'type' => 'grid',
-                                'items' => get_option('posts_per_page'),
-                                'columns' => 3,
-                                'class' => 'avia-builder-el-no-sibling',
-                                'paginate' => 'yes',
-                                'use_main_query_pagination' => 'yes',
-                                'custom_query' => array( 'post__in'=>$post_ids, 'post_type'=>get_post_types() )
-                            );
+			                    <?php
+			                    $it = 1;
+			                    
+			                    // Start the Loop.
+			                    while ( have_posts() ) : the_post();
+			                    
+				                    app_get_template_part( 'content', 'property' );
+				                     
+				                    if( ! ( $it % 3 ) ) {
+				                    	echo '<div class="clearfix visible-md visible-lg"></div>';
+				                    }
+				                     
+				                    if( ! ( $it % 2 ) ) {
+				                    	echo '<div class="clearfix visible-sm"></div>';
+				                    }
+				                    
+				                    $it ++;
+			                    
+			                    // End the loop.
+			                    endwhile;
+								?>
+					
+							</div>
+						</div>
+					</div>
+					
+					<?php 
+					else :
+					?>
+					
+					<article class="entry">
+						<header class="entry-content-header">
+							<h1 class='post-title entry-title'><?php _e('Nothing Found', 'avia_framework'); ?></h1>
+						</header>
 
-                            $blog = new avia_post_slider($atts);
-                            $blog->query_entries();
-                            echo "<div class='entry-content-wrapper'>".$blog->html()."</div>";
-                        }
-                        else
-                        {
-                            get_template_part( 'includes/loop', 'index' );
-                        }
-                    }
-                    else
-                    {
-                        /* Run the loop to output the posts.
-                        * If you want to overload this in a child theme then include a file
-                        * called loop-index.php and that will be used instead.
-                        */
+						<p class="entry-content" <?php avia_markup_helper(array('context' => 'entry_content')); ?>><?php _e('Sorry, no posts matched your criteria', 'avia_framework'); ?></p>
 
-                        $more = 0;
-                        get_template_part( 'includes/loop', 'index' );
-                    }
-                    ?>
+						<footer class="entry-footer"></footer>
+					</article>
+					
+					<?php 					
+					endif;
+					
+					echo "<div class=''>".avia_pagination('', 'nav')."</div>";
+					?>
 
 				<!--end content-->
 				</main>
@@ -78,7 +89,7 @@
 				<?php
 
 				//get the sidebar
-				$avia_config['currently_viewing'] = 'blog';
+				//$avia_config['currently_viewing'] = 'blog';
 				get_sidebar();
 
 				?>

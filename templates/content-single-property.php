@@ -3,7 +3,7 @@
 		<?php app_get_template( 'single-property/image.php' ); ?>
 	</div>
 	<div class="col-sm-4">
-		<h4>Características</h4>
+		<h4><?php _e( 'Features', 'app' ); ?></h4>
 		<?php app_get_template( 'single-property/meta.php' ); ?>
 	</div>
 </div>

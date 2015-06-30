@@ -3,6 +3,7 @@
  * Plugin Name:       App
  * Description:       Wordpress general plugin
  * Version:           1.0.0
+ * Text Domain:       app
  * Author:            Marc Costa
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -161,7 +162,7 @@ final class App
 			load_textdomain( 'app', WP_LANG_DIR . '/plugins/app-admin-' . $locale . '.mo' );
 		}
 	
-		load_textdomain( 'app', WP_LANG_DIR . '/app/app-' . $locale . '.mo' );
+		load_textdomain( 'app', WP_LANG_DIR . '/app/app-plugin-' . $locale . '.mo' );
 		load_plugin_textdomain( 'app', false, plugin_basename( dirname( __FILE__ ) ) . "/i18n/languages" );
 	}
 

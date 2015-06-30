@@ -1,0 +1,250 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: App\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Tue Jun 30 2015 15:47:37 GMT+0200 (Hora de verano "
+"romance)\n"
+"PO-Revision-Date: Tue Jun 30 2015 16:10:16 GMT+0200 (Hora de verano romance)\n"
+"Last-Translator: quadricula <info@quadricula.com>\n"
+"Language-Team: \n"
+"Language: Catalan\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Loco-Target-Locale: ca_ES\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: includes/class-app-post-types.php:49
+msgid "Properties"
+msgstr ""
+
+#: includes/class-app-post-types.php:92
+msgid "Types"
+msgstr ""
+
+#: includes/class-app-post-types.php:106
+msgid "Transactions"
+msgstr ""
+
+#: includes/class-app-post-types.php:134
+msgid "Locations"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:47
+msgid "Make a duplicate from this property"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:48
+msgid "Duplicate"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:75
+msgid "Copy to a new draft"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:90
+msgid "No property to duplicate has been supplied!"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:108
+msgid "Product creation failed, could not find original property:"
+msgstr ""
+
+#: includes/admin/class-app-admin-duplicate-property.php:134
+msgid "(Copy)"
+msgstr ""
+
+#: includes/admin/class-app-admin-menus.php:40
+msgid "Property Settings"
+msgstr ""
+
+#: includes/admin/class-app-admin-menus.php:41
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-app-admin-meta-boxes.php:46
+msgid "Property data"
+msgstr ""
+
+#: includes/admin/class-app-admin-meta-boxes.php:55
+msgid "Property location"
+msgstr ""
+
+#: includes/admin/class-app-admin-meta-boxes.php:64
+msgid "Property Gallery"
+msgstr ""
+
+#: includes/admin/class-app-admin-post-types.php:54
+msgid "Featured Image"
+msgstr ""
+
+#: includes/admin/class-app-admin-post-types.php:55 /includes/admin/meta-
+#: boxes/views/html-meta-box-property.php:45
+msgid "Price"
+msgstr ""
+
+#: includes/admin/class-app-admin-post-types.php:56 /includes/admin/meta-
+#: boxes/views/html-meta-box-property.php:62
+msgid "Square meters"
+msgstr ""
+
+#: includes/admin/class-app-admin-settings.php:59
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: includes/admin/class-app-admin-settings.php:67
+msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Delete image"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Add Images to Property Gallery"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Add to gallery"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Add property gallery images"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:123
+msgid "Address"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:134
+msgid "e.g."
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:146
+msgid "Locate on the map"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:13
+#: includes/admin/views/html-quick-edit-property.php:14 /templates/single-
+#: property/meta.php:23
+msgid "Rooms"
+msgstr "Habitacions"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:24
+msgid "Number of rooms"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:29
+#: templates/single-property/meta.php:24
+msgid "Baths"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:40
+msgid "Number of bathrooms"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:57
+msgid "Property price"
+msgstr ""
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:73
+msgid "Property square meters"
+msgstr ""
+
+#: includes/admin/settings/class-app-settings-example.php:26
+msgid "Example"
+msgstr ""
+
+#: includes/admin/settings/class-app-settings-example.php:46
+msgid "Example Options"
+msgstr ""
+
+#: includes/admin/settings/class-app-settings-example.php:52
+#: includes/admin/settings/class-app-settings-general.php:52
+msgid "Store Notice Text"
+msgstr ""
+
+#: includes/admin/settings/class-app-settings-general.php:26
+msgid "General"
+msgstr ""
+
+#: includes/admin/settings/class-app-settings-general.php:46
+msgid "General Options"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:32
+msgid "Save changes"
+msgstr ""
+
+#: includes/admin/views/html-quick-edit-property.php:10
+msgid "Property Data"
+msgstr ""
+
+#. Base ID
+#: includes/widgets/class-app-widget-property-filter-form.php:31
+#: includes/widgets/class-app-widget-property-filter-form.php:32
+msgid "Property form filter"
+msgstr ""
+
+#: includes/widgets/class-app-widget-property-filter-form.php:73
+#: includes/widgets/class-app-widget-property-type.php:100
+msgid "New title"
+msgstr ""
+
+#: includes/widgets/class-app-widget-property-filter-form.php:78
+#: includes/widgets/class-app-widget-property-type.php:112
+msgid "Title"
+msgstr ""
+
+#. Base ID
+#: includes/widgets/class-app-widget-property-type.php:31
+#: includes/widgets/class-app-widget-property-type.php:32
+msgid "Widget Property Type"
+msgstr ""
+
+#: includes/widgets/class-app-widget-property-type.php:117
+msgid "Type"
+msgstr ""
+
+#: templates/archive-property.php:72
+msgid "Nothing Found"
+msgstr ""
+
+#: templates/archive-property.php:75
+msgid "Sorry, no posts matched your criteria"
+msgstr ""
+
+#: templates/single-property_enfold.php:9
+msgid "Blog - Latest News"
+msgstr ""
+
+#: templates/single-property/location.php:15
+msgid "Location"
+msgstr ""
+
+#: templates/single-property/meta.php:25
+msgid "Floor space"
+msgstr ""
+
+#: templates/single-property/related.php:37
+msgid "Propiedades relacionadas"
+msgstr "Propietats relacionades"
+
+#: includes/class-app-post-types.php:120 /templates/content-single-property.php:6
+msgid "Features"
+msgstr "Característiques"

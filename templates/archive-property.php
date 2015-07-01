@@ -36,6 +36,11 @@
 					<div class="bootstrap">
 						<div class="container-fluid">
 							<div class="row">
+								<div class="col-xs-12">
+									<?php app_get_template( 'global/form-login.php' ); ?>
+								</div>
+							</div>
+							<div class="row">
 
 			                    <?php
 			                    $it = 1;

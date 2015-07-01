@@ -62,7 +62,7 @@ class APP_Query
 			return;
 		}
 		
-		if( !isset( $query->query_vars['post_type'] ) ) {
+		if( ! isset( $query->query_vars['post_type'] ) ) {
 			return;
 		}
 		

@@ -30,6 +30,7 @@
 	border-bottom: none;
 }
 
-select {
+select#type, select#transaction, select#location, select#min_m2, 
+select#max_price, input[type="number"]#min_rooms {
 	width: 100%;
 }

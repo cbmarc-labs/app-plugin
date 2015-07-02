@@ -41,10 +41,12 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
   			<div class="container-fluid">
     			<!-- Brand and toggle get grouped for better mobile display -->
     			<div class="navbar-header">
-      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        				<span class="sr-only">Toggle search</span>
-        				<span class="glyphicon glyphicon-search">&nbsp;<?php _e( 'Search', 'app' ); ?></span>
-					</button>
+    				<div class="col-xs-12">
+   						<button style="width:100%" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+       						<span class="sr-only">Toggle search</span>
+       						<span class="glyphicon glyphicon-search">&nbsp;<?php _e( 'Search', 'app' ); ?></span>
+						</button>
+					</div>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,7 +63,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 		<div class="row">
 		
 			<div class="col-xs-12 col-sm-3">
-				<label for="type">Tipus</label>
+				<label for="type"><?php _e( 'Type', 'app' ); ?></label>
 				<?php
 					$args = array(
 						'show_option_all'    => __( 'Any', 'app' ),
@@ -76,7 +78,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 						'hierarchical'       => 1,
 						'name'               => 'type',
 						'id'                 => '',
-						'class'              => 'bootstrap-input',
+						'class'              => 'bootstrap-select',
 						'depth'              => 0,
 						'tab_index'          => 0,
 						'taxonomy'           => 'property-type',
@@ -90,7 +92,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 			</div>
 			
 			<div class="col-xs-12 col-sm-3">
-				<label for="transaction">Transacción</label>
+				<label for="transaction"><?php _e( 'Transaction', 'app' ); ?></label>
 				<?php
 					$args = array(
 						'show_option_all'    => __( 'Any', 'app' ),
@@ -119,7 +121,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 			</div>
 			
 			<div class="col-xs-12 col-sm-3">
-				<label for="transaction">Location</label>
+				<label for="transaction"><?php _e( 'Location', 'app' ); ?></label>
 				<?php
 					$args = array(
 						'show_option_all'    => __( 'Any', 'app' ),
@@ -149,7 +151,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 	
 			<div class="col-xs-12 col-sm-3">
 				<label for=""><?php _e( 'Min. floor', 'app' ); ?></label>
-				<select name="min_m2" style="width:100%">
+				<select name="min_m2" id="min_m2" style="width:100%">
 					<option value="">Todos</option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
@@ -160,7 +162,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 	
 			<div class="col-xs-12 col-sm-4">
 				<label for=""><?php _e( 'Max. price', 'app' ); ?></label>
-				<select name="max_price" style="width:100%">
+				<select name="max_price" id="max_price">
 					<option value="">Todos</option>
 					<?php foreach( array(50000,100000,150000,200000,250000,300000,
 							350000,400000,450000,500000,550000,600000,650000,700000,800000,
@@ -172,8 +174,8 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 			</div>
 	
 			<div class="col-xs-12 col-sm-4">
-				<label for=""><?php _e( 'Min. rooms', 'app' ); ?></label>
-				<input style="width:100%;" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
+				<label for="min_rooms"><?php _e( 'Min. rooms', 'app' ); ?></label>
+				<input id="min_rooms" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>
 			
 			<div class="col-xs-12 col-sm-4">

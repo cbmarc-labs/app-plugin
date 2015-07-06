@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Jun 30 2015 15:47:37 GMT+0200 (Hora de verano "
 "romance)\n"
-"PO-Revision-Date: Tue Jun 30 2015 19:50:26 GMT+0200 (CEST)\n"
+"PO-Revision-Date: Mon Jul 06 2015 11:40:44 GMT+0200 (Hora de verano romance)\n"
 "Last-Translator: quadricula <info@quadricula.com>\n"
 "Language-Team: \n"
 "Language: Catalan\n"
@@ -23,28 +23,8 @@ msgstr ""
 "X-Loco-Target-Locale: ca_ES\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: includes/class-app-post-types.php:49
-msgid "Properties"
-msgstr "Immobles"
-
-#: includes/class-app-post-types.php:92
-msgid "Types"
-msgstr ""
-
-#: includes/class-app-post-types.php:106
-msgid "Transactions"
-msgstr ""
-
-#: includes/class-app-post-types.php:134
-msgid "Locations"
-msgstr ""
-
 #: includes/admin/class-app-admin-duplicate-property.php:47
 msgid "Make a duplicate from this property"
-msgstr ""
-
-#: includes/admin/class-app-admin-duplicate-property.php:48
-msgid "Duplicate"
 msgstr ""
 
 #: includes/admin/class-app-admin-duplicate-property.php:75
@@ -81,20 +61,10 @@ msgstr ""
 
 #: includes/admin/class-app-admin-meta-boxes.php:64
 msgid "Property Gallery"
-msgstr ""
+msgstr "Galeria d'imatges"
 
 #: includes/admin/class-app-admin-post-types.php:54
 msgid "Featured Image"
-msgstr ""
-
-#: includes/admin/class-app-admin-post-types.php:55 /includes/admin/meta-
-#: boxes/views/html-meta-box-property.php:45
-msgid "Price"
-msgstr ""
-
-#: includes/admin/class-app-admin-post-types.php:56 /includes/admin/meta-
-#: boxes/views/html-meta-box-property.php:62
-msgid "Square meters"
 msgstr ""
 
 #: includes/admin/class-app-admin-settings.php:59
@@ -103,16 +73,6 @@ msgstr ""
 
 #: includes/admin/class-app-admin-settings.php:67
 msgid "Your settings have been saved."
-msgstr ""
-
-#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
-#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
-msgid "Delete image"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
-#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
-msgid "Delete"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
@@ -127,41 +87,8 @@ msgstr ""
 msgid "Add property gallery images"
 msgstr ""
 
-#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:123
-msgid "Address"
-msgstr ""
-
 #: includes/admin/meta-boxes/views/html-meta-box-property-location.php:134
 msgid "e.g."
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:146
-msgid "Locate on the map"
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property.php:24
-msgid "Number of rooms"
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property.php:29
-#: templates/single-property/meta.php:24
-msgid "Baths"
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property.php:40
-msgid "Number of bathrooms"
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property.php:57
-msgid "Property price"
-msgstr ""
-
-#: includes/admin/meta-boxes/views/html-meta-box-property.php:73
-msgid "Property square meters"
-msgstr ""
-
-#: includes/admin/settings/class-app-settings-example.php:26
-msgid "Example"
 msgstr ""
 
 #: includes/admin/settings/class-app-settings-example.php:46
@@ -211,10 +138,6 @@ msgstr ""
 msgid "Widget Property Type"
 msgstr ""
 
-#: includes/widgets/class-app-widget-property-type.php:117
-msgid "Type"
-msgstr ""
-
 #: templates/archive-property.php:72
 msgid "Nothing Found"
 msgstr ""
@@ -227,13 +150,90 @@ msgstr ""
 msgid "Blog - Latest News"
 msgstr ""
 
+#: includes/class-app-post-types.php:92
+msgid "Types"
+msgstr "Tipus"
+
+#: includes/class-app-post-types.php:106
+msgid "Transactions"
+msgstr "Transaccions"
+
+#: includes/class-app-post-types.php:134
+msgid "Locations"
+msgstr "Localització"
+
+#: includes/admin/class-app-admin-duplicate-property.php:48
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: includes/admin/class-app-admin-post-types.php:55 /includes/admin/meta-
+#: boxes/views/html-meta-box-property.php:45
+msgid "Price"
+msgstr "Preu"
+
+#: includes/admin/class-app-admin-post-types.php:56 /includes/admin/meta-
+#: boxes/views/html-meta-box-property.php:62
+msgid "Square meters"
+msgstr "Metres quadrats"
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Delete image"
+msgstr "Borrar imatge"
+
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:48
+#: includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:123
+msgid "Address"
+msgstr "Adreça"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property-location.php:146
+msgid "Locate on the map"
+msgstr "Localitzar al mapa"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:24
+msgid "Number of rooms"
+msgstr "Número d'habitacions"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:29
+#: templates/single-property/meta.php:24
+msgid "Baths"
+msgstr "Lavabos"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:40
+msgid "Number of bathrooms"
+msgstr "Número de lavabos"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:57
+msgid "Property price"
+msgstr "Preu del immoble"
+
+#: includes/admin/meta-boxes/views/html-meta-box-property.php:73
+msgid "Property square meters"
+msgstr "Metres quadrats del immoble"
+
+#: includes/admin/settings/class-app-settings-example.php:26
+msgid "Example"
+msgstr "Exemple"
+
+#: includes/widgets/class-app-widget-property-type.php:117
+msgid "Type"
+msgstr "Tipus"
+
 #: templates/single-property/location.php:15
 msgid "Location"
-msgstr ""
+msgstr "Localització"
 
 #: templates/single-property/meta.php:25
 msgid "Floor space"
-msgstr ""
+msgstr "Metres quadrats"
+
+#: includes/class-app-post-types.php:49
+msgid "Properties"
+msgstr "Immobles"
 
 #: includes/admin/meta-boxes/views/html-meta-box-property.php:13
 #: includes/admin/views/html-quick-edit-property.php:14 /templates/single-

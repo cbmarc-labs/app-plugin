@@ -62,11 +62,8 @@ class APP_Query
 			return;
 		}
 		
-		if( ! isset( $query->query_vars['post_type'] ) ) {
-			return;
-		}
-		
-		if( $query->query_vars['post_type'] !== 'property' ) {
+		if( ! $query->is_post_type_archive( 'property' ) && 
+				! $query->is_tax( get_object_taxonomies( 'property' ) ) ) {
 			return;
 		}
         

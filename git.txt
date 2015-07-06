@@ -1,13 +1,13 @@
 == afegir arxius ==
-#git add *
+#git add . -A
 
-== actualitzar el repositori local ==
-#git commit
+== actualitzar ==
+#git commit -m "minor changes"
 
-== actualitzar de local al servidor ==
-#git push
+== actualitzar cap al servidor ==
+#git push -u origin master
 
-== actualitzar del servidor al local ==
+== actualitzar el local ==
 #git pull
 
 == comprovar canvis remots ==

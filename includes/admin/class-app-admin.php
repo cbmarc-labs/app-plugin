@@ -35,8 +35,6 @@ class APP_Admin
 		// Classes
 		include_once( 'class-app-admin-post-types.php' );		
 		include_once( 'class-app-admin-meta-boxes.php' );
-		include_once( 'class-app-admin-menus.php' );
-		include_once( 'class-app-admin-settings.php' );
 		
 		if ( ! is_ajax() ) {
 			include_once( 'class-app-admin-assets.php' );

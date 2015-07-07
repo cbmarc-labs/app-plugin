@@ -61,15 +61,3 @@ select#max_price, input[type="number"]#min_rooms {
   right: 10px;
   left: auto;
 }
-
-#GC .slider-track-high, #GC .slider-track-high {
-	background: #ccc;
-}
-
-#GC .slider-track-low, #GC .slider-track-low {
-	background: #ccc;
-}
-
-#GC .slider-selection {
-	background: #ccc;
-}

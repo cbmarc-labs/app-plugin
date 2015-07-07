@@ -41,6 +41,7 @@ class APP_Query
 		$vars[] = "transaction";
 		$vars[] = "location";
 		$vars[] = "min_rooms";
+		$vars[] = "min_price";
 		$vars[] = "max_price";
 		$vars[] = "min_m2";
 		$vars[] = "feature";
@@ -142,6 +143,18 @@ class APP_Query
 			$meta_query[] = array(
 				'key'		=> '_property_m2',
 				'value'		=> $safe_min_m2,
+				'type'		=> 'NUMERIC',
+				'compare'	=> '>=',
+			);
+		}
+		
+		// filter by min_price
+		if( isset( $query->query_vars['min_price'] ) && ! empty( $query->query_vars['min_price'] ) ) {
+			$safe_min_price = intval( $query->query_vars['min_price'] );
+			
+			$meta_query[] = array(
+				'key'		=> '_property_price',
+				'value'		=> $safe_min_price,
 				'type'		=> 'NUMERIC',
 				'compare'	=> '>=',
 			);

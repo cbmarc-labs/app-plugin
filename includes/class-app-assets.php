@@ -43,6 +43,7 @@ class APP_Assets
 		global $wp_scripts;
 		
 		wp_enqueue_style( 'app-bootstrap-style', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/css/bootstrap-prefixed.min.css' );
+		wp_enqueue_style( 'app-bootstrap-slider-style', APP()->plugin_url() . '/assets/css/bootstrap-slider.min.css' );
 		wp_enqueue_style( 'app-style', APP()->plugin_url() . '/assets/css/style.css' );
 	}
 
@@ -63,6 +64,7 @@ class APP_Assets
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
 		
 		wp_enqueue_script( 'app-bootstrap-script', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/js/bootstrap.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-bootstrap-slider-script', APP()->plugin_url() . '/assets/js/frontend/bootstrap-slider.min.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-script', APP()->plugin_url() . '/assets/js/frontend/app.js', array( 'jquery' ) );
 	}
 

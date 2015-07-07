@@ -43,6 +43,7 @@ class APP_Query
 		$vars[] = "min_rooms";
 		$vars[] = "max_price";
 		$vars[] = "min_m2";
+		$vars[] = "feature";
 		
 		return $vars;
 	}
@@ -156,6 +157,27 @@ class APP_Query
 				'type'		=> 'NUMERIC',
 				'compare'	=> '<=',
 			);
+		}
+
+		// Filter by location taxonomy
+		if( isset( $query->query_vars['feature'] ) && !empty( $query->query_vars['feature'] ) ) {
+			$features = $query->query_vars['feature'];
+			
+			foreach ($query->query_vars['feature'] as $f) {
+				$features_array[] = sanitize_text_field( $f );
+			}
+		
+			if (isset($features_array) ) {
+				$query->set( 'tax_query',
+						array(
+								array(
+										'taxonomy' => 'property-feature',
+										'field'    => 'slug',
+										'terms'    => $features_array
+								)
+						)
+				);
+			}
 		}
 		
 		$query->set( 'meta_query', $meta_query );

@@ -11,31 +11,47 @@ $transaction	= 0;
 $location		= 0;
 $min_rooms		= '';
 $min_m2			= '';
+$min_price		= '';
 $max_price		= '';
+$feature		= array();
 
 // Safe values
-if( isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['type'] ) )
+if (isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['type'])) {
 	$type = sanitize_text_field( $wp_query->query_vars['type'] );
+}
 
-if( isset( $wp_query->query_vars['transaction'] ) && !empty( $wp_query->query_vars['transaction'] ) )
+if (isset( $wp_query->query_vars['transaction'] ) && !empty( $wp_query->query_vars['transaction'])) {
 	$transaction = sanitize_text_field( $wp_query->query_vars['transaction'] );
+}
 
-if( isset( $wp_query->query_vars['location'] ) && !empty( $wp_query->query_vars['location'] ) )
+if (isset( $wp_query->query_vars['location'] ) && !empty( $wp_query->query_vars['location'])) {
 	$location = sanitize_text_field( $wp_query->query_vars['location'] );
+}
 
-if( isset( $wp_query->query_vars['min_rooms'] ) && !empty( $wp_query->query_vars['min_rooms'] ) )
+if (isset( $wp_query->query_vars['min_rooms'] ) && !empty( $wp_query->query_vars['min_rooms'])) {
 	$min_rooms = intval( $wp_query->query_vars['min_rooms'] );
+}
 
-if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars['max_price'] ) )
+if (isset( $wp_query->query_vars['min_price'] ) && !empty( $wp_query->query_vars['min_price'])) {
+	$max_price = intval( $wp_query->query_vars['min_price'] );
+}
+
+if (isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars['max_price'])) {
 	$max_price = intval( $wp_query->query_vars['max_price'] );
+}
 
-if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['min_m2'] ) )
+if (isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['min_m2'])) {
 	$min_m2 = intval( $wp_query->query_vars['min_m2'] );
+}
+
+if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['feature'])) {
+	$feature = $wp_query->query_vars['feature'];
+}
 
 ?>
 
 <div class="bootstrap">
-	<div class="container-fluid">
+	<div class="container-fluid">	
 	
 		<nav class="navbar navbar-default">
   			<div class="container-fluid">
@@ -159,48 +175,58 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 					<?php endforeach; ?>
 				</select>
 			</div>
-	
-			<div class="col-xs-6 col-sm-4">
+			
+			<div class="col-xs-6 col-sm-6">
 				<label for=""><?php _e( 'Max. price', 'app' ); ?></label>
-				<select name="max_price" id="max_price">
-					<option value="">Todos</option>
-					<?php foreach( array(50000,100000,150000,200000,250000,300000,
-							350000,400000,450000,500000,550000,600000,650000,700000,800000,
-							1000000,1500000,3000000) as $value) : ?>
-					<option value="<?php echo $value; ?>" 
-					<?php selected( $value, $max_price ); ?>><?php echo number_format($value, 0, ',', '.') ?> €</option>
-					<?php endforeach; ?>
-				</select>
+				<input id="ex2" type="text" class="col-xs-6" value=""
+				 data-slider-min="0" data-slider-max="3000000" data-slider-step="50000"
+				 data-slider-id="GC" data-slider-tooltip=""
+				  data-slider-value="[0,3000000]"/>
 			</div>
 	
-			<div class="col-xs-6 col-sm-4">
+			<div class="col-xs-6 col-sm-2">
 				<label for="min_rooms"><?php _e( 'Min. rooms', 'app' ); ?></label>
 				<input id="min_rooms" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>
 			
-			<div class="col-xs-6 col-sm-4">
-				<label class="control-label">&nbsp;</label>
+			<div class="col-xs-12 col-sm-2">
+				<label class="hidden-xs control-label">&nbsp;</label>
 				<button class="btn btn-primary form-control" type="submit">
 					<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<?php _e( 'Search', 'app' ); ?>
 				</button>
 			</div>
-
+			
 			<div class="col-xs-12">
+				<p class="hidden-sm hidden-md hidden-lg">&nbsp;</p>
+				<p class="text-center">
+					<a role="button" aria-expanded="false" aria-controls="collapseFilters" 
+						data-toggle="collapse" data-target="#collapseFilters" 
+						href="javascript:void(0)" onclick="return false;">Més filtres</a>
+				</p>
+			</div>
+			
+			<div class="collapse <?php echo empty($feature)?'':'in'; ?>" id="collapseFilters">
+				<div class="col-xs-12">
+
 					<?php $terms = get_terms( 'property-feature', 'hide_empty=0' ); ?>
 					<?php if (!empty($terms) && !is_wp_error($terms)): ?>
-					<ul>
+					<ul class="text-center">
 						<?php foreach ($terms as $term): ?>
-						<li>
+						<li style="display: inline-block;margin-right:25px;">
 							<div class="checkbox">
 								<label>
-									<input type='checkbox' name='feature' value='<?php echo $term->name ?>' />
-									&nbsp;<?php echo $term->name; ?>
+									<input type='checkbox' name='feature[]' value='<?php echo $term->slug ?>'
+									<?php echo in_array($term->slug, $feature)?'checked':''; ?> 
+									/>
+									<?php echo $term->name; ?>
 								</label>
 							</div>
 						</li>
 						<?php endforeach; ?>
 					</ul>
 					<?php endif; ?>
+
+				</div>
 			</div>
 			
 		</div>

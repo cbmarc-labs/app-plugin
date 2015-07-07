@@ -23,5 +23,7 @@ jQuery( function( $ ) {
 			}
 		});
 	});
+	
+	$("#ex2").slider();
 
 });

@@ -62,7 +62,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 	<input type="hidden" name="lang" value="<?php echo(ICL_LANGUAGE_CODE); ?>"/>
 		<div class="row">
 		
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-6 col-sm-3">
 				<label for="type"><?php _e( 'Type', 'app' ); ?></label>
 				<?php
 					$args = array(
@@ -91,7 +91,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 			
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-6 col-sm-3">
 				<label for="transaction"><?php _e( 'Transaction', 'app' ); ?></label>
 				<?php
 					$args = array(
@@ -120,7 +120,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 			
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-6 col-sm-3">
 				<label for="transaction"><?php _e( 'Location', 'app' ); ?></label>
 				<?php
 					$args = array(
@@ -149,7 +149,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				?>
 			</div>
 	
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-6 col-sm-3">
 				<label for=""><?php _e( 'Min. floor', 'app' ); ?></label>
 				<select name="min_m2" id="min_m2" style="width:100%">
 					<option value="">Todos</option>
@@ -160,7 +160,7 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				</select>
 			</div>
 	
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-6 col-sm-4">
 				<label for=""><?php _e( 'Max. price', 'app' ); ?></label>
 				<select name="max_price" id="max_price">
 					<option value="">Todos</option>
@@ -173,16 +173,34 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 				</select>
 			</div>
 	
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-6 col-sm-4">
 				<label for="min_rooms"><?php _e( 'Min. rooms', 'app' ); ?></label>
 				<input id="min_rooms" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>
 			
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-6 col-sm-4">
 				<label class="control-label">&nbsp;</label>
 				<button class="btn btn-primary form-control" type="submit">
 					<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<?php _e( 'Search', 'app' ); ?>
 				</button>
+			</div>
+
+			<div class="col-xs-12">
+					<?php $terms = get_terms( 'property-feature', 'hide_empty=0' ); ?>
+					<?php if (!empty($terms) && !is_wp_error($terms)): ?>
+					<ul>
+						<?php foreach ($terms as $term): ?>
+						<li>
+							<div class="checkbox">
+								<label>
+									<input type='checkbox' name='feature' value='<?php echo $term->name ?>' />
+									&nbsp;<?php echo $term->name; ?>
+								</label>
+							</div>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+					<?php endif; ?>
 			</div>
 			
 		</div>

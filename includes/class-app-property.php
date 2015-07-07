@@ -155,7 +155,7 @@ class APP_Property
 			$image_src = APP()->plugin_url() . '/assets/img/no_photo_available.jpg';
 		}
 		
-		$thumbnail = '<img src="' . $image_src . '" style="width:100%;min-height:250px;" />';
+		$thumbnail = '<img src="' . $image_src . '" style="width:100%;min-height:240px;display:block;" />';
 		
 		return $thumbnail;
 	}

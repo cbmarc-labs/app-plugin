@@ -176,13 +176,13 @@ if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['f
 				</select>
 			</div>
 			
-			<div class="col-xs-6 col-sm-6">
+			<div class="col-xs-12 col-sm-6">
 				<div class="text-center">
 					<span><label id="nouislider-value-lower" class="currency" style="display:inherit;"></label></span>
 					<span><label style="display:inherit;">&nbsp;/&nbsp;</label></span>
 					<span><label id="nouislider-value-upper" class="currency" style="display:inherit;"></label></span>
 				</div>
-				<div id="nonlinear" style="margin-top:12px;"></div>
+				<div id="nonlinear" style="margin:12px 12px 0 12px;"></div>
 				<input type="hidden" name="min_price" value="0">
 				<input type="hidden" name="max_price" value="0">
 			</div>
@@ -229,7 +229,7 @@ if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['f
 				});
 			</script>
 	
-			<div class="col-xs-6 col-sm-3">
+			<div class="col-xs-12 col-sm-3">
 				<label for="min_rooms"><?php _e( 'Min. rooms', 'app' ); ?></label>
 				<input id="min_rooms" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>

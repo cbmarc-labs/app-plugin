@@ -34,7 +34,7 @@ if ( $properties->have_posts() ) : ?>
 
 	<div class="related properties">
 
-		<h2 class="page-header"><?php _e( 'Propiedades relacionadas', 'app' ); ?></h2>
+		<h2 class="page-header"><?php _e( 'Related properties', 'app' ); ?></h2>
 <div class="row">
 			<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
 

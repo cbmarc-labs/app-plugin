@@ -74,5 +74,20 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			</td>
 		</tr>
 		
+		<tr>
+			<td><?php _e( 'Featured', 'app' ); ?> :</td>
+			<td>
+				<input type="checkbox" name="property_featured" id="property_featured"
+					value="<?php echo $data['property_featured']; ?>" <?php echo $data['property_featured'] ? 'checked' : ''; ?>/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td>
+				<small><?php _e( 'Featured property', 'app' ); ?></small>
+			</td>
+		</tr>
+		
 	</tbody>
 </table>

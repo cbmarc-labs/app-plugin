@@ -24,7 +24,8 @@ class APP_Shortcodes
 	{		
 		// Define shortcodes
 		$shortcodes = array(
-			'app_form_filter'	=> __CLASS__ . '::form_filter',
+			'property_filter_form'	=> __CLASS__ . '::property_filter_form',
+			'property_featured'		=> __CLASS__ . '::property_featured',
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -50,12 +51,24 @@ class APP_Shortcodes
 	// --------------------------------------------------------------------
 
 	/**
-	 * form_filter method
+	 * property_filter_form method
 	 *
 	 * @access public
 	 */
-	public static function form_filter()
+	public static function property_filter_form()
 	{
 		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Filter_Form', 'output' ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * property_featured method
+	 *
+	 * @access public
+	 */
+	public static function property_featured()
+	{
+		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Featured', 'output' ) );
 	}
 }

@@ -51,8 +51,7 @@ class APP_Post_Types
 		        'menu_icon'				=> 'dashicons-admin-home',
 				'public'				=> true,
 				'show_ui'				=> true,
-				// only with wpml 3.2
-				'has_archive'			=> __( 'properties', 'app' ),
+				'has_archive'			=> 'properties',
         		'publicly_queryable'	=> true,
 				'query_var'				=> true,
 				'show_in_menu'			=> true,
@@ -61,8 +60,7 @@ class APP_Post_Types
 						'title', 'editor', 'excerpt', 'thumbnail'
 				),
 				'rewrite' => array(
-						// only with wpml
-						'slug'			=> _x( 'property', 'URL slug', 'app' ),
+						'slug'			=> 'property',
 						'with_front'	=> false,
 						'pages'			=> true,
 						'feeds'			=> true,

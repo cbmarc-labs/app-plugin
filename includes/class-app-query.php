@@ -45,6 +45,7 @@ class APP_Query
 		$vars[] = "max_price";
 		$vars[] = "min_m2";
 		$vars[] = "feature";
+		$vars[] = "sortby";
 		
 		return $vars;
 	}
@@ -190,6 +191,30 @@ class APP_Query
 								)
 						)
 				);
+			}
+		}
+		
+		// Filter by sort
+		if( isset( $query->query_vars['sortby'] ) && !empty( $query->query_vars['sortby'] ) ) {
+			$orderby = $query->query_vars['sortby'];
+			
+			switch( $orderby ) {
+				case 2: 
+					$query->set( 'orderby', 'date' );
+					$query->set( 'order', 'ASC' );
+					break;
+				case 3: 
+					$query->set( 'orderby', '_property_price' );
+					$query->set( 'order', 'ASC' );
+					break;
+				case 4: 
+					$query->set( 'orderby', '_property_price' );
+					$query->set( 'order', 'DESC' );
+					break;
+				default:
+					$query->set( 'orderby', 'date' );
+					$query->set( 'order', 'DESC' );
+					break;
 			}
 		}
 		

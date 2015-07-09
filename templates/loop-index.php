@@ -1,32 +1,34 @@
 <?php app_get_template( 'global/form-property-filter.php' ); ?>
-				                    
-	<?php if ( have_posts() ) : ?>
-                    
-	<div class="bootstrap">
-		<div class="container-fluid">
-			<div class="row">
 
-				<?php
-				$it = 1;
+<?php app_get_template( 'global/form-property-orderby.php' ); ?>
+				                    
+<?php if ( have_posts() ) : ?>
                     
-				// Start the Loop.
-				while ( have_posts() ) : the_post();
+<div class="bootstrap">
+	<div class="container-fluid">
+		<div class="row">
+
+			<?php
+			$it = 1;
                     
-					app_get_template_part( 'content', 'property' );
+			// Start the Loop.
+			while ( have_posts() ) : the_post();
+                    
+				app_get_template_part( 'content', 'property' );
 		                     
-					if( ! ( $it % 3 ) ) {
-						echo '<div class="clearfix visible-md visible-lg"></div>';
-					}
+				if( ! ( $it % 3 ) ) {
+					echo '<div class="clearfix visible-md visible-lg"></div>';
+				}
 		                     
-					if( ! ( $it % 2 ) ) {
-						echo '<div class="clearfix visible-sm"></div>';
-					}
+				if( ! ( $it % 2 ) ) {
+					echo '<div class="clearfix visible-sm"></div>';
+				}
 		                    
-					$it ++;
+				$it ++;
                     
-				// End the loop.
-				endwhile;
-				?>
+			// End the loop.
+			endwhile;
+			?>
 
 		</div>
 	</div>

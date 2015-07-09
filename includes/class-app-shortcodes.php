@@ -26,6 +26,7 @@ class APP_Shortcodes
 		$shortcodes = array(
 			'property_filter_form'	=> __CLASS__ . '::property_filter_form',
 			'property_featured'		=> __CLASS__ . '::property_featured',
+			'property_latest'		=> __CLASS__ . '::property_latest',
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -70,5 +71,17 @@ class APP_Shortcodes
 	public static function property_featured()
 	{
 		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Featured', 'output' ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * property_latest method
+	 *
+	 * @access public
+	 */
+	public static function property_latest()
+	{
+		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Latest', 'output' ) );
 	}
 }

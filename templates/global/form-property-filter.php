@@ -14,6 +14,7 @@ $min_m2			= '';
 $min_price		= 0;
 $max_price		= 3000000;
 $feature		= array();
+$sortby			= 1;
 
 // Safe values
 if (isset( $wp_query->query_vars['type'] ) && !empty( $wp_query->query_vars['type'])) {
@@ -48,6 +49,10 @@ if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['f
 	$feature = $wp_query->query_vars['feature'];
 }
 
+if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['sortby'])) {
+	$sortby = intval( $wp_query->query_vars['sortby'] );
+}
+
 ?>
 
 <div class="bootstrap">
@@ -70,7 +75,7 @@ if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['f
 					<br>      
 
 <?php if( isset( $action ) ): ?>
-<form action="<?php echo $action; ?>" method="get">
+<form action="<?php echo $action; ?>" method="get" id="property-form-filter">
 <?php else:?>
 <form action="<?php echo site_url( '/' ); ?>" method="get">
 	<input type="hidden" name="post_type" value='property' />
@@ -233,6 +238,8 @@ if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['f
 				<label for="min_rooms"><?php _e( 'Min. rooms', 'app' ); ?></label>
 				<input id="min_rooms" type="number" name="min_rooms" min="0" value="<?php echo $min_rooms; ?>" />
 			</div>
+			
+			<input id="sortby" type="hidden" name="sortby" value="<?php echo $sortby; ?>" />
 			
 			<div class="col-xs-12 col-sm-3">
 				<label class="hidden-xs control-label">&nbsp;</label>

@@ -34,14 +34,18 @@ if ( $properties->have_posts() ) : ?>
 
 	<div class="related properties">
 
-		<h2 class="page-header"><?php _e( 'Related properties', 'app' ); ?></h2>
-<div class="row">
+		<div class="page-header">
+			<h4><?php _e( 'Related properties', 'app' ); ?></h4>
+		</div>
+		
+		<div class="row">
 			<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
 
 				<?php app_get_template_part( 'content', 'property' ); ?>
 
 			<?php endwhile; // end of the loop. ?>
-</div>
+		</div>
+		
 	</div>
 
 <?php endif;

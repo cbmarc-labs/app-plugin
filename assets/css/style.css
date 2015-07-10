@@ -61,3 +61,9 @@ select#max_price, input[type="number"]#min_rooms {
   right: 10px;
   left: auto;
 }
+
+.bootstrap .page-header {
+  border-bottom: 1px solid #000;
+  margin: 20px 0 20px;
+  padding-bottom: 0px;
+}

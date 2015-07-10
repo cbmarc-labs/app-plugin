@@ -11,7 +11,6 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 ?>
 
 <div class="bootstrap">
-	<form method="get">
 		<div class="col-xs-12">
 			<div class="text-right">
 		
@@ -25,5 +24,4 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 			
 			</div>
 		</div>
-	</form>
 </div>

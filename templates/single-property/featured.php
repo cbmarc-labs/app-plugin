@@ -29,7 +29,10 @@ if ( $properties->have_posts() ) : ?>
 <div class="bootstrap">
 		<div class="featured properties">
 
-			<h4 class="page-header"><?php _e( 'Featured properties', 'app' ); ?></h4>
+			<div class="page-header">
+				<h4><?php _e( 'Featured properties', 'app' ); ?></h4>
+			</div>
+			
 			<div class="row">
 				<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
 

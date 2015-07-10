@@ -62,9 +62,10 @@ if( isset( $map[0] ) && isset( $map[1] ) && isset( $map[2] ) ) {
 //-->
 </script>
 
-<h1>Ubicación</h1>
+<div class="page-header">
+	<h4><?php _e( 'Property location', 'app' ); ?></h4>
+</div>
 
-<?php echo $ubicacion; ?>
-
+<p><?php echo $ubicacion; ?></p>
 
 <div id="property_map_container" style="height:380px;"></div>

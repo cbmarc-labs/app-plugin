@@ -12,7 +12,9 @@ global $post, $property;
 
 ?>
 
-<h1>Características</h1>
+<div class="page-header">
+	<h4><?php _e( 'Features', 'app' ); ?></h4>
+</div>
 
 <?php
 $terms = get_the_terms( $post->ID, 'property-feature' );

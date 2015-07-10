@@ -12,7 +12,9 @@ global $post, $property;
 
 ?>
 
-<h1><?php _e( 'Location', 'app' ); ?></h1>
+<div class="page-header">
+	<h4><?php _e( 'Location', 'app' ); ?></h4>
+</div>
 
 <?php 
 $args = array(

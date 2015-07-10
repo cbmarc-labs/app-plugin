@@ -29,8 +29,8 @@ jQuery( function( $ ) {
 		event.preventDefault();
 		
 		var id_selector = $(this).attr("id");
-		var id = id_selector.substr(id_selector.length -1);
-		
+		var id = id_selector.substr(id_selector.lastIndexOf('-') + 1 );
+				
 		id = parseInt(id);
 		
 		$('#property-carousel').carousel(id);
@@ -63,9 +63,7 @@ jQuery( function( $ ) {
 			url = uri + separator + key + "=" + value;
 		}
 		
-		console.log(url);
-		
-		$(this).closest('form').attr("action", url).submit();
+		window.location.href = url;
 	});
 
 });

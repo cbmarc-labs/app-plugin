@@ -12,7 +12,9 @@ global $post, $property;
 
 ?>
 
-<h1>Transacción</h1>
+<div class="page-header">
+	<h4><?php _e( 'Transactions', 'app' ); ?></h4>
+</div>
 
 <?php
 $terms = get_the_terms( $post->ID, 'property-transaction' );

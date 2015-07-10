@@ -27,6 +27,8 @@ $properties = new WP_Query( $args );
 if ( $properties->have_posts() ) : ?>
 
 <div class="bootstrap">
+	<div class="container-fluid">
+	
 		<div class="featured properties">
 
 			<div class="page-header">
@@ -42,6 +44,7 @@ if ( $properties->have_posts() ) : ?>
 			</div>
 		</div>
 	</div>
+</div>
 
 <?php endif;
 

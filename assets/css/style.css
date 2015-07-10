@@ -67,3 +67,13 @@ select#max_price, input[type="number"]#min_rooms {
   margin: 20px 0 20px;
   padding-bottom: 0px;
 }
+
+.property-image {
+	 height:100px;
+}
+
+@media (min-width: 768px) {
+	.property-image {
+	 	height:300px;
+	}
+}

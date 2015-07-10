@@ -1,8 +1,16 @@
 <?php 
 
 global $wp_rewrite, $wp_query;
+
+// Si te els permanlinks activats
 if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) {
 	$action = get_post_type_archive_link( 'property' );
+	
+	if ( is_post_type_archive( 'property' ) || is_tax( get_object_taxonomies( 'property' ) ) ) {
+		global $wp;
+	
+		$action = home_url( add_query_arg( array(), $wp->request ) );
+	}
 }
 
 // default values
@@ -74,12 +82,13 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<br>      
 
-<?php if( isset( $action ) ): ?>
-<form action="<?php echo $action; ?>" method="get" id="property-form-filter">
-<?php else:?>
-<form action="<?php echo site_url( '/' ); ?>" method="get">
+<?php if ( isset( $action ) ) : ?>
+	<form action="<?php echo $action; ?>" method="get">
+<?php else: ?>
+	<form action="<?php echo site_url( '/' ); ?>" method="get">
 	<input type="hidden" name="post_type" value='property' />
 <?php endif; ?>
+
 	<input type="hidden" name="lang" value="<?php echo(ICL_LANGUAGE_CODE); ?>"/>
 		<div class="row">
 		
@@ -173,7 +182,7 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 			<div class="col-xs-6 col-sm-3">
 				<label for=""><?php _e( 'Min. floor', 'app' ); ?></label>
 				<select name="min_m2" id="min_m2" style="width:100%">
-					<option value="">Todos</option>
+					<option value=""><?php echo __( 'Any', 'app' ); ?></option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
 					<?php selected( $value, $min_m2 ); ?>><?php echo $value ?> m2</option>

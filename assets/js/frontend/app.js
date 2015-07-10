@@ -50,9 +50,22 @@ jQuery( function( $ ) {
 	});
 	
 	$("#property-sort-select").change(function() {
-		$("#sortby").val(this.value);
+		var uri = window.location.href;
+		var key = 'sortby';
+		var value = this.value;
 		
-		$('#property-form-filter').submit();
+		var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+		var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+		
+		if (uri.match(re)) {
+			url = uri.replace(re, '$1' + key + "=" + value + '$2');
+		} else {
+			url = uri + separator + key + "=" + value;
+		}
+		
+		console.log(url);
+		
+		$(this).closest('form').attr("action", url).submit();
 	});
 
 });

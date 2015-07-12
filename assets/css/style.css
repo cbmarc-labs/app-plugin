@@ -77,3 +77,26 @@ select#max_price, input[type="number"]#min_rooms {
 	 	height:300px;
 	}
 }
+
+.featured .triangle-top-left {
+  border-top: 100px solid #00B244;
+  width: 0;
+  height: 0;
+  border-right: 100px solid transparent;
+  position: absolute;
+  left: 10;
+  top: 10;
+  z-index: 1;
+}
+
+.featured .featured-text {
+  position: absolute;
+  top: -80px;
+  left: 0;
+  color: #ffffff;
+  font-weight: 700;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}

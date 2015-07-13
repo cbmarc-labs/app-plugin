@@ -46,6 +46,7 @@ class APP_Query
 		$vars[] = "min_area";
 		$vars[] = "feature";
 		$vars[] = "sortby";
+		$vars[] = "status";
 		
 		return $vars;
 	}

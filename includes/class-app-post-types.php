@@ -75,21 +75,11 @@ class APP_Post_Types
 						'name' => __( 'Messages', 'app' )
 				),
 				'menu_icon'				=> 'dashicons-email-alt',
-				'public'				=> true,
-				'show_ui'				=> true,
-				'has_archive'			=> 'messages',
-				'publicly_queryable'	=> true,
-				'query_var'				=> true,
+				'public'				=> false,
+				'has_archive'			=> true,
 				'show_in_menu'			=> true,
-				'show_in_nav_menus'		=> true,
+				'show_ui'				=> true,
 				'supports' => array( 'title', 'editor' ),
-						'rewrite' => array(
-						'slug'			=> 'message',
-						'with_front'	=> false,
-						'pages'			=> true,
-						'feeds'			=> true,
-						'ep_mask'		=> EP_PERMALINK,
-						)
 				)
 			);
 		}		

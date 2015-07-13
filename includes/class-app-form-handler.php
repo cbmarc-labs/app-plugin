@@ -38,18 +38,25 @@ class APP_Form_Handler
 			return;
 		}
 
-		if ( empty( $_POST[ 'action' ] ) || 'enquire_now' !== $_POST[ 'action' ] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'woocommerce-edit_address' ) ) {
+		if ( empty( $_POST[ 'action' ] ) || 'enquire_now' !== $_POST[ 'action' ] 
+				|| empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'app-enquire_now' ) ) {
 			return;
 		}
 		
 		$data = array(
-				'post_title'   => 'Test',
-				'post_content' => 'This is a test content',
+				'post_title'   => $_POST[ 'title' ],
+				'post_content' => $_POST[ 'message' ] . '<br><a href="' . $_POST[ 'permalink' ] . '">' . $_POST[ 'permalink' ] . '</a>',
 				'post_status'  => 'publish',
 				'post_type'    => 'message'
 		);
 		
-		$variation_id = wp_insert_post( $data );
+		$message_id = wp_insert_post( $data );
+		
+		$received_url = add_query_arg( 'status', 'sent', $_POST[ 'permalink' ] );
+		
+		wp_safe_redirect( $received_url );
+		
+		exit;
 	}
 }
 

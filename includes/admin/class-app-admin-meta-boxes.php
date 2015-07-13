@@ -68,6 +68,19 @@ class APP_Admin_Meta_Boxes
 				'low'
 			);
 		}
+		
+		$screens = array( 'message' );
+		
+		foreach ( $screens as $screen ) {			
+			add_meta_box(
+				'app-property-message',
+				__( 'Message data', 'app' ),
+				'APP_Meta_Box_Message::output',
+				$screen,
+				'normal',
+				'high'
+			);
+		}
 	}
 
 	// --------------------------------------------------------------------

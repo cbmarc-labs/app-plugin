@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<tr>
 			<td></td>
 			<td>
-				<small><?php _e( 'Property square meters', 'app' ); ?></small>
+				<small><?php _e( 'Property area', 'app' ); ?></small>
 			</td>
 		</tr>
 		

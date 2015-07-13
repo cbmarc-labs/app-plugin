@@ -16,18 +16,18 @@ global $post, $property;
 	<h4><?php _e( 'Location', 'app' ); ?></h4>
 </div>
 
-<?php 
-$args = array(
-		'taxonomy'		=> 'property-location',
-		'style'			=> 'none',
-		'hierarchical'	=> true,
-		'echo'			=> 0,
-);
+<?php
 
 $separator = ' &gt; ';
 
-$terms = wp_list_categories( $args );
-$terms = rtrim( trim( str_replace( '<br />',  $separator, $terms ) ), $separator );
+$terms = get_the_terms( $post->ID, 'property-location' );
 
-echo $terms;
+$out = array();
+if ( $terms && ! is_wp_error( $terms ) ) {
+	foreach ( $terms as $term ) {
+		$out[] = '<a href="' . get_term_link( $term->slug, 'property-location' ) . '">' . $term->name . "</a>";
+	}
+}
 ?>
+
+<p><?php echo implode( $separator, array_reverse( $out ) ); ?></p>

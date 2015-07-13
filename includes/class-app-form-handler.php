@@ -50,7 +50,11 @@ class APP_Form_Handler
 				'post_type'    => 'message'
 		);
 		
-		$message_id = wp_insert_post( $data );
+		$post_id = wp_insert_post( $data );
+		
+		update_post_meta( $post_id, '_message_name', $_POST['name'] );
+		update_post_meta( $post_id, '_message_email', $_POST['email'] );
+		update_post_meta( $post_id, '_message_phone', $_POST['phone'] );
 		
 		$received_url = add_query_arg( 'status', 'sent', $_POST[ 'permalink' ] );
 		

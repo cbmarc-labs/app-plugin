@@ -27,8 +27,11 @@ class APP_Admin_Post_Types
 	{
 		add_filter( "nav_menu_items_property", array( $this, 'nav_menu_items' ), 10, 3 );
 		
-		add_filter( "manage_property_posts_columns", array( $this, 'manage_posts_columns' ) );
-		add_action( "manage_property_posts_custom_column", array( $this, 'manage_posts_custom_column' ) , 5, 2);
+		add_filter( "manage_property_posts_columns", array( $this, 'manage_property_posts_columns' ) );
+		add_filter( "manage_message_posts_columns", array( $this, 'manage_message_posts_columns' ) );
+		
+		add_action( "manage_property_posts_custom_column", array( $this, 'manage_property_posts_custom_column' ) , 5, 2);
+		add_action( "manage_message_posts_custom_column", array( $this, 'manage_message_posts_custom_column' ) , 5, 2);
 		
 		add_filter( "manage_edit-property_sortable_columns", array( $this, 'manage_edit_sortable_columns' ) );
 		
@@ -49,11 +52,11 @@ class APP_Admin_Post_Types
 	 *
 	 * @access public
 	 */
-	function manage_posts_columns( $columns )
+	function manage_property_posts_columns( $columns )
 	{
 		$col_featured_image	= array( 'featured_image' => __( 'Featured Image' , 'app' ) );
 		$col_price			= array( 'price' => __( 'Price', 'app' ) );
-		$col_area			= array( 'area' => __( 'Square meters', 'app' ) );
+		$col_area			= array( 'area' => __( 'Area', 'app' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 4, true ) + $col_price + array_slice( $columns, 4, NULL, true );
@@ -65,11 +68,31 @@ class APP_Admin_Post_Types
 	// --------------------------------------------------------------------
 
 	/**
+	 * manage_message_posts_columns method
+	 *
+	 * @access public
+	 */
+	function manage_message_posts_columns( $columns )
+	{
+		$col_name	= array( 'name' => __( 'Sender name', 'app' ) );
+		$col_email	= array( 'email' => __( 'Sender email', 'app' ) );
+		$col_phone	= array( 'phone' => __( 'Sender phone', 'app' ) );
+		
+		$columns = array_slice( $columns, 0, 2, true ) + $col_name + array_slice( $columns, 2, NULL, true );
+		$columns = array_slice( $columns, 0, 3, true ) + $col_email + array_slice( $columns, 3, NULL, true );
+		$columns = array_slice( $columns, 0, 4, true ) + $col_phone + array_slice( $columns, 4, NULL, true );
+		
+		return $columns;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * manage_posts_custom_column method
 	 *
 	 * @access public
 	 */
-	function manage_posts_custom_column( $column, $post_id )
+	function manage_property_posts_custom_column( $column, $post_id )
 	{
 		switch ( $column ) {
 			case 'featured_image':
@@ -99,6 +122,28 @@ class APP_Admin_Post_Types
 			case 'area':
 				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_property_area' , true ) . '</span>';
 				
+				break;
+		}
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * manage_posts_custom_column method
+	 *
+	 * @access public
+	 */
+	function manage_message_posts_custom_column( $column, $post_id )
+	{
+		switch ( $column ) {
+			case 'name':
+				echo '<span>' . get_post_meta( $post_id , '_message_name' , true ) . '</span>';		
+				break;
+			case 'email':
+				echo '<span>' . get_post_meta( $post_id , '_message_email' , true ) . '</span>';		
+				break;
+			case 'phone':
+				echo '<span>' . get_post_meta( $post_id , '_message_phone' , true ) . '</span>';		
 				break;
 		}
 	}

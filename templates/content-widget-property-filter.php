@@ -9,7 +9,7 @@ if( isset( $wp_rewrite ) && is_object( $wp_rewrite ) && $wp_rewrite->using_perma
 $type			= 0;
 $transaction	= 0;
 $min_rooms		= '';
-$min_m2			= '';
+$min_area			= '';
 $max_price		= '';
 
 // Safe values
@@ -25,8 +25,8 @@ if( isset( $wp_query->query_vars['min_rooms'] ) && !empty( $wp_query->query_vars
 if( isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars['max_price'] ) )
 	$max_price = intval( $wp_query->query_vars['max_price'] );
 
-if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['min_m2'] ) )
-	$min_m2 = intval( $wp_query->query_vars['min_m2'] );
+if( isset( $wp_query->query_vars['min_area'] ) && !empty( $wp_query->query_vars['min_area'] ) )
+	$min_area = intval( $wp_query->query_vars['min_area'] );
 
 ?>
 
@@ -110,11 +110,11 @@ if( isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['m
 	
 			<div class="col-xs-12 form-group">
 				<label for="" class="control-label">Superficie mínima</label>
-				<select name="min_m2" class="form-control">
+				<select name="min_area" class="form-control">
 					<option value="">Todos</option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
-					<?php selected( $value, $min_m2 ); ?>><?php echo $value ?> m2</option>
+					<?php selected( $value, $min_area ); ?>><?php echo $value ?> area</option>
 					<?php endforeach; ?>
 				</select>
 			</div>

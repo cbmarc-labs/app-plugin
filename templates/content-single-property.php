@@ -26,6 +26,9 @@
 
 <div class="col-sm-8">
 	<?php app_get_template( 'single-property/map.php' ); ?>
+</div>
+
+<div class="col-sm-12">
 	<?php avia_social_share_links(); ?>
 </div>
 

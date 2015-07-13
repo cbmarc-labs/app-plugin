@@ -59,11 +59,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		</tr>
 		
 		<tr>
-			<td><?php _e( 'Square meters', 'app' ); ?> :</td>
+			<td><?php _e( 'Area', 'app' ); ?> :</td>
 			<td>
 				<input class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999"
-					maxlength="20" type="text" name="property_m2" id="property_m2" size="16"
-					value="<?php echo $data['property_m2']; ?>" />
+					maxlength="20" type="text" name="property_area" id="property_area" size="16"
+					value="<?php echo $data['property_area']; ?>" />
 			</td>
 		</tr>
 		

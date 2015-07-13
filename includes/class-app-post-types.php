@@ -38,36 +38,62 @@ class APP_Post_Types
 	 */
 	public static function register_post_types()
 	{
-		if ( post_type_exists('property') ) {
-			return;
+		if ( ! post_type_exists('property') ) {		
+			register_post_type(
+				'property', 
+				array(
+					'labels'				=> array(
+						'name' => __( 'Properties', 'app' )
+					),
+			        'menu_icon'				=> 'dashicons-admin-home',
+					'public'				=> true,
+					'show_ui'				=> true,
+					'has_archive'			=> 'properties',
+	        		'publicly_queryable'	=> true,
+					'query_var'				=> true,
+					'show_in_menu'			=> true,
+					'show_in_nav_menus'		=> true,
+					'supports' => array(
+							'title', 'editor', 'excerpt', 'thumbnail'
+					),
+					'rewrite' => array(
+							'slug'			=> 'property',
+							'with_front'	=> false,
+							'pages'			=> true,
+							'feeds'			=> true,
+							'ep_mask'		=> EP_PERMALINK,
+					)
+				)
+			);
 		}
 		
-		register_post_type(
-			'property', 
-			array(
-				'labels'				=> array(
-					'name' => __( 'Properties', 'app' )
+		if ( ! post_type_exists('message') ) {
+			register_post_type(
+				'message',
+				array(
+					'labels'				=> array(
+						'name' => __( 'Messages', 'app' )
 				),
-		        'menu_icon'				=> 'dashicons-admin-home',
+				'menu_icon'				=> 'dashicons-email-alt',
 				'public'				=> true,
 				'show_ui'				=> true,
-				'has_archive'			=> 'properties',
-        		'publicly_queryable'	=> true,
+				'has_archive'			=> 'messages',
+				'publicly_queryable'	=> true,
 				'query_var'				=> true,
 				'show_in_menu'			=> true,
 				'show_in_nav_menus'		=> true,
-				'supports' => array(
-						'title', 'editor', 'excerpt', 'thumbnail'
-				),
-				'rewrite' => array(
-						'slug'			=> 'property',
+				'supports' => array( 'title', 'editor' ),
+						'rewrite' => array(
+						'slug'			=> 'message',
 						'with_front'	=> false,
 						'pages'			=> true,
 						'feeds'			=> true,
 						'ep_mask'		=> EP_PERMALINK,
+						)
 				)
-			)
-		);
+			);
+		}		
+		
 	}
 
 	// --------------------------------------------------------------------

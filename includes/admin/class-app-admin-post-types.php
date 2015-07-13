@@ -53,11 +53,11 @@ class APP_Admin_Post_Types
 	{
 		$col_featured_image	= array( 'featured_image' => __( 'Featured Image' , 'app' ) );
 		$col_price			= array( 'price' => __( 'Price', 'app' ) );
-		$col_m2				= array( 'm2' => __( 'Square meters', 'app' ) );
+		$col_area			= array( 'area' => __( 'Square meters', 'app' ) );
 		
 		$columns = array_slice( $columns, 0, 1, true ) + $col_featured_image + array_slice( $columns, 1, NULL, true );
 		$columns = array_slice( $columns, 0, 4, true ) + $col_price + array_slice( $columns, 4, NULL, true );
-		$columns = array_slice( $columns, 0, 5, true ) + $col_m2 + array_slice( $columns, 5, NULL, true );
+		$columns = array_slice( $columns, 0, 5, true ) + $col_area + array_slice( $columns, 5, NULL, true );
 		
 		return $columns;
 	}
@@ -96,8 +96,8 @@ class APP_Admin_Post_Types
 				';
 				
 				break;
-			case 'm2':
-				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_property_m2' , true ) . '</span>';
+			case 'area':
+				echo '<span class="autonumeric" data-a-dec="," data-a-sep="." data-v-min="0" data-v-max="999999">' . get_post_meta( $post_id , '_property_area' , true ) . '</span>';
 				
 				break;
 		}
@@ -113,7 +113,7 @@ class APP_Admin_Post_Types
 	function manage_edit_sortable_columns( $columns )
 	{
 		$columns[ 'price' ]	= 'price';
-		$columns[ 'm2' ]	= 'm2';
+		$columns[ 'area' ]	= 'area';
 			
 		return $columns;
 	}
@@ -192,9 +192,9 @@ class APP_Admin_Post_Types
 				'meta_key' => '_property_price',
 				'orderby' => 'meta_value_num'
 			) );
-		} elseif( isset( $vars[ 'orderby' ] ) && 'm2' == $vars[ 'orderby' ] ) {
+		} elseif( isset( $vars[ 'orderby' ] ) && 'area' == $vars[ 'orderby' ] ) {
 			$vars = array_merge( $vars, array(
-				'meta_key' => '_property_m2',
+				'meta_key' => '_property_area',
 				'orderby' => 'meta_value_num'
 			) );
 		} elseif( !isset( $_GET[ 'orderby' ] ) ) {

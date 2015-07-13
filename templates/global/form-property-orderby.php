@@ -20,6 +20,8 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 					<option value="2" <?php echo $sortby == 2 ? 'selected' : ''; ?>><?php _e( 'Date: Oldest to Newest', 'app' ); ?></option>
 					<option value="3" <?php echo $sortby == 3 ? 'selected' : ''; ?>><?php _e( 'Price: Low to High', 'app' ); ?></option>
 					<option value="4" <?php echo $sortby == 4 ? 'selected' : ''; ?>><?php _e( 'Price: High to Low', 'app' ); ?></option>
+					<option value="5" <?php echo $sortby == 5 ? 'selected' : ''; ?>><?php _e( 'Area: Low to High', 'app' ); ?></option>
+					<option value="6" <?php echo $sortby == 6 ? 'selected' : ''; ?>><?php _e( 'Area: High to Low', 'app' ); ?></option>
 				</select>
 			
 			</div>

@@ -18,7 +18,7 @@ $type			= 0;
 $transaction	= 0;
 $location		= 0;
 $min_rooms		= '';
-$min_m2			= '';
+$min_area			= '';
 $min_price		= 0;
 $max_price		= 3000000;
 $feature		= array();
@@ -49,8 +49,8 @@ if (isset( $wp_query->query_vars['max_price'] ) && !empty( $wp_query->query_vars
 	$max_price = intval( $wp_query->query_vars['max_price'] );
 }
 
-if (isset( $wp_query->query_vars['min_m2'] ) && !empty( $wp_query->query_vars['min_m2'])) {
-	$min_m2 = intval( $wp_query->query_vars['min_m2'] );
+if (isset( $wp_query->query_vars['min_area'] ) && !empty( $wp_query->query_vars['min_area'])) {
+	$min_area = intval( $wp_query->query_vars['min_area'] );
 }
 
 if (isset($wp_query->query_vars['feature'] ) && !empty( $wp_query->query_vars['feature'])) {
@@ -181,11 +181,11 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 	
 			<div class="col-xs-6 col-sm-3">
 				<label for=""><?php _e( 'Min. floor', 'app' ); ?></label>
-				<select name="min_m2" id="min_m2" style="width:100%">
+				<select name="min_area" id="min_area" style="width:100%">
 					<option value=""><?php echo __( 'Any', 'app' ); ?></option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
-					<?php selected( $value, $min_m2 ); ?>><?php echo $value ?> m2</option>
+					<?php selected( $value, $min_area ); ?>><?php echo $value ?> area</option>
 					<?php endforeach; ?>
 				</select>
 			</div>

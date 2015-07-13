@@ -43,7 +43,7 @@ class APP_Query
 		$vars[] = "min_rooms";
 		$vars[] = "min_price";
 		$vars[] = "max_price";
-		$vars[] = "min_m2";
+		$vars[] = "min_area";
 		$vars[] = "feature";
 		$vars[] = "sortby";
 		
@@ -138,12 +138,12 @@ class APP_Query
 		}
 		
 		// filter by min rooms
-		if( isset( $query->query_vars['min_m2'] ) && ! empty( $query->query_vars['min_m2'] ) ) {
-			$safe_min_m2 = intval( $query->query_vars['min_m2'] );
+		if( isset( $query->query_vars['min_area'] ) && ! empty( $query->query_vars['min_area'] ) ) {
+			$safe_min_area = intval( $query->query_vars['min_area'] );
 			
 			$meta_query[] = array(
-				'key'		=> '_property_m2',
-				'value'		=> $safe_min_m2,
+				'key'		=> '_property_area',
+				'value'		=> $safe_min_area,
 				'type'		=> 'NUMERIC',
 				'compare'	=> '>=',
 			);
@@ -194,6 +194,9 @@ class APP_Query
 			}
 		}
 		
+		$query->set( 'orderby', 'date' );
+		$query->set( 'order', 'DESC' );
+		
 		// Filter by sort
 		if( isset( $query->query_vars['sortby'] ) && !empty( $query->query_vars['sortby'] ) ) {
 			$orderby = $query->query_vars['sortby'];
@@ -204,15 +207,23 @@ class APP_Query
 					$query->set( 'order', 'ASC' );
 					break;
 				case 3: 
-					$query->set( 'orderby', '_property_price' );
+					$query->set( 'orderby', 'meta_value_num' );
+					$query->set( 'meta_key', '_property_price' );
 					$query->set( 'order', 'ASC' );
 					break;
 				case 4: 
-					$query->set( 'orderby', '_property_price' );
+					$query->set( 'orderby', 'meta_value_num' );
+					$query->set( 'meta_key', '_property_price' );
 					$query->set( 'order', 'DESC' );
 					break;
-				default:
-					$query->set( 'orderby', 'date' );
+				case 5:
+					$query->set( 'orderby', 'meta_value_num' );
+					$query->set( 'meta_key', '_property_area' );
+					$query->set( 'order', 'ASC' );
+					break;
+				case 6:
+					$query->set( 'orderby', 'meta_value_num' );
+					$query->set( 'meta_key', '_property_area' );
 					$query->set( 'order', 'DESC' );
 					break;
 			}

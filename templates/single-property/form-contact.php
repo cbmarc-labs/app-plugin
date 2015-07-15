@@ -4,7 +4,7 @@
 
 <?php 
 
-global $wp_query;
+global $post, $wp_query;
 
 if ( isset( $wp_query->query_vars['status'] ) 
 		&& ! empty( $wp_query->query_vars['status'] )
@@ -23,8 +23,9 @@ if ( isset( $wp_query->query_vars['status'] )
 		<?php wp_nonce_field( 'app-enquire_now' ); ?>
 		<input type="hidden" name="action" value="enquire_now" />
 	
-		<input id="permalink" type="hidden" name="permalink" value="<?php the_permalink() ?>" />
-		<input id="title" type="hidden" name="title" value="<?php the_title() ?>" />
+		<input id="property_id" type="hidden" name="property_id" value="<?php echo $post->ID; ?>" />
+		<input id="permalink" type="hidden" name="permalink" value="<?php the_permalink(); ?>" />
+		<input id="title" type="hidden" name="title" value="<?php the_title(); ?>" />
 	
 		<div class="form-group col-xs-12" style="padding:0;margin:0;">
 			<label for="name"><?php _e( 'Name', 'app' ); ?> *</label>

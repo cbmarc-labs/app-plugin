@@ -10,44 +10,36 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	<tbody>
 		
 		<tr>
-			<td><?php _e( 'Name', 'app' ); ?> :</td>
+			<td><?php _e( 'Property', 'app' ); ?> :</td>
 			<td>
-				<input style="width:100%;" type="text" value="<?php echo $data['message_name']; ?>" readonly />
+				<span>
+					<?php if ( is_string( get_post_status( $data['message_property_id'] ) ) === FALSE ): ?>
+					<?php _e( 'The property does not exist.', 'app' ); ?>
+					<?php else: ?>
+					<a href="<?php echo get_permalink( $data['message_property_id'] ); ?>"><?php echo get_the_title( $data['message_property_id'] ); ?></a>
+					<?php endif; ?>
+				</span>
 			</td>
 		</tr>
 		
 		<tr>
-			<td></td>
+			<td><?php _e( 'Name', 'app' ); ?> :</td>
 			<td>
-				<small><?php _e( 'Sender name' , 'app' ); ?></small>
+				<span><?php echo $data['message_name']; ?></span>
 			</td>
 		</tr>
 		
 		<tr>
 			<td><?php _e( 'Email', 'app' ); ?> :</td>
 			<td>
-				<input style="width:100%;" type="text" value="<?php echo $data['message_email']; ?>" readonly />
-			</td>
-		</tr>
-		
-		<tr>
-			<td></td>
-			<td>
-				<small><?php _e( 'Sender email', 'app' ); ?></small>
+				<span><a href="mailto:<?php echo $data['message_email']; ?>"><?php echo $data['message_email']; ?></a></span>
 			</td>
 		</tr>
 		
 		<tr>
 			<td><?php _e( 'Phone', 'app' ); ?> :</td>
 			<td>
-				<input style="width:100%;" type="text" value="<?php echo $data['message_phone']; ?>" readonly />
-			</td>
-		</tr>
-		
-		<tr>
-			<td></td>
-			<td>
-				<small><?php _e( 'Sender phone', 'app' ); ?></small>
+				<span><?php echo $data['message_phone']; ?></span>
 			</td>
 		</tr>
 		

@@ -43,15 +43,14 @@ class APP_Form_Handler
 			return;
 		}
 		
-		$title		= $_POST[ 'title' ];
-		$permalink	= $_POST[ 'permalink' ];
+		$property_id	= $_POST[ 'property_id' ];
+		$title			= $_POST[ 'title' ];
+		$permalink		= $_POST[ 'permalink' ];
 		
 		$name		= ! empty( $_POST[ 'name' ] ) ? sanitize_text_field( $_POST[ 'name' ] ) : '';
 		$email		= ! empty( $_POST[ 'email' ] ) ? sanitize_email( $_POST[ 'email' ] ) : '';
 		$phone		= ! empty( $_POST[ 'phone' ] ) ? sanitize_text_field( $_POST[ 'phone' ] ) : '';
 		$message	= ! empty( $_POST[ 'message' ] ) ? sanitize_text_field( $_POST[ 'message' ] ) : '';
-		
-		$message .= '<br><a href="' . $_POST[ 'permalink' ] . '">' . $_POST[ 'permalink' ] . '</a>';
 		
 		// TODO check and display form errors
 		if ( empty( $name ) ) {}		
@@ -69,6 +68,7 @@ class APP_Form_Handler
 		update_post_meta( $post_id, '_message_name', $name );
 		update_post_meta( $post_id, '_message_email', $email );
 		update_post_meta( $post_id, '_message_phone', $phone );
+		update_post_meta( $post_id, '_message_property_id', $property_id );
 		
 		$received_url = add_query_arg( 'status', 'sent', $permalink );
 		

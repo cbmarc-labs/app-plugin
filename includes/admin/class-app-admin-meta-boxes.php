@@ -78,7 +78,7 @@ class APP_Admin_Meta_Boxes
 				'APP_Meta_Box_Message::output',
 				$screen,
 				'normal',
-				'high'
+				'low'
 			);
 		}
 	}

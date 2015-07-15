@@ -26,9 +26,10 @@ class APP_Meta_Box_Message
 
 		wp_nonce_field( 'app_meta_box_nonce', 'app_meta_box_nonce' );
 		
-		$data['message_name']	= get_post_meta( $post->ID, '_message_name', 1 );
-		$data['message_phone']	= get_post_meta( $post->ID, '_message_phone', 1 );
-		$data['message_email']	= get_post_meta( $post->ID, '_message_email', 1 );
+		$data['message_name']			= get_post_meta( $post->ID, '_message_name', 1 );
+		$data['message_phone']			= get_post_meta( $post->ID, '_message_phone', 1 );
+		$data['message_email']			= get_post_meta( $post->ID, '_message_email', 1 );
+		$data['message_property_id']	= get_post_meta( $post->ID, '_message_property_id', 1 );
 		
 		include_once( 'views/html-meta-box-message.php' );
 	}

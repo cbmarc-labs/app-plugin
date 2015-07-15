@@ -82,7 +82,7 @@ class APP_Post_Types
 				'menu_icon'				=> 'dashicons-email-alt',
 				'public'				=> false,
 				'has_archive'			=> false,
-				'show_in_menu'			=> true,
+				'show_in_menu'			=> 'edit.php?post_type=property',
 				'show_ui'				=> true,
 				'rewrite'				=> false,
 				'can_export'			=> false,

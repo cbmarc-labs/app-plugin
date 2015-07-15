@@ -19,7 +19,7 @@ $properties = new WP_Query( $args );
 
 if ( $properties->have_posts() ) : ?>
 
-<div class="bootstrap">
+<div class="bootstrap entry-content-wrapper">
 	<div class="container-fluid">
 
 		<div class="page-header">

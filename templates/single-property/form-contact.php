@@ -43,7 +43,7 @@ if ( isset( $wp_query->query_vars['status'] )
 		
 		<div class="form-group col-xs-12" style="padding:0;margin:0;">
 			<label for="message"><?php _e( 'Message', 'app' ); ?></label>
-			<textarea id="message" name="message" rows="5"><?php _e( 'I am looking for information on property ', 'app' ); the_title(); ?></textarea>
+			<textarea id="message" name="message" rows="5"><?php _e( 'I am looking for information on property ', 'app' ); echo ": "; the_title(); ?></textarea>
 		</div>
 		
 		<div class="col-xs-12" style="padding:0;margin:0;">

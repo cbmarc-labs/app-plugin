@@ -22,5 +22,5 @@ $price	= get_post_meta( $post->ID, '_property_price', 1 );
 <ul class="more-info">
 	<li class="info-label"><span><?php _e( 'Rooms', 'app' ); ?></span><span style="float:right;"><?php echo $rooms; ?></span></li>
 	<li class="info-label"><span><?php _e( 'Baths', 'app' ); ?></span><span style="float:right;"><?php echo $baths; ?></span></li>
-	<li class="info-label"><span><?php _e( 'Area', 'app' ); ?></span><span style="float:right;"><?php echo $area; ?></span></li>
+	<li class="info-label"><span><?php _e( 'Area', 'app' ); ?></span><span style="float:right;"><?php echo $area; ?>&nbsp;m&sup2;</span></li>
 </ul>

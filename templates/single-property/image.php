@@ -24,7 +24,7 @@ if( $images_ids ) {
 	foreach( $images_array as $id ) {
 		$thumbnails .= '<li class="col-xs-2"><a href="#" class="' . $selected . '"><img id="carousel-selector-' . $it . '" src="' . wp_get_attachment_url( $id ) . '" class="img-responsive img-thumbnail" style="width:100%;height:75px;"></a></li>';
 		$indicators .= '<li data-target="#property-carousel" data-slide-to="' . $it . '" class="' . $active . '"></li>'; 
-		$inner .= '<div class="item ' . $active . '" data-slide-number="' . $it . '"><img width="100%;" style="height:400px;" src="' . wp_get_attachment_url( $id ) . '"></div>';
+		$inner .= '<div class="item ' . $active . '" data-slide-number="' . $it . '"><img src="' . wp_get_attachment_url( $id ) . '"></div>';
 		
 		$active = '';
 		$selected = '';

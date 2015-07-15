@@ -151,7 +151,7 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 			</div>
 			
 			<div class="col-xs-6 col-sm-3">
-				<label for="transaction"><?php _e( 'Location', 'app' ); ?></label>
+				<label for="location"><?php _e( 'Location', 'app' ); ?></label>
 				<?php
 					$args = array(
 						'show_option_all'    => __( 'Any', 'app' ),
@@ -185,7 +185,7 @@ if (isset($wp_query->query_vars['sortby'] ) && !empty( $wp_query->query_vars['so
 					<option value=""><?php echo __( 'Any', 'app' ); ?></option>
 					<?php foreach( array(50,100,150,200,250,300) as $value) : ?>
 					<option value="<?php echo $value; ?>" 
-					<?php selected( $value, $min_area ); ?>><?php echo $value ?> area</option>
+					<?php selected( $value, $min_area ); ?>><?php echo $value ?> m&sup2;</option>
 					<?php endforeach; ?>
 				</select>
 			</div>

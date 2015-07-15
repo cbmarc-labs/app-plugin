@@ -32,7 +32,7 @@ $properties = new WP_Query( $args );
 
 if ( $properties->have_posts() ) : ?>
 
-	<div class="related properties">
+	<div class="entry-content-wrapper">
 
 		<div class="page-header">
 			<h4><?php _e( 'Related properties', 'app' ); ?></h4>

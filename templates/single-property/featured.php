@@ -26,23 +26,21 @@ $properties = new WP_Query( $args );
 
 if ( $properties->have_posts() ) : ?>
 
-<div class="bootstrap">
+<div class="bootstrap entry-content-wrapper">
 	<div class="container-fluid">
-	
-		<div class="featured properties">
 
-			<div class="page-header">
-				<h4><?php _e( 'Featured properties', 'app' ); ?></h4>
-			</div>
-			
-			<div class="row">
-				<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
-
-					<?php app_get_template_part( 'content', 'property' ); ?>
-
-				<?php endwhile; // end of the loop. ?>
-			</div>
+		<div class="page-header">
+			<h4><?php _e( 'Featured properties', 'app' ); ?></h4>
 		</div>
+		
+		<div class="row">
+			<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
+
+				<?php app_get_template_part( 'content', 'property' ); ?>
+
+			<?php endwhile; // end of the loop. ?>
+		</div>
+		
 	</div>
 </div>
 

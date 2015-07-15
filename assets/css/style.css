@@ -36,6 +36,10 @@
 		width: 100%;
 	 	height:300px;
 	}
+	
+	.bootstrap .pull-right {
+        float: none !important;
+	}
 }
 
 select#type, select#transaction, select#location, select#min_area, 

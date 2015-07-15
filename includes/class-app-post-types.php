@@ -74,13 +74,20 @@ class APP_Post_Types
 			array(
 				'labels'				=> array(
 					'name' => __( 'Messages', 'app' )
-			),
-			'menu_icon'				=> 'dashicons-email-alt',
-			'public'				=> false,
-			'has_archive'			=> true,
-			'show_in_menu'			=> true,
-			'show_ui'				=> true,
-			'supports' => array( 'title', 'editor' ),
+				),
+				'exclude_from_search'	=> true,
+				'publicly_queryable'	=> false,
+				'show_in_admin_bar'		=> false,
+				'hierarchical'			=> false,
+				'menu_icon'				=> 'dashicons-email-alt',
+				'public'				=> false,
+				'has_archive'			=> false,
+				'show_in_menu'			=> true,
+				'show_ui'				=> true,
+				'rewrite'				=> false,
+				'can_export'			=> false,
+				'supports' => array( 'title', 'editor' ),
+				'capabilities' => array (),
 			)
 		);
 		

@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Include core functions (available in both admin and frontend)
 include( 'app-conditional-functions.php' );
 include( 'app-formatting-functions.php' );
-include( 'app-property-functions.php' );
+include( 'app-project-functions.php' );
 
 // --------------------------------------------------------------------
 

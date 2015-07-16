@@ -37,7 +37,8 @@ class APP_Form_Handler
 	 */
 	public static function process_login()
 	{
-		if( ! empty( $_POST['login'] ) && ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'app-login' ) ) {
+		if( ! empty( $_POST['login'] ) && ! empty( $_POST['_wpnonce'] ) 
+				&& wp_verify_nonce( $_POST['_wpnonce'], 'app-login' ) ) {
 			// do something
 		}
 	}

@@ -2,31 +2,23 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-/** Single Property ********************************************************/
-
-if ( ! function_exists( 'app_show_property_images' ) ) {
-	function app_show_property_images() {
-		app_get_template( 'single-property/property-image.php' );
-	}
-}
-
 /**
- * When the_post is called, put property data into a global.
+ * When the_post is called, put project data into a global.
  *
  * @param mixed $post
- * @return APP_Property
+ * @return APP_Project
  */
-function app_setup_property_data( $post ) {
-	unset( $GLOBALS['property'] );
+function app_setup_project_data( $post ) {
+	unset( $GLOBALS['project'] );
 
 	if ( is_int( $post ) )
 		$post = get_post( $post );
 
-	if ( empty( $post->post_type ) || ! in_array( $post->post_type, array( 'property' ) ) )
+	if ( empty( $post->post_type ) || ! in_array( $post->post_type, array( 'project' ) ) )
 		return;
 
-	$GLOBALS['property'] = app_get_property( $post );
+	$GLOBALS['project'] = app_get_project( $post );
 
-	return $GLOBALS['property'];
+	return $GLOBALS['project'];
 }
-add_action( 'the_post', 'app_setup_property_data' );
+add_action( 'the_post', 'app_setup_project_data' );

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @version		1.0.0
  * @package		application/includes/APP_Log
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Log
 {

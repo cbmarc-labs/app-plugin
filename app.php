@@ -246,7 +246,6 @@ final class App
 		include_once( 'includes/class-app-autoloader.php' );
 		include_once( 'includes/app-core-functions.php' );
 		include_once( 'includes/class-app-log.php' );
-		include_once( 'includes/app-widget-functions.php' );
 		include_once( 'includes/class-app-install.php' );
 		
 		if ( $this->is_request( 'admin' ) ) {
@@ -264,7 +263,7 @@ final class App
 		include( 'includes/class-app-query.php' );
 
 		include_once( 'includes/class-app-post-types.php' );
-		include_once( 'includes/class-app-property.php' );
+		include_once( 'includes/class-app-project.php' );
 	}
 
 	// --------------------------------------------------------------------

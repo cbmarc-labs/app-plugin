@@ -13,7 +13,7 @@ if ( ! class_exists( 'APP_Query' ) ) :
  * @version		1.0.0
  * @package		application/includes/APP_Query
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Query
 {
@@ -36,14 +36,7 @@ class APP_Query
 	 * @access public
 	 */
 	public function query_vars( $vars )
-	{
-		$vars[] = "type";
-		$vars[] = "transaction";
-		$vars[] = "location";
-		$vars[] = "min_rooms";
-		$vars[] = "max_price";
-		$vars[] = "min_m2";
-		
+	{		
 		return $vars;
 	}
 	
@@ -62,101 +55,12 @@ class APP_Query
 			return;
 		}
 		
-		if( ! $query->is_post_type_archive( 'property' ) && 
-				! $query->is_tax( get_object_taxonomies( 'property' ) ) ) {
+		if( ! $query->is_post_type_archive( 'project' ) && 
+				! $query->is_tax( get_object_taxonomies( 'project' ) ) ) {
 			return;
 		}
-        
-		$query->set( 'posts_per_page', 12 );
 		
 		$meta_query = $query->get('meta_query');
-		
-		// Filter by type taxonomy
-		if( isset( $query->query_vars['type'] ) && !empty( $query->query_vars['type'] ) ) {
-			$safe_type = sanitize_text_field( $query->query_vars['type'] );
-		
-			if( $safe_type != '0' ) {
-				$query->set( 'tax_query',
-						array(
-								array(
-										'taxonomy' => 'property-type',
-										'field'    => 'slug',
-										'terms'    => $safe_type,
-								)
-						)
-				);
-			}
-		}
-		
-		// Filter by type taxonomy
-		if( isset( $query->query_vars['transaction'] ) && !empty( $query->query_vars['transaction'] ) ) {
-			$safe_transaction = sanitize_text_field( $query->query_vars['transaction'] );
-		
-			if( $safe_transaction != '0' ) {
-				$query->set( 'tax_query',
-						array(
-								array(
-										'taxonomy' => 'property-transaction',
-										'field'    => 'slug',
-										'terms'    => $safe_transaction,
-								)
-						)
-				);
-			}
-		}
-		
-		// Filter by location taxonomy
-		if( isset( $query->query_vars['location'] ) && !empty( $query->query_vars['location'] ) ) {
-			$safe_location = sanitize_text_field( $query->query_vars['location'] );
-		
-			if( $safe_location != '0' ) {
-				$query->set( 'tax_query',
-						array(
-								array(
-										'taxonomy' => 'property-location',
-										'field'    => 'slug',
-										'terms'    => $safe_location,
-								)
-						)
-				);
-			}
-		}
-		
-		// filter by min rooms
-		if( isset( $query->query_vars['min_rooms'] ) && ! empty( $query->query_vars['min_rooms'] ) ) {
-			$safe_min_rooms = intval( $query->query_vars['min_rooms'] );
-			
-			$meta_query[] = array(
-				'key'		=> '_property_rooms',
-				'value'		=> $safe_min_rooms,
-				'type'		=> 'NUMERIC',
-				'compare'	=> '>=',
-			);
-		}
-		
-		// filter by min rooms
-		if( isset( $query->query_vars['min_m2'] ) && ! empty( $query->query_vars['min_m2'] ) ) {
-			$safe_min_m2 = intval( $query->query_vars['min_m2'] );
-			
-			$meta_query[] = array(
-				'key'		=> '_property_m2',
-				'value'		=> $safe_min_m2,
-				'type'		=> 'NUMERIC',
-				'compare'	=> '>=',
-			);
-		}
-		
-		// filter by max_price
-		if( isset( $query->query_vars['max_price'] ) && ! empty( $query->query_vars['max_price'] ) ) {
-			$safe_max_price = intval( $query->query_vars['max_price'] );
-			
-			$meta_query[] = array(
-				'key'		=> '_property_price',
-				'value'		=> $safe_max_price,
-				'type'		=> 'NUMERIC',
-				'compare'	=> '<=',
-			);
-		}
 		
 		$query->set( 'meta_query', $meta_query );
 		

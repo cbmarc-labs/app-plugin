@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @version		1.0.0
  * @package		application/includes/APP_Shortcodes
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Shortcodes
 {
@@ -24,7 +24,6 @@ class APP_Shortcodes
 	{		
 		// Define shortcodes
 		$shortcodes = array(
-			'app_form_filter'	=> __CLASS__ . '::form_filter',
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -45,17 +44,5 @@ class APP_Shortcodes
 		call_user_func( $function, $atts );
 
 		return ob_get_clean();
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * form_filter method
-	 *
-	 * @access public
-	 */
-	public static function form_filter()
-	{
-		return self::shortcode_wrapper( array( 'APP_Shortcode_Property_Filter_Form', 'output' ) );
 	}
 }

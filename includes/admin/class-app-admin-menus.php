@@ -13,7 +13,7 @@ if( !class_exists( 'APP_Admin_Menus' ) ) :
  * @version		1.0.0
  * @package		application/includes/admin/APP_Admin_Menus
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Admin_Menus
 {
@@ -36,8 +36,8 @@ class APP_Admin_Menus
 	 */
 	public function settings_menu() {
 		$settings_page = add_submenu_page(
-				'edit.php?post_type=property',
-				__( 'Property Settings' , 'app' ),
+				'edit.php?post_type=project',
+				__( 'Project Settings' , 'app' ),
 				__( 'Settings' , 'app' ),
 				'manage_options',
 				'app-settings',

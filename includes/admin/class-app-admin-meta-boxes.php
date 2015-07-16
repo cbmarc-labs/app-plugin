@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @version		1.0.0
  * @package		application/includes/admin/APP_Admin_Meta_Boxes
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Admin_Meta_Boxes
 {
@@ -22,10 +22,6 @@ class APP_Admin_Meta_Boxes
 	{
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
-		
-		add_action( 'app_save_post', 'APP_Meta_Box_Property::save_post', 10, 2 );
-		add_action( 'app_save_post', 'APP_Meta_Box_Property_Location::save_post', 10, 2 );
-		add_action( 'app_save_post', 'APP_Meta_Box_Property_Images::save_post', 10, 2 );
 	}
 
 	// --------------------------------------------------------------------
@@ -38,35 +34,9 @@ class APP_Admin_Meta_Boxes
 	public function add_meta_boxes()
 	{
 		// The type of writing screen on which to show the edit screen section
-		$screens = array( 'property' );
+		$screens = array( 'project' );
 		
 		foreach ( $screens as $screen ) {
-			add_meta_box(
-				'app_meta_box_property',
-				__( 'Property data', 'app' ), 
-				'APP_Meta_Box_Property::output',
-				$screen,
-				'normal',
-				'high'
-			);
-			
-			add_meta_box(
-				'app_meta_box_property_location',
-				__( 'Property location', 'app' ), 
-				'APP_Meta_Box_Property_Location::output',
-				$screen,
-				'normal',
-				'high'
-			);
-			
-			add_meta_box(
-				'app-property-images',
-				__( 'Property Gallery', 'app' ),
-				'APP_Meta_Box_Property_Images::output',
-				$screen,
-				'side',
-				'low'
-			);
 		}
 	}
 

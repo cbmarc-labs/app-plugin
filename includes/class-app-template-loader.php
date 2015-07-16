@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @version		1.0.0
  * @package		Application/includes/APP_Template_Loader
  * @category	Class
- * @author 		cbmarc
+ * @author 		marc
  */
 class APP_Template_Loader
 {
@@ -40,22 +40,17 @@ class APP_Template_Loader
 		$find = array( 'app.php' );
 		$file = '';
 
-		if ( is_single() && get_post_type() == 'property' ) {
+		if ( is_single() && get_post_type() == 'project' ) {
 
-			$file 	= 'single-property.php';
+			$file 	= 'single-project.php';
 			$find[] = $file;
 			$find[] = APP()->template_path() . $file;
 
-		} elseif ( is_tax( get_object_taxonomies( 'property' ) ) ) {
+		} elseif ( is_tax( get_object_taxonomies( 'project' ) ) ) {
 
 			$term   = get_queried_object();
 
-			if ( is_tax( 'property-type' ) || is_tax( 'property-transaction' ) || 
-					is_tax( 'property-feature' ) || is_tax( 'property-location' ) ) {
-				$file = 'taxonomy-' . $term->taxonomy . '.php';
-			} else {
-				$file = 'archive-property.php';
-			}
+			$file = 'archive-project.php';
 
 			$find[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
 			$find[] = APP()->template_path() . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
@@ -64,9 +59,9 @@ class APP_Template_Loader
 			$find[] = $file;
 			$find[] = APP()->template_path() . $file;
 
-		} elseif ( is_post_type_archive( 'property' ) ) {
+		} elseif ( is_post_type_archive( 'project' ) ) {
 
-			$file 	= 'archive-property.php';
+			$file 	= 'archive-project.php';
 			$find[] = $file;
 			$find[] = APP()->template_path() . $file;
 
@@ -92,7 +87,7 @@ class APP_Template_Loader
 	 */
 	public static function comments_template_loader( $template )
 	{
-		if ( get_post_type() !== 'property' ) {
+		if ( get_post_type() !== 'project' ) {
 			return $template;
 		}
 
@@ -105,8 +100,8 @@ class APP_Template_Loader
 		);
 
 		foreach ( $check_dirs as $dir ) {
-			if ( file_exists( trailingslashit( $dir ) . 'single-property-reviews.php' ) ) {
-				return trailingslashit( $dir ) . 'single-property-reviews.php';
+			if ( file_exists( trailingslashit( $dir ) . 'single-project-reviews.php' ) ) {
+				return trailingslashit( $dir ) . 'single-project-reviews.php';
 			}
 		}
 	}

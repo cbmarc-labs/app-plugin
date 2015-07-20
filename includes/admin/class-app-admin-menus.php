@@ -24,6 +24,7 @@ class APP_Admin_Menus
 	 */
 	public function __construct()
 	{
+		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
 		add_action( 'admin_menu', array( $this, 'settings_menu' ), 50 );
 	}
 
@@ -43,6 +44,19 @@ class APP_Admin_Menus
 				'app-settings',
 				array( $this, 'settings_page' )
 		);
+	}
+	
+	// --------------------------------------------------------------------
+	/**
+	 * admin_menu method
+	 *
+	 * @access public
+	 */
+	public function admin_menu()
+	{
+		global $submenu;
+		
+		unset( $submenu['edit.php?post_type=project'][10] );
 	}
 
 	// --------------------------------------------------------------------

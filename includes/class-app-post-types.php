@@ -45,7 +45,7 @@ class APP_Post_Types
 			'project', 
 			array(
 				'labels'				=> array(
-					'name' => __( 'projects', 'app' )
+					'name' => __( 'Projects', 'app' )
 				),
 		        'menu_icon'				=> 'dashicons-tablet',
 				'public'				=> true,
@@ -62,6 +62,35 @@ class APP_Post_Types
 				'rewrite' => array(
 						// only with wpml
 						'slug'			=> _x( 'project', 'URL slug', 'app' ),
+						'with_front'	=> false,
+						'pages'			=> true,
+						'feeds'			=> true,
+						'ep_mask'		=> EP_PERMALINK,
+				)
+			)
+		);
+		
+		register_post_type(
+			'partners', 
+			array(
+				'labels'				=> array(
+					'name' => __( 'Partners', 'app' )
+				),
+		        'menu_icon'				=> 'dashicons-groups',
+				'public'				=> true,
+				'show_ui'				=> true,
+				// only with wpml 3.2
+				'has_archive'			=> __( 'partners', 'app' ),
+        		'publicly_queryable'	=> true,
+				'query_var'				=> true,
+				'show_in_menu'			=> 'edit.php?post_type=project',
+				'show_in_nav_menus'		=> true,
+				'supports' => array(
+						'title', 'editor', 'thumbnail'
+				),
+				'rewrite' => array(
+						// only with wpml
+						'slug'			=> _x( 'partner', 'URL slug', 'app' ),
 						'with_front'	=> false,
 						'pages'			=> true,
 						'feeds'			=> true,

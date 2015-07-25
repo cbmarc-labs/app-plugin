@@ -275,7 +275,7 @@ final class App
 	 */
 	public function frontend_includes()
 	{
-		//include_once( 'includes/class-app-template-loader.php' );
+		include_once( 'includes/class-app-template-loader.php' );
 		include_once( 'includes/class-app-assets.php' );
 		include_once( 'includes/class-app-form-handler.php' );
 		include_once( 'includes/class-app-shortcodes.php' );

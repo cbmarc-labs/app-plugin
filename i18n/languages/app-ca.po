@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: App\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Mon Jul 13 2015 21:28:00 GMT+0200 (CEST)\n"
-"PO-Revision-Date: Wed Jul 15 2015 16:38:46 GMT+0200 (Hora de verano romance)\n"
+"PO-Revision-Date: Mon Aug 31 2015 11:57:51 GMT+0200 (CEST)\n"
 "Last-Translator: wordpress <cbmarc@gmail.com>\n"
 "Language-Team: \n"
 "Language: Catalan\n"
@@ -30,23 +30,51 @@ msgstr "Immobles"
 msgid "Messages"
 msgstr "Missatges"
 
-#: ../../includes/class-app-post-types.php:125
+#: ../../includes/class-app-post-types.php:115
 msgid "Types"
 msgstr "Tipus"
 
-#: ../../includes/class-app-post-types.php:139 ../../templates/single-
+#: ../../includes/class-app-post-types.php:129 ../../templates/single-
 #: property/transaction.php:16
 msgid "Transactions"
 msgstr "Règim"
 
-#: ../../includes/class-app-post-types.php:153 ../../templates/single-
+#: ../../includes/class-app-post-types.php:143 ../../templates/single-
 #: property/features.php:16
 msgid "Features"
 msgstr "Característiques"
 
-#: ../../includes/class-app-post-types.php:167
+#: ../../includes/class-app-post-types.php:157
 msgid "Locations"
 msgstr "Ubicacions"
+
+#. Base ID
+#: ../../includes/widgets/class-app-widget-property-type.php:31 ../..
+#: /includes/widgets/class-app-widget-property-type.php:32
+msgid "Widget Property Type"
+msgstr "Tipus de giny del immoble"
+
+#: ../../includes/widgets/class-app-widget-property-type.php:100 ../..
+#: /includes/widgets/class-app-widget-property-filter-form.php:73
+msgid "New title"
+msgstr "Nou títol"
+
+#: ../../includes/widgets/class-app-widget-property-type.php:112 ../..
+#: /includes/widgets/class-app-widget-property-filter-form.php:78
+msgid "Title"
+msgstr "Títol"
+
+#: ../../includes/widgets/class-app-widget-property-type.php:117 ../..
+#: /templates/global/form-property-filter.php:96 ../../templates/single-
+#: property/type.php:16
+msgid "Type"
+msgstr "Tipus"
+
+#. Base ID
+#: ../../includes/widgets/class-app-widget-property-filter-form.php:31 ../..
+#: /includes/widgets/class-app-widget-property-filter-form.php:32
+msgid "Property form filter"
+msgstr "Formulari de filtratge del immoble"
 
 #: ../../includes/admin/class-app-admin-duplicate-property.php:47
 msgid "Make a duplicate from this property"
@@ -95,30 +123,37 @@ msgid "Featured Image"
 msgstr "Imatge destacada"
 
 #: ../../includes/admin/class-app-admin-post-types.php:58 ../..
-#: /includes/admin/meta-boxes/views/html-meta-box-property.php:45
+#: /includes/admin/meta-boxes/views/html-meta-box-property.php:61
 msgid "Price"
 msgstr "Preu"
 
 #: ../../includes/admin/class-app-admin-post-types.php:59 ../..
-#: /includes/admin/meta-boxes/views/html-meta-box-property.php:62 ../..
-#: /templates/single-property/meta.php:25
+#: /includes/admin/meta-boxes/views/html-meta-box-property.php:78 ../..
+#: /templates/single-property/meta.php:36
 msgid "Area"
 msgstr "Superfície"
 
-#: ../../includes/admin/class-app-admin-post-types.php:77 ../..
-#: /includes/admin/meta-boxes/views/html-meta-box-message.php:22
+#: ../../includes/admin/class-app-admin-post-types.php:77
 msgid "Sender name"
 msgstr "Nom"
 
-#: ../../includes/admin/class-app-admin-post-types.php:78 ../..
-#: /includes/admin/meta-boxes/views/html-meta-box-message.php:36
+#: ../../includes/admin/class-app-admin-post-types.php:78
 msgid "Sender email"
 msgstr "Correu electrònic"
 
-#: ../../includes/admin/class-app-admin-post-types.php:79 ../..
-#: /includes/admin/meta-boxes/views/html-meta-box-message.php:50
+#: ../../includes/admin/class-app-admin-post-types.php:79
 msgid "Sender phone"
 msgstr "Telèfon"
+
+#: ../../includes/admin/views/html-quick-edit-property.php:10
+msgid "Property Data"
+msgstr "Dades del immoble"
+
+#: ../../includes/admin/views/html-quick-edit-property.php:14 ../..
+#: /includes/admin/meta-boxes/views/html-meta-box-property.php:29 ../..
+#: /templates/single-property/meta.php:34
+msgid "Rooms"
+msgstr "Habitacions"
 
 #: ../../includes/admin/meta-boxes/class-app-meta-box-property-images.php:48 ../..
 #: /includes/admin/meta-boxes/class-app-meta-box-property-images.php:60
@@ -142,18 +177,26 @@ msgstr "Afegir a la galeria"
 msgid "Add property gallery images"
 msgstr "Afegir imatges a la galeria del immoble"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:13 ../..
-#: /templates/single-property/form-contact.php:30
+#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:13
+msgid "Property"
+msgstr ""
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:17
+msgid "The property does not exist."
+msgstr ""
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:26 ../..
+#: /templates/single-property/form-contact.php:37
 msgid "Name"
 msgstr "Nom"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:27 ../..
-#: /templates/single-property/form-contact.php:35
+#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:33 ../..
+#: /templates/single-property/form-contact.php:42
 msgid "Email"
 msgstr "Correu electrònic"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:41 ../..
-#: /templates/single-property/form-contact.php:40
+#: ../../includes/admin/meta-boxes/views/html-meta-box-message.php:40 ../..
+#: /templates/single-property/form-contact.php:47
 msgid "Phone"
 msgstr "Telèfon"
 
@@ -170,76 +213,106 @@ msgid "Locate on the map"
 msgstr "Cercar al mapa"
 
 #: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:13 ../..
-#: /includes/admin/views/html-quick-edit-property.php:14 ../../templates/single-
-#: property/meta.php:23
-msgid "Rooms"
-msgstr "Habitacions"
+#: /templates/single-property/meta.php:33
+msgid "Reference"
+msgstr ""
 
 #: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:24
+msgid "Property reference"
+msgstr ""
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:40
 msgid "Number of rooms"
 msgstr "Número d'habitacions"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:29 ../..
-#: /templates/single-property/meta.php:24
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:45 ../..
+#: /templates/single-property/meta.php:35
 msgid "Baths"
-msgstr "Lavabos"
+msgstr "Banys"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:40
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:56
 msgid "Number of bathrooms"
-msgstr "Número de lavabos"
+msgstr "Número de banys"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:57
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:73
 msgid "Property price"
 msgstr "Preu del immoble"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:73
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:89
 msgid "Property area"
 msgstr "Superfície del immoble"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:78 ../..
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:94 ../..
+#: /includes/admin/meta-boxes/views/html-meta-box-property.php:109 ../..
+#: /templates/single-property/meta.php:38
+msgid "Energy Certificate"
+msgstr "Certificat energètic"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:96 ../..
+#: /templates/single-property/meta.php:22
+msgid "Yes"
+msgstr "Si"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:98 ../..
+#: /templates/single-property/meta.php:23
+msgid "No"
+msgstr "No"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:100 ../..
+#: /templates/single-property/meta.php:24
+msgid "Letter"
+msgstr "Lletra"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:102 ../..
+#: /templates/single-property/meta.php:25
+msgid "In process"
+msgstr "En tràmit"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:114
+msgid "Position"
+msgstr "Orientació"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:116
+msgid "N"
+msgstr "N"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:118
+msgid "NE"
+msgstr "NE"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:120
+msgid "E"
+msgstr "E"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:122
+msgid "SE"
+msgstr "SE"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:124
+msgid "S"
+msgstr "S"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:126 ../..
+#: /includes/admin/meta-boxes/views/html-meta-box-property.php:130
+msgid "SW"
+msgstr "SO"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:128
+msgid "W"
+msgstr "O"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:137
+msgid "Property position"
+msgstr "Orientació"
+
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:142 ../..
 #: /templates/content-property.php:25
 msgid "Featured"
 msgstr "Destacat"
 
-#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:88
+#: ../../includes/admin/meta-boxes/views/html-meta-box-property.php:152
 msgid "Featured property"
 msgstr "Imatge destacada del immoble"
-
-#: ../../includes/admin/views/html-admin-settings.php:32
-msgid "Save changes"
-msgstr "Guardar les modificacions"
-
-#: ../../includes/admin/views/html-quick-edit-property.php:10
-msgid "Property Data"
-msgstr "Dades del immoble"
-
-#. Base ID
-#: ../../includes/widgets/class-app-widget-property-filter-form.php:31 ../..
-#: /includes/widgets/class-app-widget-property-filter-form.php:32
-msgid "Property form filter"
-msgstr "Formulari de filtratge del immoble"
-
-#: ../../includes/widgets/class-app-widget-property-filter-form.php:73 ../..
-#: /includes/widgets/class-app-widget-property-type.php:100
-msgid "New title"
-msgstr "Nou títol"
-
-#: ../../includes/widgets/class-app-widget-property-filter-form.php:78 ../..
-#: /includes/widgets/class-app-widget-property-type.php:112
-msgid "Title"
-msgstr "Títol"
-
-#. Base ID
-#: ../../includes/widgets/class-app-widget-property-type.php:31 ../..
-#: /includes/widgets/class-app-widget-property-type.php:32
-msgid "Widget Property Type"
-msgstr "Tipus de giny del immoble"
-
-#: ../../includes/widgets/class-app-widget-property-type.php:117 ../..
-#: /templates/global/form-property-filter.php:96 ../../templates/single-
-#: property/type.php:16
-msgid "Type"
-msgstr "Tipus"
 
 #: ../../templates/loop-index.php:43
 msgid "Nothing Found"
@@ -309,9 +382,17 @@ msgstr "Superfície: Menor a Major"
 msgid "Area: High to Low"
 msgstr "Superfície: Major a Menor"
 
+#: ../../templates/single-property/latest.php:26
+msgid "Latest properties"
+msgstr "Últims immobles"
+
 #: ../../templates/single-property/featured.php:33
 msgid "Featured properties"
 msgstr "Immobles destacats"
+
+#: ../../templates/single-property/related.php:38
+msgid "Related properties"
+msgstr "Immobles relacionats"
 
 #: ../../templates/single-property/form-contact.php:2
 msgid "Enquire Now"
@@ -321,22 +402,14 @@ msgstr "Consultar"
 msgid "Thanks for sending us a message."
 msgstr "Gràcies per enviar el missatge"
 
-#: ../../templates/single-property/form-contact.php:45
+#: ../../templates/single-property/form-contact.php:52
 msgid "Message"
 msgstr "Missatge"
 
-#: ../../templates/single-property/form-contact.php:46
+#: ../../templates/single-property/form-contact.php:53
 msgid "I am looking for information on property "
 msgstr "Estaria interessat amb l'immoble"
 
-#: ../../templates/single-property/form-contact.php:51
+#: ../../templates/single-property/form-contact.php:58
 msgid "Send Message"
 msgstr "Enviar missatge"
-
-#: ../../templates/single-property/latest.php:26
-msgid "Latest properties"
-msgstr "Últims immobles"
-
-#: ../../templates/single-property/related.php:38
-msgid "Related properties"
-msgstr "Immobles relacionats"

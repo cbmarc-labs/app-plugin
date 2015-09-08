@@ -16,13 +16,14 @@ $baths		= get_post_meta( $post->ID, '_property_baths', 1 );
 $area		= get_post_meta( $post->ID, '_property_area', 1 );
 $price		= get_post_meta( $post->ID, '_property_price', 1 );
 
-$energy_value = get_post_meta( $post->ID, '_property_energy', 1 );
+$energy_value	= get_post_meta( $post->ID, '_property_energy', 1 );
+$energy_letter	= get_post_meta( $post->ID, '_property_energy_letter', 1 );
 
 switch( $energy_value ) {
-	case 1: $energy = __( 'Yes', 'app' ); break;
+	case 1: $energy = __( 'Yes', 'app' ) . ' (' . $energy_letter . ')'; break;
 	case 2: $energy = __( 'No', 'app' ); break;
-	case 3: $energy = __( 'Letter', 'app' ); break;
-	case 4: $energy = __( 'In process', 'app' ); break;
+	case 3: $energy = __( 'Letter', 'app' ) . ' (' . $energy_letter . ')'; break;
+	case 4: $energy = __( 'In process', 'app' ) . ' (' . $energy_letter . ')'; break;
 }
 
 ?>

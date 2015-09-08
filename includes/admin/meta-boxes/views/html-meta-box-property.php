@@ -100,6 +100,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				<label><input type="radio" name="property_energy" value="3" <?php echo $data['property_energy'] == 3 ? 'checked' : ''; ?>><?php _e( 'Letter', 'app' ); ?></label>
 				&nbsp;
 				<label><input type="radio" name="property_energy" value="4" <?php echo $data['property_energy'] == 4 ? 'checked' : ''; ?>><?php _e( 'In process', 'app' ); ?></label>
+				
+				<br>
+				
+				<?php _e( 'Letter', 'app' ); ?> :
+				<input maxlength="1" type="text" name="property_energy_letter" id="property_energy_letter" size="4"
+					value="<?php echo $data['property_energy_letter']; ?>" />
 			</td>
 		</tr>
 		

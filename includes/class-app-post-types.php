@@ -117,6 +117,7 @@ class APP_Post_Types
 				'show_ui'			=> true,
 				'show_admin_column'	=> true,
 				'query_var'			=> true,
+				'hierarchical'		=> true
 				)
 		);
 		
@@ -131,6 +132,7 @@ class APP_Post_Types
 				'show_ui'			=> true,
 				'show_admin_column'	=> true,
 				'query_var'			=> true,
+				'hierarchical'		=> true
 			)
 		);
 		
@@ -145,6 +147,7 @@ class APP_Post_Types
 				'show_ui'			=> true,
 				'show_admin_column'	=> true,
 				'query_var'			=> true,
+				'hierarchical'		=> true
 				)
 		);
 		

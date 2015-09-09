@@ -22,9 +22,11 @@ if( $images_ids ) {
 	$indicators = '';
 	$inner = '';
 	foreach( $images_array as $id ) {
+		$image_url = wp_get_attachment_image_src( $id, 'large' );
+		
 		$thumbnails .= '<li class="col-xs-2"><a href="#" class="' . $selected . '"><img id="carousel-selector-' . $it . '" src="' . wp_get_attachment_thumb_url( $id ) . '" class="img-responsive img-thumbnail" style="width:100%;height:75px;"></a></li>';
 		$indicators .= '<li data-target="#property-carousel" data-slide-to="' . $it . '" class="' . $active . '"></li>'; 
-		$inner .= '<div class="item ' . $active . '" data-slide-number="' . $it . '"><img src="' . wp_get_attachment_url( $id ) . '"></div>';
+		$inner .= '<div class="item ' . $active . '" data-slide-number="' . $it . '"><img src="' . $image_url[0] . '"></div>';
 		
 		$active = '';
 		$selected = '';

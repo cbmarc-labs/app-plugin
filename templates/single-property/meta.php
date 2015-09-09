@@ -23,7 +23,7 @@ switch( $energy_value ) {
 	case 1: $energy = __( 'Yes', 'app' ) . ' (' . $energy_letter . ')'; break;
 	case 2: $energy = __( 'No', 'app' ); break;
 	case 3: $energy = __( 'Letter', 'app' ) . ' (' . $energy_letter . ')'; break;
-	case 4: $energy = __( 'In process', 'app' ) . ' (' . $energy_letter . ')'; break;
+	case 4: $energy = __( 'In process', 'app' ); break;
 }
 
 ?>

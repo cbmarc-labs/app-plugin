@@ -26,6 +26,7 @@ class APP_Admin_Menus
 	public function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
+		add_action( 'admin_menu', array( $this, 'settings_menu' ), 50 );
 	}
 
 	// --------------------------------------------------------------------
@@ -40,6 +41,36 @@ class APP_Admin_Menus
 		global $submenu;
 		
 		unset( $submenu['edit.php?post_type=message'][10] );
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * settings_menu method
+	 *
+	 * @access public
+	 */
+	public function settings_menu() {
+		$settings_page = add_submenu_page(
+				'edit.php?post_type=property',
+				__( 'Property Settings' , 'app' ),
+				__( 'Settings' , 'app' ),
+				'manage_options',
+				'app-settings',
+				array( $this, 'settings_page' )
+		);
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * settings_page method
+	 *
+	 * @access public
+	 */
+	public function settings_page()
+	{
+		APP_Admin_Settings::output();
 	}
 
 }

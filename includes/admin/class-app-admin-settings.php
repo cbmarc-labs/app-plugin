@@ -37,7 +37,6 @@ class APP_Admin_Settings
 			include_once( 'settings/class-app-settings-page.php' );
 
 			$settings[] = include( 'settings/class-app-settings-general.php' );
-			$settings[] = include( 'settings/class-app-settings-example.php' );
 
 			self::$settings = apply_filters( 'app_get_settings_pages', $settings );
 		}

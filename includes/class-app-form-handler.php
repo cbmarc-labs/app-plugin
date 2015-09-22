@@ -70,11 +70,49 @@ class APP_Form_Handler
 		update_post_meta( $post_id, '_message_phone', $phone );
 		update_post_meta( $post_id, '_message_property_id', $property_id );
 		
+		// Envio de correo electronico
+		$content = "S'ha fet una consulta per la propietat:\n\n";
+		$content .= $title . "\n\n" . $permalink . "\n\n";
+		$content .= "Dades de la consulta:\n";
+		$content .= "Nom: " . $name . "\n";
+		$content .= "Telèfon: " . $phone . "\n";
+		$content .= "Email: " . $email . "\n";
+		$content .= "Comentaris:\n " . $message . "\n";
+		
+		APP_Form_Handler::_send_email_administrator( $content );
+		
 		$received_url = add_query_arg( 'status', 'sent', $permalink );
 		
 		wp_safe_redirect( $received_url );
 		
 		exit;
+	}
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * _send_email_administrator method
+	 * 
+	 * Envia correus als administradors conforme s'ha realitzat una reserva
+	 *
+	 * @access private
+	 */
+	public static function _send_email_administrator( $content )
+	{
+			$send_email = get_option('app_form_enquire_recipient');
+			
+			$pieces = explode(",", $send_email);
+			
+			// envia correus als administradors
+			if ( ! empty( $pieces ) ) {
+				foreach( $pieces as $p ) {
+					$email = trim( $p );
+					
+					if ( is_email( $email ) ) {
+						wp_mail( $email, "Consulta formulari web", $content );
+					}
+				}
+			}
 	}
 }
 

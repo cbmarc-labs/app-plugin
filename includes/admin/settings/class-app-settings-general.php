@@ -42,20 +42,21 @@ class APP_Settings_General extends APP_Settings_Page
 		$settings = apply_filters(
 				'app_general_settings', 
 				array(
+						array( 'type' => 'sectionend', 'id' => 'email_recipient_options' ),
 						array(
-								'title' => __( 'General Options', 'app' ),
-								'type' => 'title',
-								'desc' => '',
-								'id' => 'general_options'
+								'title'		=> __( 'General Options', 'app' ),
+								'type'		=> 'title',
+								'desc'		=> 'Contact emails are sent to the recipient list when a form is sent.',
+								'id'		=> 'general_options'
 						),
 						array(
-								'title'    => __( 'Store Notice Text', 'app' ),
-								'desc'     => '',
-								'id'       => 'app_demo_store_notice',
-								'default'  => __( '', 'app' ),
-								'type'     => 'text',
-								'css'      => 'min-width:300px;',
-								'autoload' => false
+								'title'		=> __( 'Email messages', 'app' ),
+								'desc'		=> 'Enter recipients (comma separated) for this email.',
+								'id'		=> 'app_form_enquire_recipient',
+								'default'	=> __( '', 'app' ),
+								'type'		=> 'text',
+								'css'		=> 'min-width:300px;',
+								'autoload'	=> false
 						),
 						array( 'type' => 'sectionend' )
 				)

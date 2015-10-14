@@ -60,10 +60,11 @@ class APP_Assets
 		wp_enqueue_script( 'app-autoNumeric-script', APP()->plugin_url() . '/assets/lib/autoNumeric/autoNumeric.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-default-script', APP()->plugin_url() . '/assets/js/default.js', array( 'jquery' ) );
 		
-		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
+		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js', array(), '', true );
 		
-		wp_enqueue_script( 'app-bootstrap-script', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/js/bootstrap.min.js', array( 'jquery' ) );
-		wp_enqueue_script( 'app-script', APP()->plugin_url() . '/assets/js/frontend/app.js', array( 'jquery' ) );
+		wp_enqueue_script( 'app-bootstrap-script', APP()->plugin_url() . '/assets/lib/bootstrap-3.3.4/js/bootstrap.min.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'app-script', APP()->plugin_url() . '/assets/js/frontend/app.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'app-jssor', APP()->plugin_url() . '/assets/js/frontend/jssor.slider.min.js', array( 'jquery' ), '', true );
 	}
 
 	// --------------------------------------------------------------------

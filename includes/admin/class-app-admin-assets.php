@@ -61,6 +61,9 @@ class APP_Admin_Assets
 		wp_enqueue_script( 'app-default-script', APP()->plugin_url() . '/assets/js/default.js', array( 'jquery' ) );
 		wp_enqueue_script( 'app-meta-boxes-property-script', APP()->plugin_url() . '/assets/js/admin/meta-boxes-property.js', array( 'jquery', 'jquery-ui-sortable' ) );
 		
+		wp_enqueue_media();
+		wp_enqueue_script( 'app-widget-slider', APP()->plugin_url() . '/assets/js/admin/admin.js', array( 'jquery' ), '', true );
+		
 		wp_enqueue_script( 'maps-googleapis-com', 'http://maps.googleapis.com/maps/api/js' );
 		
 		if ( in_array( $screen->id, array( 'edit-property' ) ) ) {

@@ -83,10 +83,12 @@ class APP_Widget_Slider extends WP_Widget
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'images' ); ?>"><?php _e( 'Images', 'app' ); ?> :</label>
-			<input data-ids="jajaja" class="app-widget-slider widefat button button-primary"
-				id="<?php echo $this->get_field_id( 'images' ); ?>" 
-				name="<?php echo $this->get_field_name( 'images' ); ?>" type="button" 
-				value="<?php _e( 'Choose images', 'app' ); ?>">
+			<input data-editor="<?php echo $this->get_field_id( 'images' ); ?>" 
+				class="app-widget-slider widefat button button-primary"
+				type="button" value="<?php _e( 'Choose images', 'app' ); ?>">
+			
+			<input type="text" name="<?php echo $this->get_field_name( 'images' ); ?>" 
+				id="<?php echo $this->get_field_id( 'images' ); ?>" />
 		</p>
 		<?php 
 	}

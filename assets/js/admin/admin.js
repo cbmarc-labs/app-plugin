@@ -3,36 +3,60 @@ jQuery( function( $ ){
 	var app_widget_slider_frame;
 	
 	$('.app-widget-slider').on( 'click', function( event ) {
-		//alert($(this).data('ids'));
 		
-		event.preventDefault();
+		var $this = $(this),
+			button = $this.data('editor'),
+			gallerysc = $('#'+button).val();
 		
-		// If the media frame already exists, reopen it.
-		if ( app_widget_slider_frame ) {
-			app_widget_slider_frame.open();
-			return;
-		}
+		// open modal - bind this to your button
+	    if ( typeof wp !== 'undefined' && wp.media && wp.media.editor )
+	        wp.media.editor.open( this );
+
+	// backup of original send function
+	   original_send = wp.media.editor.send.attachment;
+
+	// new send function
+	   wp.media.editor.send.attachment = function( a, b) {
+		   $('#'+button).val("att "+b.id);
+	       console.log("----> " + b.id); // b has all informations about the attachment
+	       // or whatever you want to do with the data at this point
+	       // original function makes an ajax call to retrieve the image html tag and does a little more
+	    };
+
+	// wp.media.send.to.editor will automatically trigger window.send_to_editor for backwards compatibility
+
+	// backup original window.send_to_editor
+	   window.original_send_to_editor = window.send_to_editor; 
+
+	// override window.send_to_editor
+	   window.send_to_editor = function(html) {
+		   console.log(html);
+		   $('#'+button).val("html"+html);
+	       // html argument might not be useful in this case
+	       // use the data from var b (attachment) here to make your own ajax call or use data from b and send it back to your defined input fields etc.
+	   }
 		
-		// Create the media frame.
-		app_widget_slider_frame = wp.media.frames.property_gallery = wp.media({
-			// Set the title of the modal.
-			title: 'Select',
-			button: {
-				text: 'Use this media',
-			},
-			library : { type : 'image'},
-			multiple: true,
-			/*states : [
-				new wp.media.controller.Library({
-					title: $el.data('choose'),
-					filterable :	'all',
-					multiple: true,
-				})
-			]*/
-		});
+		/*var $this = $(this),
+			button = $this.data('editor'),
+			gallerysc = $('#'+button).val();
+
 		
-		// Finally, open the modal.
-		app_widget_slider_frame.open();
+		var _custom_media = true;
+		wp.media.editor.send.attachment = function(props, attachment){
+			console.log(attachment.id);
+			$('#'+button).val(attachment.id);
+		};
+		
+	// Check that the input field contains a shortcode and Open the gallery with the shortcode
+	if ( gallerysc !== 'undefined' )
+		wp.media.gallery.edit( gallerysc );
+		
+		wp.media.editor.insert = function( html ) {
+			console.log(button);
+			$('#'+button).val(html);
+		};
+	      wp.media.editor.open();
+	      return false;*/
 		
 	});
 	
